@@ -1039,7 +1039,6 @@ const char *mutt_strsysexit(int e)
   return sysexits_h[i].str;
 }
 
-#ifdef DEBUG
 char debugfilename[_POSIX_PATH_MAX];
 FILE *debugfile = NULL;
 int debuglevel;
@@ -1066,7 +1065,6 @@ void mutt_debug(int level, const char *fmt, ...)
   vfprintf(debugfile, fmt, ap);
   va_end(ap);
 }
-#endif
 
 static int mutt_atol(const char *str, long *dst)
 {

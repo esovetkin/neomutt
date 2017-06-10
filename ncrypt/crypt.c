@@ -31,6 +31,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <string.h>
+#include <sys/resource.h>
 #include <time.h>
 #include "mutt.h"
 #include "address.h"
@@ -90,9 +91,7 @@ void crypt_forget_passphrase(void)
     mutt_message(_("Passphrase(s) forgotten."));
 }
 
-#if (!defined(DEBUG))
 
-#include <sys/resource.h>
 static void disable_coredumps(void)
 {
   struct rlimit rl = { 0, 0 };
@@ -105,15 +104,11 @@ static void disable_coredumps(void)
   }
 }
 
-#endif
-
 int crypt_valid_passphrase(int flags)
 {
   int ret = 0;
 
-#if !defined(DEBUG)
   disable_coredumps();
-#endif
 
   if ((WithCrypto & APPLICATION_PGP) && (flags & APPLICATION_PGP))
     ret = crypt_pgp_valid_passphrase();
