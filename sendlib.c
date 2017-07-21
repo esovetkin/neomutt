@@ -603,6 +603,11 @@ static void update_content_info(struct Content *info, struct ContentState *s,
       info->ascii++;
       whitespace++;
     }
+    else if (ch == 0)
+    {
+      info->nulbin++;
+      info->lobin++;
+    }
     else if (ch < 32 || ch == 127)
       info->lobin++;
     else
@@ -1434,7 +1439,8 @@ struct Body *mutt_make_file_attach(const char *path)
 
   if (!att->subtype)
   {
-    if (info->lobin == 0 || (info->lobin + info->hibin + info->ascii) / info->lobin >= 10)
+    if ((info->nulbin == 0) &&
+        (info->lobin == 0 || (info->lobin + info->hibin + info->ascii) / info->lobin >= 10))
     {
       /*
        * Statistically speaking, there should be more than 10% "lobin"
