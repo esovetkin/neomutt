@@ -1037,16 +1037,18 @@ static int is_autoview(struct Body *b)
   else
   {
     /* determine if this type is on the user's auto_view list */
-    struct List *t = AutoViewList;
-
     mutt_check_lookup_list(b, type, sizeof(type));
-    for (; t; t = t->next)
+    struct STailQNode *np;
+    STAILQ_FOREACH(np, &AutoViewList, entries)
     {
-      int i = mutt_strlen(t->data) - 1;
-      if ((i > 0 && t->data[i - 1] == '/' && t->data[i] == '*' &&
-           (ascii_strncasecmp(type, t->data, i) == 0)) ||
-          (ascii_strcasecmp(type, t->data) == 0))
+      int i = mutt_strlen(np->data) - 1;
+      if ((i > 0 && np->data[i - 1] == '/' && np->data[i] == '*' &&
+           (ascii_strncasecmp(type, np->data, i) == 0)) ||
+          (ascii_strcasecmp(type, np->data) == 0))
+      {
         is_av = 1;
+        break;
+      }
     }
 
     if (is_mmnoask(type))
