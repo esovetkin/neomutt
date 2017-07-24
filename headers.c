@@ -56,7 +56,6 @@ void mutt_edit_headers(const char *editor, const char *body, struct Header *msg,
   struct Envelope *n = NULL;
   time_t mtime;
   struct stat st;
-  struct List *cur = NULL, **last = NULL, *tmp = NULL;
 
   mutt_mktemp(path, sizeof(path));
   if ((ofp = safe_fopen(path, "w")) == NULL)
@@ -101,7 +100,7 @@ void mutt_edit_headers(const char *editor, const char *body, struct Header *msg,
   }
 
   mutt_unlink(body);
-  mutt_free_list(&msg->env->userhdrs);
+  mutt_free_stailq(&msg->env->userhdrs);
 
   /* Read the temp file back in */
   if ((ifp = fopen(path, "r")) == NULL)
@@ -152,15 +151,14 @@ void mutt_edit_headers(const char *editor, const char *body, struct Header *msg,
    * fcc: or attach: or pgp: was specified
    */
 
-  cur = msg->env->userhdrs;
-  last = &msg->env->userhdrs;
-  while (cur)
+  struct STailQNode *np, *tmp;
+  STAILQ_FOREACH_SAFE(np, &msg->env->userhdrs, entries, tmp)
   {
     keep = true;
 
-    if (fcc && (ascii_strncasecmp("fcc:", cur->data, 4) == 0))
+    if (fcc && (ascii_strncasecmp("fcc:", np->data, 4) == 0))
     {
-      p = skip_email_wsp(cur->data + 4);
+      p = skip_email_wsp(np->data + 4);
       if (*p)
       {
         strfcpy(fcc, p, fcclen);
@@ -168,13 +166,13 @@ void mutt_edit_headers(const char *editor, const char *body, struct Header *msg,
       }
       keep = false;
     }
-    else if (ascii_strncasecmp("attach:", cur->data, 7) == 0)
+    else if (ascii_strncasecmp("attach:", np->data, 7) == 0)
     {
       struct Body *body2 = NULL;
       struct Body *parts = NULL;
       size_t l = 0;
 
-      p = skip_email_wsp(cur->data + 7);
+      p = skip_email_wsp(np->data + 7);
       if (*p)
       {
         for (; *p && *p != ' ' && *p != '\t'; p++)
@@ -208,26 +206,19 @@ void mutt_edit_headers(const char *editor, const char *body, struct Header *msg,
       keep = false;
     }
     else if ((WithCrypto & APPLICATION_PGP) &&
-             (ascii_strncasecmp("pgp:", cur->data, 4) == 0))
+             (ascii_strncasecmp("pgp:", np->data, 4) == 0))
     {
-      msg->security = mutt_parse_crypt_hdr(cur->data + 4, 0, APPLICATION_PGP);
+      msg->security = mutt_parse_crypt_hdr(np->data + 4, 0, APPLICATION_PGP);
       if (msg->security)
         msg->security |= APPLICATION_PGP;
       keep = false;
     }
 
-    if (keep)
+    if (!keep)
     {
-      last = &cur->next;
-      cur = cur->next;
-    }
-    else
-    {
-      tmp = cur;
-      *last = cur->next;
-      cur = cur->next;
-      tmp->next = NULL;
-      mutt_free_list(&tmp);
+      STAILQ_REMOVE(&msg->env->userhdrs, np, STailQNode, entries);
+      FREE(&np->data);
+      FREE(&np);
     }
   }
 }
