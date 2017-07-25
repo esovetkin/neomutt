@@ -56,6 +56,13 @@
 #include "hcache/hcache.h"
 #endif
 
+static struct ImapHeaderData* imap_new_header_data(void)
+{
+    struct ImapHeaderData *d = safe_calloc(1, sizeof(struct ImapHeaderData));
+    STAILQ_INIT(&d->keywords);
+    return d;
+}
+
 static void imap_update_context(struct ImapData *idata, int oldmsgcount)
 {
   struct Context *ctx = NULL;
@@ -158,7 +165,7 @@ static char *msg_parse_flags(struct ImapHeader *h, char *s)
   }
   s++;
 
-  mutt_free_list(&hd->keywords);
+  mutt_stailq_free(&hd->keywords);
   hd->deleted = hd->flagged = hd->replied = hd->read = hd->old = false;
 
   /* start parsing */
@@ -197,14 +204,11 @@ static char *msg_parse_flags(struct ImapHeader *h, char *s)
       char ctmp;
       char *flag_word = s;
 
-      if (!hd->keywords)
-        hd->keywords = mutt_new_list();
-
       while (*s && !ISSPACE(*s) && *s != ')')
         s++;
       ctmp = *s;
       *s = '\0';
-      mutt_add_list(hd->keywords, flag_word);
+      mutt_stailq_insert_tail(&hd->keywords, safe_strdup(flag_word));
       *s = ctmp;
     }
     SKIPWS(s);
@@ -573,7 +577,7 @@ int imap_read_headers(struct ImapData *idata, unsigned int msn_begin, unsigned i
       mutt_progress_update(&progress, msgno, -1);
 
       memset(&h, 0, sizeof(h));
-      h.data = safe_calloc(1, sizeof(struct ImapHeaderData));
+      h.data = imap_new_header_data();
       do
       {
         rc = imap_cmd_step(idata);
@@ -684,7 +688,7 @@ int imap_read_headers(struct ImapData *idata, unsigned int msn_begin, unsigned i
 
       rewind(fp);
       memset(&h, 0, sizeof(h));
-      h.data = safe_calloc(1, sizeof(struct ImapHeaderData));
+      h.data = imap_new_header_data();
 
       /* this DO loop does two things:
        * 1. handles untagged messages, so we can try again on the same msg
@@ -1396,23 +1400,21 @@ int imap_cache_clean(struct ImapData *idata)
  *
  * If the tags appear in the folder flags list. Why wouldn't they?
  */
-void imap_add_keywords(char *s, struct Header *h, struct List *mailbox_flags, size_t slen)
+void imap_add_keywords(char *s, struct Header *h, struct STailQHead *mailbox_flags, size_t slen)
 {
-  struct List *keywords = NULL;
+  struct STailQHead *keywords = &HEADER_DATA(h)->keywords;
 
-  if (!mailbox_flags || !HEADER_DATA(h) || !HEADER_DATA(h)->keywords)
+  if (STAILQ_EMPTY(mailbox_flags) || !HEADER_DATA(h) || STAILQ_EMPTY(keywords))
     return;
 
-  keywords = HEADER_DATA(h)->keywords->next;
-
-  while (keywords)
+  struct STailQNode *np;
+  STAILQ_FOREACH(np, keywords, entries)
   {
-    if (imap_has_flag(mailbox_flags, keywords->data))
+    if (imap_has_flag(mailbox_flags, np->data))
     {
-      safe_strcat(s, slen, keywords->data);
+      safe_strcat(s, slen, np->data);
       safe_strcat(s, slen, " ");
     }
-    keywords = keywords->next;
   }
 }
 
@@ -1424,7 +1426,7 @@ void imap_free_header_data(struct ImapHeaderData **data)
   if (*data)
   {
     /* this should be safe even if the list wasn't used */
-    mutt_free_list(&((*data)->keywords));
+    mutt_stailq_free(&(*data)->keywords);
     FREE(data);
   }
 }
