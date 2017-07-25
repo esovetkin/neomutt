@@ -118,17 +118,13 @@ char *mutt_read_rfc822_line(FILE *f, char *line, size_t *linelen)
 
 static void parse_references(struct STailQHead *head, char *s)
 {
-  struct STailQNode *np = NULL;
   char *m = NULL;
   const char *sp = NULL;
 
-  m = mutt_extract_message_id(s, &sp);
-  while (m)
+  while ((m = mutt_extract_message_id(s, &sp)))
   {
-    np  = safe_malloc(sizeof(struct STailQNode));
-    np->data = m;
-    STAILQ_INSERT_HEAD(head, np, entries);
-    m = mutt_extract_message_id(NULL, &sp);
+    mutt_stailq_insert_head(head, m);
+    s = NULL;
   }
 }
 
@@ -1101,7 +1097,7 @@ int mutt_parse_rfc822_line(struct Envelope *e, struct Header *hdr, char *line,
     case 'i':
       if (ascii_strcasecmp(line + 1, "n-reply-to") == 0)
       {
-        mutt_free_stailq(&e->in_reply_to);
+        mutt_stailq_free(&e->in_reply_to);
         parse_references(&e->in_reply_to, p);
         matched = 1;
       }
@@ -1202,7 +1198,7 @@ int mutt_parse_rfc822_line(struct Envelope *e, struct Header *hdr, char *line,
     case 'r':
       if (ascii_strcasecmp(line + 1, "eferences") == 0)
       {
-        mutt_free_stailq(&e->references);
+        mutt_stailq_free(&e->references);
         parse_references(&e->references, p);
         matched = 1;
       }
@@ -1344,9 +1340,7 @@ int mutt_parse_rfc822_line(struct Envelope *e, struct Header *hdr, char *line,
 
     if (!(weed && option(OPTWEED) && mutt_matches_ignore(line)))
     {
-      struct STailQNode *np = calloc(1, sizeof(struct STailQNode));
-      np->data = safe_strdup(line);
-      STAILQ_INSERT_TAIL(&e->userhdrs, np, entries);
+      struct STailQNode *np = mutt_stailq_insert_tail(&e->userhdrs, safe_strdup(line));
       if (do_2047)
         rfc2047_decode(&np->data);
     }

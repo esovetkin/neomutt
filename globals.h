@@ -118,7 +118,7 @@ WHERE char *Mixmaster;
 WHERE char *MixEntryFormat;
 #endif
 
-WHERE struct List *Muttrc INITVAL(0);
+WHERE struct STailQHead Muttrc INITVAL(STAILQ_HEAD_INITIALIZER(Muttrc));
 #ifdef USE_NNTP
 WHERE char *GroupFormat;
 WHERE char *Inews;
