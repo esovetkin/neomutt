@@ -1072,7 +1072,6 @@ static int alternative_handler(struct Body *a, struct State *s)
 {
   struct Body *choice = NULL;
   struct Body *b = NULL;
-  struct List *t = NULL;
   int type = 0;
   bool mustfree = false;
   int rc = 0;
@@ -1095,23 +1094,23 @@ static int alternative_handler(struct Body *a, struct State *s)
   a = b;
 
   /* First, search list of preferred types */
-  t = AlternativeOrderList;
-  while (t && !choice)
+  struct STailQNode *np;
+  STAILQ_FOREACH(np, &AlternativeOrderList, entries)
   {
     char *c = NULL;
     int btlen; /* length of basetype */
     bool wild; /* do we have a wildcard to match all subtypes? */
 
-    c = strchr(t->data, '/');
+    c = strchr(np->data, '/');
     if (c)
     {
       wild = (c[1] == '*' && c[2] == 0);
-      btlen = c - t->data;
+      btlen = c - np->data;
     }
     else
     {
       wild = true;
-      btlen = mutt_strlen(t->data);
+      btlen = mutt_strlen(np->data);
     }
 
     if (a->parts)
@@ -1121,17 +1120,19 @@ static int alternative_handler(struct Body *a, struct State *s)
     while (b)
     {
       const char *bt = TYPE(b);
-      if ((ascii_strncasecmp(bt, t->data, btlen) == 0) && (bt[btlen] == 0))
+      if ((ascii_strncasecmp(bt, np->data, btlen) == 0) && (bt[btlen] == 0))
       {
         /* the basetype matches */
-        if (wild || (ascii_strcasecmp(t->data + btlen + 1, b->subtype) == 0))
+        if (wild || (ascii_strcasecmp(np->data + btlen + 1, b->subtype) == 0))
         {
           choice = b;
         }
       }
       b = b->next;
     }
-    t = t->next;
+
+    if (choice)
+      break;
   }
 
   /* Next, look for an autoviewable type */
