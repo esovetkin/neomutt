@@ -214,8 +214,8 @@ WHERE struct STailQHead InlineAllow INITVAL(STAILQ_HEAD_INITIALIZER(InlineAllow)
 WHERE struct STailQHead InlineExclude INITVAL(STAILQ_HEAD_INITIALIZER(InlineExclude));
 WHERE struct STailQHead HeaderOrderList INITVAL(STAILQ_HEAD_INITIALIZER(HeaderOrderList));
 WHERE struct STailQHead Ignore INITVAL(STAILQ_HEAD_INITIALIZER(Ignore));
-WHERE struct List *MailtoAllow INITVAL(0);
-WHERE struct List *MimeLookupList INITVAL(0);
+WHERE struct STailQHead MailtoAllow INITVAL(STAILQ_HEAD_INITIALIZER(MailtoAllow));
+WHERE struct STailQHead MimeLookupList INITVAL(STAILQ_HEAD_INITIALIZER(MimeLookupList));
 WHERE struct STailQHead UnIgnore INITVAL(STAILQ_HEAD_INITIALIZER(UnIgnore));
 
 WHERE struct RxList *Alternates INITVAL(0);
@@ -271,7 +271,7 @@ WHERE short ScoreThresholdFlag;
 
 #ifdef USE_SIDEBAR
 WHERE short SidebarWidth INITVAL(0);
-WHERE struct List *SidebarWhitelist INITVAL(0);
+WHERE struct STailQHead SidebarWhitelist INITVAL(STAILQ_HEAD_INITIALIZER(SidebarWhitelist));
 #endif
 
 #ifdef USE_IMAP
