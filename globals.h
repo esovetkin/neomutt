@@ -212,11 +212,11 @@ WHERE struct STailQHead AttachAllow INITVAL(STAILQ_HEAD_INITIALIZER(AttachAllow)
 WHERE struct STailQHead AttachExclude INITVAL(STAILQ_HEAD_INITIALIZER(AttachExclude));
 WHERE struct STailQHead InlineAllow INITVAL(STAILQ_HEAD_INITIALIZER(InlineAllow));
 WHERE struct STailQHead InlineExclude INITVAL(STAILQ_HEAD_INITIALIZER(InlineExclude));
-WHERE struct List *HeaderOrderList INITVAL(0);
-WHERE struct List *Ignore INITVAL(0);
+WHERE struct STailQHead HeaderOrderList INITVAL(STAILQ_HEAD_INITIALIZER(HeaderOrderList));
+WHERE struct STailQHead Ignore INITVAL(STAILQ_HEAD_INITIALIZER(Ignore));
 WHERE struct List *MailtoAllow INITVAL(0);
 WHERE struct List *MimeLookupList INITVAL(0);
-WHERE struct List *UnIgnore INITVAL(0);
+WHERE struct STailQHead UnIgnore INITVAL(STAILQ_HEAD_INITIALIZER(UnIgnore));
 
 WHERE struct RxList *Alternates INITVAL(0);
 WHERE struct RxList *UnAlternates INITVAL(0);
