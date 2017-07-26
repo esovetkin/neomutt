@@ -374,12 +374,11 @@ void mutt_draw_tree(struct Context *ctx)
  * most immediate existing descendants.  we also note the earliest
  * date on any of the parents and put it in *dateptr.
  */
-static struct List *make_subject_list(struct MuttThread *cur, time_t *dateptr)
+static void make_subject_list(struct STailQHead *subjects, struct MuttThread *cur, time_t *dateptr)
 {
   struct MuttThread *start = cur;
   struct Envelope *env = NULL;
   time_t thisdate;
-  struct List *curlist = NULL, *oldlist = NULL, *newlist = NULL, *subjects = NULL;
   int rc = 0;
 
   while (true)
@@ -398,28 +397,17 @@ static struct List *make_subject_list(struct MuttThread *cur, time_t *dateptr)
     env = cur->message->env;
     if (env->real_subj && ((env->real_subj != env->subject) || (!option(OPTSORTRE))))
     {
-      for (curlist = subjects, oldlist = NULL; curlist;
-           oldlist = curlist, curlist = curlist->next)
+      struct STailQNode *np;
+      STAILQ_FOREACH(np, subjects, entries)
       {
-        rc = mutt_strcmp(env->real_subj, curlist->data);
+        rc = mutt_strcmp(env->real_subj, np->data);
         if (rc >= 0)
           break;
       }
-      if (!curlist || rc > 0)
-      {
-        newlist = safe_calloc(1, sizeof(struct List));
-        newlist->data = env->real_subj;
-        if (oldlist)
-        {
-          newlist->next = oldlist->next;
-          oldlist->next = newlist;
-        }
-        else
-        {
-          newlist->next = subjects;
-          subjects = newlist;
-        }
-      }
+      if (!np)
+          mutt_stailq_insert_head(subjects, env->real_subj);
+      else if (rc > 0)
+          mutt_stailq_insert_after(subjects, np, env->real_subj);
     }
 
     while (!cur->next && cur != start)
@@ -430,8 +418,6 @@ static struct List *make_subject_list(struct MuttThread *cur, time_t *dateptr)
       break;
     cur = cur->next;
   }
-
-  return subjects;
 }
 
 /**
@@ -444,14 +430,15 @@ static struct MuttThread *find_subject(struct Context *ctx, struct MuttThread *c
 {
   struct HashElem *ptr = NULL;
   struct MuttThread *tmp = NULL, *last = NULL;
-  struct List *subjects = NULL, *oldlist = NULL;
+  struct STailQHead subjects = STAILQ_HEAD_INITIALIZER(subjects);
   time_t date = 0;
 
-  subjects = make_subject_list(cur, &date);
+  make_subject_list(&subjects, cur, &date);
 
-  while (subjects)
+  struct STailQNode *np;
+  STAILQ_FOREACH(np, &subjects, entries)
   {
-    for (ptr = hash_find_bucket(ctx->subj_hash, subjects->data); ptr; ptr = ptr->next)
+    for (ptr = hash_find_bucket(ctx->subj_hash, np->data); ptr; ptr = ptr->next)
     {
       tmp = ((struct Header *) ptr->data)->thread;
       if (tmp != cur &&                    /* don't match the same message */
@@ -464,16 +451,14 @@ static struct MuttThread *find_subject(struct Context *ctx, struct MuttThread *c
                          (last->message->received < tmp->message->received) :
                          (last->message->date_sent < tmp->message->date_sent))) &&
           tmp->message->env->real_subj &&
-          (mutt_strcmp(subjects->data, tmp->message->env->real_subj) == 0))
+          (mutt_strcmp(np->data, tmp->message->env->real_subj) == 0))
       {
         last = tmp; /* best match so far */
       }
     }
-
-    oldlist = subjects;
-    subjects = subjects->next;
-    FREE(&oldlist);
   }
+
+  mutt_stailq_clear(&subjects);
   return last;
 }
 
