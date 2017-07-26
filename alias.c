@@ -56,7 +56,7 @@ struct Address *mutt_lookup_alias(const char *s)
   return NULL; /* no such alias */
 }
 
-static struct Address *expand_aliases_r(struct Address *a, struct STailQHead *expn)
+static struct Address *expand_aliases_r(struct Address *a, struct ListHead *expn)
 {
   struct Address *head = NULL, *last = NULL, *t = NULL, *w = NULL;
   bool i;
@@ -71,7 +71,7 @@ static struct Address *expand_aliases_r(struct Address *a, struct STailQHead *ex
       if (t)
       {
         i = false;
-        struct STailQNode *np = NULL;
+        struct ListNode *np;
         STAILQ_FOREACH(np, expn, entries)
         {
           if (mutt_strcmp(a->mailbox, np->data) == 0) /* alias already found */
@@ -84,7 +84,7 @@ static struct Address *expand_aliases_r(struct Address *a, struct STailQHead *ex
 
         if (!i)
         {
-          mutt_stailq_insert_head(expn, safe_strdup(a->mailbox));
+          mutt_list_insert_head(expn, safe_strdup(a->mailbox));
           w = rfc822_cpy_adr(t, 0);
           w = expand_aliases_r(w, expn);
           if (head)
@@ -137,11 +137,11 @@ static struct Address *expand_aliases_r(struct Address *a, struct STailQHead *ex
 struct Address *mutt_expand_aliases(struct Address *a)
 {
   struct Address *t = NULL;
-  struct STailQHead expn; /* previously expanded aliases to avoid loops */
+  struct ListHead expn; /* previously expanded aliases to avoid loops */
 
   STAILQ_INIT(&expn);
   t = expand_aliases_r(a, &expn);
-  mutt_stailq_free(&expn);
+  mutt_list_free(&expn);
   return (mutt_remove_duplicates(t));
 }
 

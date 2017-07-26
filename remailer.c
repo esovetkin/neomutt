@@ -458,7 +458,7 @@ static const struct Mapping RemailerHelp[] = {
 };
 
 
-void mix_make_chain(struct STailQHead *chainhead)
+void mix_make_chain(struct ListHead *chainhead)
 {
   struct MixChain *chain = NULL;
   int c_cur = 0, c_old = 0;
@@ -485,12 +485,12 @@ void mix_make_chain(struct STailQHead *chainhead)
 
   chain = safe_calloc(1, sizeof(struct MixChain));
 
-  struct STailQNode *p;
+  struct ListNode *p;
   STAILQ_FOREACH(p, chainhead, entries)
   {
     mix_chain_add(chain, p->data, type2_list);
   }
-  mutt_stailq_free(chainhead);
+  mutt_list_free(chainhead);
 
   /* safety check */
   for (i = 0; i < chain->cl; i++)
@@ -659,7 +659,7 @@ void mix_make_chain(struct STailQHead *chainhead)
       else
         t = "*";
 
-      mutt_stailq_insert_tail(chainhead, safe_strdup(t));
+      mutt_list_insert_tail(chainhead, safe_strdup(t));
     }
   }
 
@@ -716,7 +716,7 @@ int mix_check_message(struct Header *msg)
   return 0;
 }
 
-int mix_send_message(struct STailQHead *chain, const char *tempfile)
+int mix_send_message(struct ListHead *chain, const char *tempfile)
 {
   char cmd[HUGE_STRING];
   char tmp[HUGE_STRING];
@@ -725,7 +725,7 @@ int mix_send_message(struct STailQHead *chain, const char *tempfile)
 
   snprintf(cmd, sizeof(cmd), "cat %s | %s -m ", tempfile, Mixmaster);
 
-  struct STailQNode *np;
+  struct ListNode *np;
   STAILQ_FOREACH(np, chain, entries)
   {
     strfcpy(tmp, cmd, sizeof(tmp));
