@@ -127,7 +127,5 @@ system.c
 thread.c
 txt2c.c
 url.c
-utf8.c
 version.c
 wcscasecmp.c
-wcwidth.c
