@@ -38,6 +38,7 @@
 #include "lib.h"
 #include "options.h"
 #include "protos.h"
+#include "mime.h"
 
 /* The command semantics include the following:
  * %s is the filename that contains the mail body data
@@ -300,7 +301,7 @@ static int rfc1524_mailcap_parse(struct Body *a, char *filename, char *type,
 
       if (opt == MUTT_AUTOVIEW)
       {
-        if ((ascii_strcasecmp(TYPE(a), "text") != 0) || a->disposition != DISPINLINE)
+        if (a->type != TYPETEXT || a->disposition != DISPINLINE)
           found = false;
       }
       else if (opt == MUTT_COMPOSE)
