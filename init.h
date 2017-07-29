@@ -1,7 +1,12 @@
 /**
+ * @file
+ * Definitions of user variables, sort methods and commands
+ *
+ * @authors
  * Copyright (C) 1996-2002,2007,2010,2012-2013,2016 Michael R. Elkins <me@mutt.org>
  * Copyright (C) 2004 g10 Code GmbH
  *
+ * @copyright
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
  * Foundation, either version 2 of the License, or (at your option) any later
@@ -17,7 +22,7 @@
  */
 
 #ifndef _MUTT_INIT_H
-#define _MUTT_INIT_H 1
+#define _MUTT_INIT_H
 
 #ifdef _MAKEDOC
 #include "config.h"
@@ -45,22 +50,22 @@ struct Buffer;
 
 #ifndef _MAKEDOC
 /* flags to parse_set() */
-#define MUTT_SET_INV   (1 << 0) /* default is to invert all vars */
-#define MUTT_SET_UNSET (1 << 1) /* default is to unset all vars */
-#define MUTT_SET_RESET (1 << 2) /* default is to reset all vars to default */
+#define MUTT_SET_INV   (1 << 0) /**< default is to invert all vars */
+#define MUTT_SET_UNSET (1 << 1) /**< default is to unset all vars */
+#define MUTT_SET_RESET (1 << 2) /**< default is to reset all vars to default */
 
 /* forced redraw/resort types + other flags */
 #define R_NONE        0
-#define R_INDEX       (1 << 0) /* redraw the index menu (MENU_MAIN) */
-#define R_PAGER       (1 << 1) /* redraw the pager menu */
-#define R_PAGER_FLOW  (1 << 2) /* reflow lineInfo and redraw the pager menu */
-#define R_RESORT      (1 << 3) /* resort the mailbox */
-#define R_RESORT_SUB  (1 << 4) /* resort subthreads */
-#define R_RESORT_INIT (1 << 5) /* resort from scratch */
-#define R_TREE        (1 << 6) /* redraw the thread tree */
-#define R_REFLOW      (1 << 7) /* reflow window layout and full redraw */
-#define R_SIDEBAR     (1 << 8) /* redraw the sidebar */
-#define R_MENU        (1 << 9) /* redraw all menus */
+#define R_INDEX       (1 << 0) /**< redraw the index menu (MENU_MAIN) */
+#define R_PAGER       (1 << 1) /**< redraw the pager menu */
+#define R_PAGER_FLOW  (1 << 2) /**< reflow line_info and redraw the pager menu */
+#define R_RESORT      (1 << 3) /**< resort the mailbox */
+#define R_RESORT_SUB  (1 << 4) /**< resort subthreads */
+#define R_RESORT_INIT (1 << 5) /**< resort from scratch */
+#define R_TREE        (1 << 6) /**< redraw the thread tree */
+#define R_REFLOW      (1 << 7) /**< reflow window layout and full redraw */
+#define R_SIDEBAR     (1 << 8) /**< redraw the sidebar */
+#define R_MENU        (1 << 9) /**< redraw all menus */
 #define R_BOTH        (R_INDEX | R_PAGER)
 #define R_RESORT_BOTH (R_RESORT | R_RESORT_SUB)
 
@@ -774,9 +779,9 @@ struct Option MuttVars[] = {
   ** along with the body of your message.
   ** .pp
   ** Although the compose menu may have localized header labels, the
-  ** labels passed to your editor will be standard RFC 2822 headers,
+  ** labels passed to your editor will be standard RFC2822 headers,
   ** (e.g. To:, Cc:, Subject:).  Headers added in your editor must
-  ** also be RFC 2822 headers, or one of the pseudo headers listed in
+  ** also be RFC2822 headers, or one of the pseudo headers listed in
   ** ``$edit-header''.  Mutt will not understand localized header
   ** labels, just as it would not when parsing an actual email.
   ** .pp
@@ -1285,7 +1290,7 @@ struct Option MuttVars[] = {
   /*
   ** .pp
   ** When \fIset\fP, Mutt will encode international domain names using
-  ** IDN.  Unset this if your SMTP server can handle newer (RFC 6531)
+  ** IDN.  Unset this if your SMTP server can handle newer (RFC6531)
   ** UTF-8 encoded domains. (IDN only)
   */
 #endif /* HAVE_LIBIDN */
