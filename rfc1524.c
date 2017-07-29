@@ -300,7 +300,7 @@ static int rfc1524_mailcap_parse(struct Body *a, char *filename, char *type,
 
       if (opt == MUTT_AUTOVIEW)
       {
-        if (!copiousoutput)
+        if ((ascii_strcasecmp(TYPE(a), "text") != 0) || a->disposition != DISPINLINE)
           found = false;
       }
       else if (opt == MUTT_COMPOSE)
