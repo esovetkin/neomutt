@@ -301,7 +301,9 @@ static int rfc1524_mailcap_parse(struct Body *a, char *filename, char *type,
 
       if (opt == MUTT_AUTOVIEW)
       {
-        if (a->type != TYPETEXT || a->disposition != DISPINLINE)
+          if (a->type != TYPETEXT
+              || a->disposition == DISPATTACH
+              || (option(OPTHONORDISP) && (a->disposition != DISPINLINE)))
           found = false;
       }
       else if (opt == MUTT_COMPOSE)
