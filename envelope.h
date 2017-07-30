@@ -24,7 +24,7 @@
 #define _MUTT_ENVELOPE_H
 
 #include <stdbool.h>
-#include "lib_memory.h"
+#include "lib/lib.h"
 
 /**
  * struct Envelope - The header of an email

@@ -32,12 +32,9 @@
 #include "bcache.h"
 #include "account.h"
 #include "globals.h"
-#include "lib.h"
-#include "lib_memory.h"
+#include "lib/lib.h"
 #include "protos.h"
 #include "url.h"
-#include "lib_string.h"
-#include "lib_file.h"
 
 static int mutt_bcache_move(struct BodyCache *bcache, const char *id, const char *newid);
 

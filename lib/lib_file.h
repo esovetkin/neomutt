@@ -20,10 +20,11 @@
  * this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef _MUTT_LIB_FILE_H
-#define _MUTT_LIB_FILE_H
+#ifndef _LIB_FILE_H
+#define _LIB_FILE_H
 
 #include <stdio.h>
+#include <limits.h>
 #include <sys/stat.h>
 #include <sys/types.h>
 #include "lib_file.h"
@@ -68,4 +69,4 @@ char *mutt_concat_path(char *d, const char *dir, const char *fname, size_t l);
 const char *mutt_basename(const char *f);
 int mutt_mkdir(const char *path, mode_t mode);
 
-#endif /* _MUTT_LIB_FILE_H */
+#endif /* _LIB_FILE_H */

@@ -40,7 +40,7 @@
 #include "globals.h"
 #include "hash.h"
 #include "header.h"
-#include "lib.h"
+#include "lib/lib.h"
 #include "mbyte_table.h"
 #include "mutt_curses.h"
 #include "mutt_idna.h"
@@ -52,7 +52,6 @@
 #include "thread.h"
 #ifdef USE_NOTMUCH
 #include "mutt_notmuch.h"
-#include "lib_string.h"
 #endif
 
 /**

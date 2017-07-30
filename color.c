@@ -33,8 +33,7 @@
 #include "globals.h"
 #include "header.h"
 #include "keymap.h"
-#include "lib.h"
-#include "lib_file.h"
+#include "lib/lib.h"
 #include "mapping.h"
 #include "mutt_curses.h"
 #include "mutt_menu.h"
@@ -42,7 +41,6 @@
 #include "options.h"
 #include "pattern.h"
 #include "protos.h"
-#include "lib_string.h"
 
 /* globals */
 int *ColorQuote = NULL;

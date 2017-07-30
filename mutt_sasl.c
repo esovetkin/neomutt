@@ -31,10 +31,7 @@
 #include <sys/socket.h>
 #include "mutt_sasl.h"
 #include "account.h"
-#include "lib.h"
-#include "lib_file.h"
-#include "lib_memory.h"
-#include "lib_string.h"
+#include "lib/lib.h"
 #include "mutt_socket.h"
 #include "options.h"
 #include "protos.h"

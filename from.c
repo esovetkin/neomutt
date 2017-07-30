@@ -28,10 +28,8 @@
 #include <time.h>
 #include "ascii.h"
 #include "globals.h"
-#include "lib.h"
-#include "lib_file.h"
+#include "lib/lib.h"
 #include "protos.h"
-#include "lib_string.h"
 
 static const char *next_word(const char *s)
 {

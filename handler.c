@@ -43,9 +43,8 @@
 #include "filter.h"
 #include "globals.h"
 #include "keymap.h"
-#include "lib_memory.h"
 #include "keymap_defs.h"
-#include "lib.h"
+#include "lib/lib.h"
 #include "list.h"
 #include "mime.h"
 #include "mutt_curses.h"
@@ -56,8 +55,6 @@
 #include "rfc1524.h"
 #include "rfc3676.h"
 #include "state.h"
-#include "lib_string.h"
-#include "lib_file.h"
 
 #define BUFI_SIZE 1000
 #define BUFO_SIZE 2000

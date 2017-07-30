@@ -28,9 +28,7 @@
 #include <gdbm.h>
 #include "backend.h"
 #include "globals.h"
-#include "lib.h"
-#include "lib_memory.h"
-#include "lib_string.h"
+#include "lib/lib.h"
 
 static void *hcache_gdbm_open(const char *path)
 {

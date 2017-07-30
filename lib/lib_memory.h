@@ -20,8 +20,8 @@
  * this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef _MUTT_LIB_MEMORY_H
-#define _MUTT_LIB_MEMORY_H
+#ifndef _LIB_MEMORY_H
+#define _LIB_MEMORY_H
 
 #include <stdio.h>
 
@@ -51,4 +51,4 @@ void safe_realloc(void *ptr, size_t siz);
 
 #define FREE(x) safe_free(x)
 
-#endif /* _MUTT_LIB_MEMORY_H */
+#endif /* _LIB_MEMORY_H */

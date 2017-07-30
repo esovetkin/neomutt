@@ -37,8 +37,7 @@
 #include "filter.h"
 #include "globals.h"
 #include "header.h"
-#include "lib.h"
-#include "lib_memory.h"
+#include "lib/lib.h"
 #include "list.h"
 #include "mailbox.h"
 #include "mime.h"
@@ -51,8 +50,6 @@
 #include "protos.h"
 #include "rfc1524.h"
 #include "state.h"
-#include "lib_string.h"
-#include "lib_file.h"
 
 int mutt_get_tmp_attachment(struct Body *a)
 {

@@ -23,10 +23,10 @@
 #include "config.h"
 #include <stdarg.h>
 #include "state.h"
-#include "lib.h"
-#include "lib_string.h"
+#include "lib/lib.h"
 #include "globals.h"
 #include "mbyte.h"
+#include "mutt.h"
 
 void state_mark_attach(struct State *s)
 {

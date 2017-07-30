@@ -3,12 +3,11 @@ include $(top_srcdir)/flymake.am
 
 AUTOMAKE_OPTIONS = 1.6 foreign
 
-EXTRA_DIST =
+EXTRA_DIST = lib.h lib_file.h lib_memory.h lib_string.h
 
 AM_CPPFLAGS = -I$(top_srcdir)
 
 noinst_LIBRARIES = liblib.a
 noinst_HEADERS =
 
-liblib_a_SOURCES =
-
+liblib_a_SOURCES = lib_file.c lib_memory.c lib_string.c

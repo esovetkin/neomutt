@@ -25,9 +25,7 @@
 #include "imap_private.h"
 #include "charset.h"
 #include "globals.h"
-#include "lib.h"
-#include "lib_memory.h"
-#include "lib_string.h"
+#include "lib/lib.h"
 
 // clang-format off
 static const int Index_64[128] = {

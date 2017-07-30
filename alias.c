@@ -38,16 +38,13 @@
 #include "envelope.h"
 #include "globals.h"
 #include "hash.h"
-#include "lib.h"
-#include "lib_memory.h"
+#include "lib/lib.h"
 #include "list.h"
 #include "mutt_curses.h"
 #include "mutt_idna.h"
 #include "options.h"
 #include "protos.h"
 #include "rfc822.h"
-#include "lib_string.h"
-#include "lib_file.h"
 
 struct Address *mutt_lookup_alias(const char *s)
 {

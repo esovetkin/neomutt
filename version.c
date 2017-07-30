@@ -28,9 +28,7 @@
 #include <string.h>
 #include <sys/utsname.h>
 #include <unistd.h>
-#include "lib.h"
-#include "lib_memory.h"
-#include "lib_string.h"
+#include "lib/lib.h"
 #include "mutt_curses.h"
 #ifdef HAVE_STRINGPREP_H
 #include <stringprep.h>

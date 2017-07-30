@@ -27,11 +27,8 @@
 #include <sys/types.h>
 #include "buffer.h"
 #include "filter.h"
-#include "lib.h"
-#include "lib_memory.h"
+#include "lib/lib.h"
 #include "myvar.h"
-#include "lib_string.h"
-#include "lib_file.h"
 
 /**
  * mutt_buffer_new - creates and initializes a Buffer

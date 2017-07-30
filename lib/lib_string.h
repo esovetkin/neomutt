@@ -20,8 +20,8 @@
  * this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef _MUTT_LIB_STRING_H
-#define _MUTT_LIB_STRING_H
+#ifndef _LIB_STRING_H
+#define _LIB_STRING_H
 
 #include <ctype.h>
 #include <stdio.h>
@@ -90,4 +90,4 @@ void mutt_remove_trailing_ws(char *s);
 int mutt_atos(const char *str, short *dst);
 int mutt_atoi(const char *str, int *dst);
 
-#endif /* _MUTT_LIB_STRING_H */
+#endif /* _LIB_STRING_H */

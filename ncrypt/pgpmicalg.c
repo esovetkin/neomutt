@@ -32,9 +32,7 @@
 #include <string.h>
 #include <unistd.h>
 #include "mutt.h"
-#include "lib.h"
-#include "lib_file.h"
-#include "lib_string.h"
+#include "lib/lib.h"
 #include "pgppacket.h"
 #include "protos.h"
 #include "state.h"

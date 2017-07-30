@@ -32,9 +32,8 @@
 #include "buffer.h"
 #include "functions.h"
 #include "globals.h"
-#include "lib_memory.h"
 #include "keymap_defs.h"
-#include "lib.h"
+#include "lib/lib.h"
 #include "mapping.h"
 #include "mutt_curses.h"
 #include "ncrypt/ncrypt.h"
@@ -42,7 +41,6 @@
 #include "protos.h"
 #ifdef USE_IMAP
 #include "imap/imap.h"
-#include "lib_string.h"
 #endif
 
 const struct Mapping Menus[] = {

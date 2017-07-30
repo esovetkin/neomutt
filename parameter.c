@@ -23,8 +23,7 @@
 #include "config.h"
 #include "parameter.h"
 #include "ascii.h"
-#include "lib.h"
-#include "lib_memory.h"
+#include "lib/lib.h"
 
 void mutt_free_parameter(struct Parameter **p)
 {

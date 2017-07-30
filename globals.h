@@ -24,10 +24,9 @@
 #define _MUTT_GLOBALS_H
 
 #include <signal.h>
-#include "lib.h"
+#include "lib/lib.h"
 #include "where.h"
 #include "mutt_regex.h"
-#include "lib_string.h"
 
 #ifdef MAIN_C
 /* so that global vars get included */

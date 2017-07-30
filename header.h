@@ -26,7 +26,6 @@
 #include <stddef.h>
 #include <stdbool.h>
 #include <time.h>
-#include "lib_memory.h"
 
 /**
  * struct Header - The header/envelope of an email

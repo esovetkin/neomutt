@@ -42,7 +42,7 @@
 #include "globals.h"
 #include "hash.h"
 #include "header.h"
-#include "lib.h"
+#include "lib/lib.h"
 #include "list.h"
 #include "mailbox.h"
 #include "mutt_curses.h"
@@ -53,8 +53,6 @@
 #include "rfc822.h"
 #include "sort.h"
 #include "thread.h"
-#include "lib_string.h"
-#include "lib_file.h"
 
 /**
  * struct MUpdate - Store of new offsets, used by mutt_sync_mailbox()

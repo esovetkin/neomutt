@@ -33,10 +33,9 @@
 #include "globals.h"
 #include "hash.h"
 #include "keymap.h"
-#include "lib_memory.h"
 #include "keymap_defs.h"
 #include "lib.h"
-#include "lib_file.h"
+#include "lib/lib.h"
 #include "mbyte.h"
 #include "mutt_curses.h"
 #include "mutt_menu.h"
@@ -46,7 +45,6 @@
 #include "protos.h"
 #ifdef USE_SIDEBAR
 #include "sidebar.h"
-#include "lib_string.h"
 #endif
 
 char *SearchBuffers[MENU_MAX];

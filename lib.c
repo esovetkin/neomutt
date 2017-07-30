@@ -41,13 +41,11 @@
 #include <sys/types.h>
 #include <time.h>
 #include <unistd.h>
+#include "lib/lib.h"
 #include "lib.h"
-#include "lib_memory.h"
-#include "lib_file.h"
 
 #ifdef HAVE_SYSEXITS_H
 #include <sysexits.h>
-#include "lib_string.h"
 #else /* Make sure EX_OK is defined <philiph@pobox.com> */
 #define EX_OK 0
 #endif

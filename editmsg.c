@@ -36,13 +36,11 @@
 #include "copy.h"
 #include "globals.h"
 #include "header.h"
-#include "lib.h"
+#include "lib/lib.h"
 #include "mailbox.h"
 #include "mx.h"
 #include "options.h"
 #include "protos.h"
-#include "lib_string.h"
-#include "lib_file.h"
 
 /**
  * edit_one_message - Edit an email

@@ -32,14 +32,12 @@
 #include "globals.h"
 #include "history.h"
 #include "keymap.h"
-#include "lib_memory.h"
 #include "keymap_defs.h"
-#include "lib.h"
+#include "lib/lib.h"
 #include "mbyte.h"
 #include "mutt_curses.h"
 #include "options.h"
 #include "protos.h"
-#include "lib_string.h"
 
 /**
  * enum RedrawFlags - redraw flags for mutt_enter_string()

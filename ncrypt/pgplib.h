@@ -28,8 +28,7 @@
 
 #include <stdbool.h>
 #include <time.h>
-#include "lib.h"
-#include "lib_memory.h"
+#include "lib/lib.h"
 
 /**
  * struct PgpSignature - PGP Signature

@@ -30,9 +30,8 @@
 #include "format_flags.h"
 #include "globals.h"
 #include "keymap.h"
-#include "lib_memory.h"
 #include "keymap_defs.h"
-#include "lib.h"
+#include "lib/lib.h"
 #include "mapping.h"
 #include "mutt_curses.h"
 #include "mutt_menu.h"
@@ -40,7 +39,6 @@
 #include "protos.h"
 #include "rfc822.h"
 #include "sort.h"
-#include "lib_string.h"
 
 #define RSORT(x) (SortAlias & SORT_REVERSE) ? -x : x
 

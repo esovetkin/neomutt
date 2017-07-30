@@ -29,12 +29,10 @@
 #include "account.h"
 #include "ascii.h"
 #include "globals.h"
-#include "lib.h"
-#include "lib_memory.h"
+#include "lib/lib.h"
 #include "options.h"
 #include "protos.h"
 #include "url.h"
-#include "lib_string.h"
 
 /**
  * mutt_account_match - compare account info (host/port/user)

@@ -32,17 +32,14 @@
 #include <wchar.h>
 #include "globals.h"
 #include "keymap.h"
-#include "lib_memory.h"
 #include "keymap_defs.h"
-#include "lib.h"
+#include "lib/lib.h"
 #include "mapping.h"
 #include "mbyte.h"
 #include "mutt_curses.h"
 #include "options.h"
 #include "pager.h"
 #include "protos.h"
-#include "lib_string.h"
-#include "lib_file.h"
 
 static const struct Binding *help_lookup_function(int op, int menu)
 {

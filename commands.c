@@ -47,6 +47,7 @@
 #include "header.h"
 #include "keymap.h"
 #include "lib.h"
+#include "lib/lib.h"
 #include "mailbox.h"
 #include "mime.h"
 #include "mutt_curses.h"
@@ -60,8 +61,6 @@
 #include "protos.h"
 #include "rfc822.h"
 #include "sort.h"
-#include "lib_string.h"
-#include "lib_file.h"
 #ifdef USE_IMAP
 #include "imap/imap.h"
 #endif

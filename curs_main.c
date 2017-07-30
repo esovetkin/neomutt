@@ -40,10 +40,8 @@
 #include "hash.h"
 #include "header.h"
 #include "keymap.h"
-#include "lib_memory.h"
 #include "keymap_defs.h"
-#include "lib.h"
-#include "lib_file.h"
+#include "lib/lib.h"
 #include "list.h"
 #include "mailbox.h"
 #include "mapping.h"
@@ -74,7 +72,6 @@
 #endif
 #ifdef USE_NNTP
 #include "nntp.h"
-#include "lib_string.h"
 #endif
 
 static const char *No_mailbox_is_open = N_("No mailbox is open.");

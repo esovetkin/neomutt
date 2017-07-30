@@ -32,15 +32,12 @@
 #include "context.h"
 #include "format_flags.h"
 #include "globals.h"
-#include "lib.h"
-#include "lib_memory.h"
+#include "lib/lib.h"
 #include "mailbox.h"
 #include "mutt_curses.h"
 #include "mx.h"
 #include "options.h"
 #include "protos.h"
-#include "lib_string.h"
-#include "lib_file.h"
 
 struct Header;
 
