@@ -60,6 +60,7 @@
 #include "protos.h"
 #include "rfc822.h"
 #include "sort.h"
+#include "lib_string.h"
 #ifdef USE_IMAP
 #include "imap/imap.h"
 #endif

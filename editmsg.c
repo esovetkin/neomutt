@@ -41,6 +41,7 @@
 #include "mx.h"
 #include "options.h"
 #include "protos.h"
+#include "lib_string.h"
 
 /**
  * edit_one_message - Edit an email

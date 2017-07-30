@@ -46,6 +46,7 @@
 #include "options.h"
 #include "protos.h"
 #include "rfc822.h"
+#include "lib_string.h"
 
 struct Address *mutt_lookup_alias(const char *s)
 {

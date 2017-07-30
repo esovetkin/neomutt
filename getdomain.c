@@ -28,6 +28,7 @@
 #include <unistd.h>
 #include "lib.h"
 #include "lib_memory.h"
+#include "lib_string.h"
 
 int getdnsdomainname(char *d, size_t len)
 {

@@ -34,6 +34,7 @@
 #include "lib.h"
 #include "lib_memory.h"
 #include "protos.h"
+#include "lib_string.h"
 
 #ifndef EILSEQ
 #define EILSEQ EINVAL

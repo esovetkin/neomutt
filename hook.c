@@ -45,6 +45,7 @@
 #include "protos.h"
 #ifdef USE_COMPRESSED
 #include "compress.h"
+#include "lib_string.h"
 #endif
 
 /**

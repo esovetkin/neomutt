@@ -39,6 +39,7 @@
 #include "mx.h"
 #include "options.h"
 #include "protos.h"
+#include "lib_string.h"
 
 struct Header;
 

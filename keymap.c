@@ -42,6 +42,7 @@
 #include "protos.h"
 #ifdef USE_IMAP
 #include "imap/imap.h"
+#include "lib_string.h"
 #endif
 
 const struct Mapping Menus[] = {

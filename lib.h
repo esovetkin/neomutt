@@ -45,14 +45,6 @@
 #define N_(a) a
 #endif
 
-#define HUGE_STRING  8192
-#define LONG_STRING  1024
-#define STRING       256
-#define SHORT_STRING 128
-
-#define NONULL(x) x ? x : ""
-#define ISSPACE(c) isspace((unsigned char) c)
-
 #undef MAX
 #undef MIN
 #define MAX(a, b) ((a) < (b) ? (b) : (a))
@@ -70,39 +62,12 @@
 #define FMT_RIGHT  1
 #define FMT_CENTER -1
 
-/* this macro must check for *c == 0 since isspace(0) has unreliable behavior
-   on some systems */
-#define SKIPWS(c)                                                              \
-  while (*(c) && isspace((unsigned char) *(c)))                                \
-    c++;
-
-#define EMAIL_WSP " \t\r\n"
-
-/**
- * skip_email_wsp - Skip over whitespace as defined by RFC5322
- *
- * This is used primarily for parsing header fields.
- */
-static inline char *skip_email_wsp(const char *s)
-{
-  if (s)
-    return (char *) (s + strspn(s, EMAIL_WSP));
-  return (char *) s;
-}
-
-static inline int is_email_wsp(char c)
-{
-  return c && (strchr(EMAIL_WSP, c) != NULL);
-}
-
-
 /*
  * These functions aren't defined in lib.c, but
  * they are used there.
  *
  * A non-mutt "implementation" (ahem) can be found in extlib.c.
  */
-
 
 #ifndef _EXTLIB_C
 extern void (*mutt_error)(const char *, ...);
@@ -138,36 +103,12 @@ char *mutt_concatn_path(char *dst, size_t dstlen, const char *dir,
                         size_t dirlen, const char *fname, size_t fnamelen);
 char *mutt_concat_path(char *d, const char *dir, const char *fname, size_t l);
 char *mutt_read_line(char *s, size_t *size, FILE *fp, int *line, int flags);
-char *mutt_skip_whitespace(char *p);
-char *mutt_strlower(char *s);
-const char *mutt_strchrnul(const char *s, char c);
-char *mutt_substrcpy(char *dest, const char *beg, const char *end, size_t destlen);
-char *mutt_substrdup(const char *begin, const char *end);
-char *safe_strcat(char *d, size_t l, const char *s);
-char *safe_strncat(char *d, size_t l, const char *s, size_t sl);
-char *safe_strdup(const char *s);
-char *strfcpy(char *dest, const char *src, size_t dlen);
 
-/* strtol() wrappers with range checking; they return
- *       0 success
- *      -1 format error
- *      -2 overflow (for int and short)
- * the int pointer may be NULL to test only without conversion
- */
-int mutt_atos(const char *str, short *dst);
-int mutt_atoi(const char *str, int *dst);
-
-const char *mutt_stristr(const char *haystack, const char *needle);
 const char *mutt_basename(const char *f);
 
 int mutt_copy_stream(FILE *fin, FILE *fout);
 int mutt_copy_bytes(FILE *in, FILE *out, size_t size);
 int mutt_rx_sanitize_string(char *dest, size_t destlen, const char *src);
-int mutt_strcasecmp(const char *a, const char *b);
-int mutt_strcmp(const char *a, const char *b);
-int mutt_strncasecmp(const char *a, const char *b, size_t l);
-int mutt_strncmp(const char *a, const char *b, size_t l);
-int mutt_strcoll(const char *a, const char *b);
 int safe_asprintf(char **, const char *, ...);
 int safe_open(const char *path, int flags);
 int safe_rename(const char *src, const char *target);
@@ -178,13 +119,9 @@ int mutt_rmtree(const char *path);
 int mutt_mkdir(const char *path, mode_t mode);
 
 size_t mutt_quote_filename(char *d, size_t l, const char *f);
-size_t mutt_strlen(const char *a);
 
 void mutt_nocurses_error(const char *, ...);
-void mutt_remove_trailing_ws(char *s);
 void mutt_sanitize_filename(char *f, short slash);
-void mutt_str_replace(char **p, const char *s);
-void mutt_str_adjust(char **p);
 void mutt_unlink(const char *s);
 int mutt_inbox_cmp(const char *a, const char *b);
 

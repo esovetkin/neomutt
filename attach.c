@@ -51,6 +51,7 @@
 #include "protos.h"
 #include "rfc1524.h"
 #include "state.h"
+#include "lib_string.h"
 
 int mutt_get_tmp_attachment(struct Body *a)
 {

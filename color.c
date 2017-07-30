@@ -41,6 +41,7 @@
 #include "options.h"
 #include "pattern.h"
 #include "protos.h"
+#include "lib_string.h"
 
 /* globals */
 int *ColorQuote = NULL;

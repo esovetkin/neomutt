@@ -30,6 +30,7 @@
 #include "lib.h"
 #include "options.h"
 #include "protos.h"
+#include "lib_string.h"
 #ifdef USE_IMAP
 #include "imap/imap.h"
 #include "mailbox.h"

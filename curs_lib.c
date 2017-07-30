@@ -56,6 +56,7 @@
 #endif
 #ifdef USE_NOTMUCH
 #include "mutt_notmuch.h"
+#include "lib_string.h"
 #endif
 
 /* not possible to unget more than one char under some curses libs, and it

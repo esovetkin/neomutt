@@ -56,6 +56,7 @@
 #include "hash.h"
 #include "header.h"
 #include "lib.h"
+#include "lib_string.h"
 #include "mailbox.h"
 #include "mutt_curses.h"
 #include "mx.h"

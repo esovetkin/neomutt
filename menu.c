@@ -44,6 +44,7 @@
 #include "protos.h"
 #ifdef USE_SIDEBAR
 #include "sidebar.h"
+#include "lib_string.h"
 #endif
 
 char *SearchBuffers[MENU_MAX];

@@ -63,6 +63,7 @@
 #endif
 #ifdef USE_NNTP
 #include "nntp.h"
+#include "lib_string.h"
 #endif
 
 struct Address;

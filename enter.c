@@ -38,6 +38,7 @@
 #include "mutt_curses.h"
 #include "options.h"
 #include "protos.h"
+#include "lib_string.h"
 
 /**
  * enum RedrawFlags - redraw flags for mutt_enter_string()

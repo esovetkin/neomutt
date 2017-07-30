@@ -24,6 +24,7 @@
 #include <stdarg.h>
 #include "state.h"
 #include "lib.h"
+#include "lib_string.h"
 #include "globals.h"
 #include "mbyte.h"
 

@@ -37,6 +37,7 @@
 #include "keymap_defs.h"
 #include "lib.h"
 #include "lib_memory.h"
+#include "lib_string.h"
 #include "mutt_menu.h"
 #include "mutt_regex.h"
 #include "mutt_socket.h"

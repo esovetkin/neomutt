@@ -27,6 +27,7 @@
 #include "pgplib.h"
 #include "lib.h"
 #include "lib_memory.h"
+#include "lib_string.h"
 
 const char *pgp_pkalgbytype(unsigned char type)
 {

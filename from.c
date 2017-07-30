@@ -30,6 +30,7 @@
 #include "globals.h"
 #include "lib.h"
 #include "protos.h"
+#include "lib_string.h"
 
 static const char *next_word(const char *s)
 {

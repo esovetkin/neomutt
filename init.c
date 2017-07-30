@@ -73,6 +73,7 @@
 #include "version.h"
 #ifdef USE_NOTMUCH
 #include "mutt_notmuch.h"
+#include "lib_string.h"
 #endif
 
 #define CHECK_PAGER                                                                  \

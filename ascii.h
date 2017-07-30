@@ -29,6 +29,8 @@
 #define _MUTT_ASCII_H
 
 #include <ctype.h>
+#include "lib_string.h"
+#include "lib_string.h"
 
 int ascii_strcasecmp(const char *a, const char *b);
 int ascii_strncasecmp(const char *a, const char *b, int n);

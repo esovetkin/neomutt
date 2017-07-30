@@ -33,6 +33,7 @@
 #include "options.h"
 #include "protos.h"
 #include "url.h"
+#include "lib_string.h"
 
 /**
  * mutt_account_match - compare account info (host/port/user)

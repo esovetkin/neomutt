@@ -36,6 +36,7 @@
 #include "lib_memory.h"
 #include "protos.h"
 #include "url.h"
+#include "lib_string.h"
 
 static int mutt_bcache_move(struct BodyCache *bcache, const char *id, const char *newid);
 

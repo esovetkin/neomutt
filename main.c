@@ -69,6 +69,7 @@
 #endif
 #ifdef USE_NNTP
 #include "nntp.h"
+#include "lib_string.h"
 #endif
 
 char **envlist = NULL;

@@ -55,6 +55,7 @@
 #include "rfc1524.h"
 #include "rfc3676.h"
 #include "state.h"
+#include "lib_string.h"
 
 #define BUFI_SIZE 1000
 #define BUFO_SIZE 2000

@@ -49,6 +49,7 @@
 #include "state.h"
 #ifdef USE_NOTMUCH
 #include "mutt_notmuch.h"
+#include "lib_string.h"
 #endif
 
 static int address_header_decode(char **str);

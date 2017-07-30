@@ -72,6 +72,7 @@
 #endif
 #ifdef USE_NNTP
 #include "nntp.h"
+#include "lib_string.h"
 #endif
 
 static const char *No_mailbox_is_open = N_("No mailbox is open.");
