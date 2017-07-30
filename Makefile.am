@@ -22,7 +22,7 @@ AM_DISTCHECK_CONFIGURE_FLAGS = \
 	--with-sasl \
 	--with-tokyocabinet
 
-SUBDIRS = m4 contrib imap ncrypt
+SUBDIRS = m4 contrib imap ncrypt lib
 
 if BUILD_HCACHE
 SUBDIRS += hcache
@@ -64,11 +64,14 @@ nodist_mutt_SOURCES = $(BUILT_SOURCES)
 LIBIMAP = -Limap -limap
 LIBIMAPDEPS = $(top_srcdir)/imap/imap.h imap/libimap.a
 
+LIBLIB = -Llib -llib
+LIBLIBDEPS = $(top_srcdir)/lib/lib.h lib/liblib.a
+
 mutt_LDADD = $(MUTT_LIB_OBJECTS) $(LIBOBJS) $(HCACHE_LIBS) $(NCRYPT_LIBS) \
-	$(LIBIMAP) $(LIBICONV) $(GPGME_LIBS) $(INTLLIBS)
+	$(LIBIMAP) $(LIBLIB) $(LIBICONV) $(GPGME_LIBS) $(INTLLIBS)
 
 mutt_DEPENDENCIES = $(MUTT_LIB_OBJECTS) $(LIBOBJS) $(LIBIMAPDEPS) \
-	$(HCACHE_DEPS) $(NCRYPT_DEPS) $(INTLDEPS)
+	$(LIBLIBDEPS) $(HCACHE_DEPS) $(NCRYPT_DEPS) $(INTLDEPS)
 
 DEFS=-DPKGDATADIR=\"$(pkgdatadir)\" -DSYSCONFDIR=\"$(sysconfdir)\" \
 	-DBINDIR=\"$(bindir)\" -DMUTTLOCALEDIR=\"$(datadir)/locale\"
