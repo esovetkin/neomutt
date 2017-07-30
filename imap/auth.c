@@ -30,6 +30,7 @@
 #include "ascii.h"
 #include "globals.h"
 #include "lib.h"
+#include "lib_memory.h"
 #include "protos.h"
 
 static const struct ImapAuth imap_authenticators[] = {

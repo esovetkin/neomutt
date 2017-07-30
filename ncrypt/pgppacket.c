@@ -25,6 +25,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "lib.h"
+#include "lib_memory.h"
 
 #define CHUNKSIZE 1024
 

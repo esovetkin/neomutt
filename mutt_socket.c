@@ -34,6 +34,7 @@
 #include <sys/socket.h>
 #include <unistd.h>
 #include "mutt_socket.h"
+#include "lib_memory.h"
 #include "globals.h"
 #include "mutt_idna.h"
 #include "mutt_tunnel.h"

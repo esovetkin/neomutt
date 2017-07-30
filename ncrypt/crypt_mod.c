@@ -23,6 +23,7 @@
 #include "config.h"
 #include "crypt_mod.h"
 #include "lib.h"
+#include "lib_memory.h"
 
 /**
  * struct CryptModule - A crypto plugin module

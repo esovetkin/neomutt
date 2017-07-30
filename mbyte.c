@@ -35,6 +35,7 @@
 #include "buffer.h"
 #include "charset.h"
 #include "lib.h"
+#include "lib_memory.h"
 #include "options.h"
 #include "protos.h"
 

@@ -32,6 +32,7 @@
 #include "ascii.h"
 #include "globals.h"
 #include "lib.h"
+#include "lib_memory.h"
 #include "protos.h"
 
 #ifndef EILSEQ

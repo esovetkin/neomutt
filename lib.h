@@ -50,7 +50,6 @@
 #define STRING       256
 #define SHORT_STRING 128
 
-#define FREE(x) safe_free(x)
 #define NONULL(x) x ? x : ""
 #define ISSPACE(c) isspace((unsigned char) c)
 
@@ -181,16 +180,12 @@ int mutt_mkdir(const char *path, mode_t mode);
 size_t mutt_quote_filename(char *d, size_t l, const char *f);
 size_t mutt_strlen(const char *a);
 
-void *safe_calloc(size_t nmemb, size_t size);
-void *safe_malloc(size_t siz);
 void mutt_nocurses_error(const char *, ...);
 void mutt_remove_trailing_ws(char *s);
 void mutt_sanitize_filename(char *f, short slash);
 void mutt_str_replace(char **p, const char *s);
 void mutt_str_adjust(char **p);
 void mutt_unlink(const char *s);
-void safe_free(void *ptr);
-void safe_realloc(void *ptr, size_t siz);
 int mutt_inbox_cmp(const char *a, const char *b);
 
 const char *mutt_strsysexit(int e);

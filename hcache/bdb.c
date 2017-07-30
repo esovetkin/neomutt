@@ -35,6 +35,7 @@
 #include "backend.h"
 #include "globals.h"
 #include "lib.h"
+#include "lib_memory.h"
 #include "mx.h"
 
 /**

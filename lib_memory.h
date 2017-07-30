@@ -1,6 +1,6 @@
 /**
  * @file
- * Store attributes associated with a MIME part
+ * Memory management wrappers
  *
  * @authors
  * Copyright (C) 2017 Richard Russon <rich@flatcap.org>
@@ -20,29 +20,16 @@
  * this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef _MUTT_PARAMETER_H
-#define _MUTT_PARAMETER_H
+#ifndef _MUTT_LIB_MEMORY_H
+#define _MUTT_LIB_MEMORY_H
 
-#include "lib_memory.h"
+#include <stdio.h>
 
-/**
- * struct Parameter - Attribute associated with a MIME part
- */
-struct Parameter
-{
-  char *attribute;
-  char *value;
-  struct Parameter *next;
-};
+void *safe_calloc(size_t nmemb, size_t size);
+void *safe_malloc(size_t siz);
+void safe_free(void *ptr);
+void safe_realloc(void *ptr, size_t siz);
 
-static inline struct Parameter *mutt_new_parameter(void)
-{
-  return safe_calloc(1, sizeof(struct Parameter));
-}
+#define FREE(x) safe_free(x)
 
-void mutt_delete_parameter(const char *attribute, struct Parameter **p);
-void mutt_set_parameter(const char *attribute, const char *value, struct Parameter **p);
-void mutt_free_parameter(struct Parameter **p);
-char *mutt_get_parameter(const char *s, struct Parameter *p);
-
-#endif /* _MUTT_PARAMETER_H */
+#endif /* _MUTT_LIB_MEMORY_H */

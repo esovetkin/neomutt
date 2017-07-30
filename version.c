@@ -29,12 +29,13 @@
 #include <sys/utsname.h>
 #include <unistd.h>
 #include "lib.h"
+#include "lib_memory.h"
+#include "mutt_curses.h"
 #ifdef HAVE_STRINGPREP_H
 #include <stringprep.h>
 #elif defined(HAVE_IDN_STRINGPREP_H)
 #include <idn/stringprep.h>
 #endif
-#include "mutt_curses.h"
 
 /* #include "protos.h" */
 const char *mutt_make_version(void);

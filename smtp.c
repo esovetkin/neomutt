@@ -37,6 +37,7 @@
 #include "ascii.h"
 #include "globals.h"
 #include "lib.h"
+#include "lib_memory.h"
 #include "mutt_curses.h"
 #include "mutt_socket.h"
 #include "options.h"

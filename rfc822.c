@@ -26,6 +26,8 @@
 #include <string.h>
 #include "rfc822.h"
 #include "ascii.h"
+#include "lib.h"
+#include "lib_memory.h"
 
 #ifdef TESTING
 #define safe_strdup strdup

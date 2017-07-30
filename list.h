@@ -23,7 +23,7 @@
 #ifndef _MUTT_LIST_H
 #define _MUTT_LIST_H
 
-#include "lib.h"
+#include "lib_memory.h"
 
 /**
  * struct List - Singly-linked List type

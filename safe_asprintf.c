@@ -22,6 +22,7 @@
 
 #include <stdarg.h>
 #include <stdio.h>
+#include "lib_memory.h"
 #include "lib.h"
 
 /* NOTE: Currently there is no check in configure.ac for vasprintf(3).  the
