@@ -32,6 +32,7 @@
 #include "charset.h"
 #include "globals.h"
 #include "lib.h"
+#include "lib_file.h"
 #include "lib_memory.h"
 #include "mbyte.h"
 #include "mime.h"

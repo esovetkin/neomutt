@@ -45,6 +45,7 @@
 #include "header.h"
 #include "imap/imap.h"
 #include "lib.h"
+#include "lib_file.h"
 #include "list.h"
 #include "mailbox.h"
 #include "mutt_curses.h"

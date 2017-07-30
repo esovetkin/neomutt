@@ -36,6 +36,8 @@
 #include "globals.h"
 #include "header.h"
 #include "lib.h"
+#include "lib_string.h"
+#include "lib_file.h"
 #include "list.h"
 #include "mailbox.h"
 #include "mutt_regex.h"
@@ -45,7 +47,6 @@
 #include "protos.h"
 #ifdef USE_COMPRESSED
 #include "compress.h"
-#include "lib_string.h"
 #endif
 
 /**

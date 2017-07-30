@@ -54,6 +54,8 @@
 #include "history.h"
 #include "keymap.h"
 #include "lib.h"
+#include "lib_string.h"
+#include "lib_file.h"
 #include "list.h"
 #include "mailbox.h"
 #include "mapping.h"
@@ -73,7 +75,6 @@
 #include "version.h"
 #ifdef USE_NOTMUCH
 #include "mutt_notmuch.h"
-#include "lib_string.h"
 #endif
 
 #define CHECK_PAGER                                                                  \

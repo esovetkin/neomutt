@@ -34,6 +34,7 @@
 #include "lib_memory.h"
 #include "protos.h"
 #include "lib_string.h"
+#include "lib_file.h"
 
 /* This history ring grows from 0..HistSize, with last marking the
  * where new entries go:

@@ -24,6 +24,7 @@
 #include <stdio.h>
 #include "lib_memory.h"
 #include "lib.h"
+#include "lib_string.h"
 
 /* NOTE: Currently there is no check in configure.ac for vasprintf(3).  the
  * undefined behavior of the error condition makes it difficult to write a safe

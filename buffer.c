@@ -31,6 +31,7 @@
 #include "lib_memory.h"
 #include "myvar.h"
 #include "lib_string.h"
+#include "lib_file.h"
 
 /**
  * mutt_buffer_new - creates and initializes a Buffer

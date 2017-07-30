@@ -40,6 +40,7 @@
 #include "options.h"
 #include "protos.h"
 #include "lib_string.h"
+#include "lib_file.h"
 
 struct Header;
 

@@ -42,6 +42,7 @@
 #include "options.h"
 #include "protos.h"
 #include "lib_string.h"
+#include "lib_file.h"
 
 /**
  * edit_one_message - Edit an email

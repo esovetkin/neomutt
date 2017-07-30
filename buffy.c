@@ -35,6 +35,8 @@
 #include "globals.h"
 #include "header.h"
 #include "lib.h"
+#include "lib_string.h"
+#include "lib_file.h"
 #include "mailbox.h"
 #include "mutt_curses.h"
 #include "mutt_menu.h"
@@ -49,7 +51,6 @@
 #endif
 #ifdef USE_NOTMUCH
 #include "mutt_notmuch.h"
-#include "lib_string.h"
 #endif
 
 static time_t BuffyTime = 0; /**< last time we started checking for mail */

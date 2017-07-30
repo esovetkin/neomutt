@@ -51,6 +51,7 @@
 #include "header.h"
 #include "lib.h"
 #include "lib_string.h"
+#include "lib_file.h"
 #include "list.h"
 #include "mbyte.h"
 #include "md5.h"

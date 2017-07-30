@@ -44,6 +44,8 @@
 #include "globals.h"
 #include "keymap_defs.h"
 #include "lib.h"
+#include "lib_string.h"
+#include "lib_file.h"
 #include "mbyte.h"
 #include "mutt_curses.h"
 #include "mutt_menu.h"
@@ -56,7 +58,6 @@
 #endif
 #ifdef USE_NOTMUCH
 #include "mutt_notmuch.h"
-#include "lib_string.h"
 #endif
 
 /* not possible to unget more than one char under some curses libs, and it

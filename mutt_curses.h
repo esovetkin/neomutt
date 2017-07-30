@@ -27,6 +27,7 @@
 #include <regex.h>
 #include "lib.h"
 #include "options.h"
+#include "lib_string.h"
 
 #ifdef USE_SLANG_CURSES
 

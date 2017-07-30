@@ -35,6 +35,7 @@
 #include "format_flags.h"
 #include "globals.h"
 #include "lib.h"
+#include "lib_file.h"
 #include "lib_string.h"
 #include "list.h"
 #include "mutt_curses.h"

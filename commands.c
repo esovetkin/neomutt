@@ -61,6 +61,7 @@
 #include "rfc822.h"
 #include "sort.h"
 #include "lib_string.h"
+#include "lib_file.h"
 #ifdef USE_IMAP
 #include "imap/imap.h"
 #endif

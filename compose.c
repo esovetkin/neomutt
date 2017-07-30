@@ -43,6 +43,8 @@
 #include "keymap.h"
 #include "keymap_defs.h"
 #include "lib.h"
+#include "lib_string.h"
+#include "lib_file.h"
 #include "list.h"
 #include "mailbox.h"
 #include "mapping.h"
@@ -63,7 +65,6 @@
 #endif
 #ifdef USE_NNTP
 #include "nntp.h"
-#include "lib_string.h"
 #endif
 
 struct Address;

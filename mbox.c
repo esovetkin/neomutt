@@ -54,6 +54,7 @@
 #include "sort.h"
 #include "thread.h"
 #include "lib_string.h"
+#include "lib_file.h"
 
 /**
  * struct MUpdate - Store of new offsets, used by mutt_sync_mailbox()

@@ -41,6 +41,7 @@
 #include "body.h"
 #include "globals.h"
 #include "lib.h"
+#include "lib_file.h"
 #include "options.h"
 #include "parameter.h"
 #include "protos.h"

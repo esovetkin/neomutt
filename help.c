@@ -41,6 +41,7 @@
 #include "pager.h"
 #include "protos.h"
 #include "lib_string.h"
+#include "lib_file.h"
 
 static const struct Binding *help_lookup_function(int op, int menu)
 {

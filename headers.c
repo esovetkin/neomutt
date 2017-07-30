@@ -44,6 +44,7 @@
 #include "options.h"
 #include "protos.h"
 #include "lib_string.h"
+#include "lib_file.h"
 
 void mutt_edit_headers(const char *editor, const char *body, struct Header *msg,
                        char *fcc, size_t fcclen)

@@ -46,6 +46,8 @@
 #include "header.h"
 #include "keymap.h"
 #include "lib.h"
+#include "lib_string.h"
+#include "lib_file.h"
 #include "list.h"
 #include "mailbox.h"
 #include "mutt_curses.h"
@@ -69,7 +71,6 @@
 #endif
 #ifdef USE_NNTP
 #include "nntp.h"
-#include "lib_string.h"
 #endif
 
 char **envlist = NULL;

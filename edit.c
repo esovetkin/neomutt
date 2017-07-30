@@ -45,6 +45,7 @@
 #include "protos.h"
 #include "rfc822.h"
 #include "lib_string.h"
+#include "lib_file.h"
 
 /*
  * SLcurses_waddnstr() can't take a "const char *", so this is only
