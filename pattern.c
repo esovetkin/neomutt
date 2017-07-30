@@ -48,6 +48,7 @@
 #include "globals.h"
 #include "group.h"
 #include "header.h"
+#include "lib_memory.h"
 #include "keymap_defs.h"
 #include "lib.h"
 #include "lib_file.h"

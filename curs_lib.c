@@ -42,6 +42,7 @@
 #include "mutt.h"
 #include "enter_state.h"
 #include "globals.h"
+#include "lib_memory.h"
 #include "keymap_defs.h"
 #include "lib.h"
 #include "lib_string.h"

@@ -29,6 +29,7 @@
 #include <stdio.h>
 #include "backend.h"
 #include "lib.h"
+#include "lib_file.h"
 #include "options.h"
 #include "lib_string.h"
 

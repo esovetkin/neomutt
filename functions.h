@@ -42,6 +42,7 @@
 #else
 #include <stddef.h>
 #include "keymap.h"
+#include "lib_memory.h"
 #include "keymap_defs.h"
 #endif
 

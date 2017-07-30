@@ -29,6 +29,8 @@
 #include "auth.h"
 #include "globals.h"
 #include "lib.h"
+#include "lib_file.h"
+#include "lib_memory.h"
 #include "mutt_socket.h"
 #include "options.h"
 #include "protos.h"

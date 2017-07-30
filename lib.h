@@ -32,19 +32,6 @@
 #include <string.h>
 #include <sys/types.h>
 
-#ifdef ENABLE_NLS
-#include <libintl.h>
-#define _(a) gettext(a)
-#ifdef gettext_noop
-#define N_(a) gettext_noop(a)
-#else
-#define N_(a) (a)
-#endif
-#else
-#define _(a) (a)
-#define N_(a) a
-#endif
-
 /* Use this with care.  If the compiler can't see the array
  * definition, it obviously won't produce a correct result. */
 #define mutt_array_size(x) (sizeof(x) / sizeof((x)[0]))
@@ -56,30 +43,6 @@
 #define FMT_LEFT   0
 #define FMT_RIGHT  1
 #define FMT_CENTER -1
-
-/*
- * These functions aren't defined in lib.c, but
- * they are used there.
- *
- * A non-mutt "implementation" (ahem) can be found in extlib.c.
- */
-
-#ifndef _EXTLIB_C
-extern void (*mutt_error)(const char *, ...);
-#endif
-
-void mutt_exit(int code);
-
-#ifdef DEBUG
-extern char debugfilename[_POSIX_PATH_MAX];
-extern FILE *debugfile;
-extern int debuglevel;
-extern char *debugfile_cmdline;
-extern int debuglevel_cmdline;
-void mutt_debug(int level, const char *fmt, ...);
-#else
-#define mutt_debug(...) do { } while (0)
-#endif
 
 /* Exit values used in send_msg() */
 #define S_ERR 127

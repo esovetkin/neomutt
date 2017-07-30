@@ -31,6 +31,7 @@
 #include "envelope.h"
 #include "globals.h"
 #include "lib.h"
+#include "lib_file.h"
 #include "options.h"
 
 #ifdef HAVE_LIBIDN

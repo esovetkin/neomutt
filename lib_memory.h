@@ -25,6 +25,25 @@
 
 #include <stdio.h>
 
+#ifdef ENABLE_NLS
+#include <libintl.h>
+#define _(a) gettext(a)
+#ifdef gettext_noop
+#define N_(a) gettext_noop(a)
+#else
+#define N_(a) (a)
+#endif
+#else
+#define _(a) (a)
+#define N_(a) a
+#endif
+
+void mutt_exit(int code);
+
+#ifndef _EXTLIB_C
+extern void (*mutt_error)(const char *, ...);
+#endif
+
 void *safe_calloc(size_t nmemb, size_t size);
 void *safe_malloc(size_t siz);
 void safe_free(void *ptr);

@@ -41,6 +41,7 @@
 #include "globals.h"
 #include "header.h"
 #include "keymap.h"
+#include "lib_memory.h"
 #include "keymap_defs.h"
 #include "lib.h"
 #include "lib_string.h"

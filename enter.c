@@ -32,6 +32,7 @@
 #include "globals.h"
 #include "history.h"
 #include "keymap.h"
+#include "lib_memory.h"
 #include "keymap_defs.h"
 #include "lib.h"
 #include "mbyte.h"

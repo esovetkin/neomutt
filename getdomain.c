@@ -27,6 +27,7 @@
 #include <time.h>
 #include <unistd.h>
 #include "lib.h"
+#include "lib_file.h"
 #include "lib_memory.h"
 #include "lib_string.h"
 

@@ -37,6 +37,7 @@
 #include "globals.h"
 #include "header.h"
 #include "lib.h"
+#include "lib_file.h"
 #include "list.h"
 #include "mailbox.h"
 #include "mime.h"

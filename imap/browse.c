@@ -38,6 +38,7 @@
 #include "globals.h"
 #include "imap/imap.h"
 #include "lib.h"
+#include "lib_file.h"
 #include "lib_memory.h"
 #include "lib_string.h"
 #include "mutt_regex.h"
