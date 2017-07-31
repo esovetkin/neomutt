@@ -27,7 +27,6 @@
 #include <limits.h>
 #include <sys/stat.h>
 #include <sys/types.h>
-#include "lib_file.h"
 
 #ifdef DEBUG
 extern char debugfilename[_POSIX_PATH_MAX];

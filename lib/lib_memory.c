@@ -24,7 +24,6 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include "lib_memory.h"
-#include "lib_file.h"
 
 void *safe_calloc(size_t nmemb, size_t size)
 {
