@@ -31,7 +31,6 @@
 #include "mutt.h"
 #include "ascii.h"
 #include "body.h"
-#include "buffer.h"
 #include "charset.h"
 #include "envelope.h"
 #include "globals.h"

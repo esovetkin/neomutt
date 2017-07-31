@@ -30,7 +30,6 @@
 #include <unistd.h>
 #include "mutt.h"
 #include "address.h"
-#include "buffer.h"
 #include "context.h"
 #include "envelope.h"
 #include "globals.h"

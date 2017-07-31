@@ -41,7 +41,6 @@
 #include "account.h"
 #include "ascii.h"
 #include "bcache.h"
-#include "buffer.h"
 #include "context.h"
 #include "globals.h"
 #include "header.h"

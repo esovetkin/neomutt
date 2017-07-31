@@ -25,9 +25,10 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/types.h>
-#include "buffer.h"
+#include "lib_buffer.h"
+#include "lib_memory.h"
+#include "lib_string.h"
 #include "filter.h"
-#include "lib/lib.h"
 #include "myvar.h"
 
 /**

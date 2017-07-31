@@ -42,7 +42,6 @@
 #include "address.h"
 #include "alias.h"
 #include "ascii.h"
-#include "buffer.h"
 #include "charset.h"
 #include "context.h"
 #include "envelope.h"

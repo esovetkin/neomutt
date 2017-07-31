@@ -31,7 +31,6 @@
 #include <string.h>
 #include "mutt.h"
 #include "mutt_lua.h"
-#include "buffer.h"
 #include "globals.h"
 #include "lib/lib.h"
 #include "mailbox.h"

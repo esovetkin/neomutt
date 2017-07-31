@@ -32,7 +32,6 @@
 #include <wchar.h>
 #include "mbyte.h"
 #include "ascii.h"
-#include "buffer.h"
 #include "charset.h"
 #include "lib/lib.h"
 #include "options.h"

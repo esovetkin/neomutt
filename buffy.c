@@ -30,7 +30,6 @@
 #include <sys/stat.h>
 #include <utime.h>
 #include "buffy.h"
-#include "buffer.h"
 #include "context.h"
 #include "globals.h"
 #include "header.h"

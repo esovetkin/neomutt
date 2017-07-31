@@ -2,6 +2,7 @@
 #define _LIB_LIB_H
 
 // Convenience wrapper for all the headers
+#include "lib_buffer.h"
 #include "lib_file.h"
 #include "lib_memory.h"
 #include "lib_string.h"

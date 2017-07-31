@@ -36,7 +36,6 @@
 #include "alias.h"
 #include "ascii.h"
 #include "body.h"
-#include "buffer.h"
 #include "buffy.h"
 #include "context.h"
 #include "copy.h"

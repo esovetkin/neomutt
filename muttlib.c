@@ -47,7 +47,6 @@
 #include "alias.h"
 #include "ascii.h"
 #include "body.h"
-#include "buffer.h"
 #include "charset.h"
 #include "envelope.h"
 #include "filter.h"
