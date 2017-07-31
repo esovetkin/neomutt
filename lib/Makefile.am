@@ -10,4 +10,4 @@ AM_CPPFLAGS = -I$(top_srcdir)
 noinst_LIBRARIES = liblib.a
 noinst_HEADERS =
 
-liblib_a_SOURCES = lib_file.c lib_memory.c lib_string.c
+liblib_a_SOURCES = compat.c exit.c lib_file.c lib_memory.c lib_string.c
