@@ -43,7 +43,6 @@
 #include <time.h>
 #include <unistd.h>
 #include "lib/lib.h"
-#include "md5.h"
 #include "ncrypt/ncrypt.h"
 #include "ncrypt/pgplib.h"
 #include "ncrypt/pgppacket.h"
