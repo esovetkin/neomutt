@@ -73,6 +73,11 @@ const int Index_hex[128] = {
     -1,-1,-1,-1, -1,-1,-1,-1, -1,-1,-1,-1, -1,-1,-1,-1
 };
 
+/* This is very similar to the table in imap/utf7.c
+ * Encoding chars:
+ *   utf7 A-Za-z0-9+,
+ *   mime A-Za-z0-9+/
+ */
 const int Index_64[128] = {
     -1,-1,-1,-1, -1,-1,-1,-1, -1,-1,-1,-1, -1,-1,-1,-1,
     -1,-1,-1,-1, -1,-1,-1,-1, -1,-1,-1,-1, -1,-1,-1,-1,

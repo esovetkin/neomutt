@@ -23,6 +23,9 @@
 
 #include <stdio.h>
 
+extern const int Index_64[];
+#define base64val(c) Index_64[(unsigned int) (c)]
+
 size_t mutt_to_base64(char *out, const char *cin, size_t len, size_t olen);
 int mutt_from_base64(char *out, const char *in);
 
