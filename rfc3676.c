@@ -32,7 +32,6 @@
 #include <string.h>
 #include <unistd.h>
 #include "mutt.h"
-#include "ascii.h"
 #include "body.h"
 #include "globals.h"
 #include "header.h"

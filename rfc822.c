@@ -25,7 +25,6 @@
 #include <stdio.h>
 #include <string.h>
 #include "rfc822.h"
-#include "ascii.h"
 #include "lib/lib.h"
 
 #ifdef TESTING

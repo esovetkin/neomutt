@@ -42,7 +42,6 @@
 #include <wchar.h>
 #include "mutt.h"
 #include "address.h"
-#include "ascii.h"
 #include "body.h"
 #include "buffy.h"
 #include "charset.h"

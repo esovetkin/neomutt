@@ -34,7 +34,6 @@
 #include <time.h>
 #include "imap_private.h"
 #include "account.h"
-#include "ascii.h"
 #include "buffy.h"
 #include "context.h"
 #include "globals.h"

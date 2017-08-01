@@ -39,7 +39,6 @@
 #include "imap_private.h"
 #include "mutt.h"
 #include "account.h"
-#include "ascii.h"
 #include "bcache.h"
 #include "context.h"
 #include "globals.h"

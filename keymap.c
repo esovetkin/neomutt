@@ -28,7 +28,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include "keymap.h"
-#include "ascii.h"
 #include "functions.h"
 #include "globals.h"
 #include "keymap_defs.h"

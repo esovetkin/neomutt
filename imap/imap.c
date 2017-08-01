@@ -37,7 +37,6 @@
 #include "mutt.h"
 #include "imap.h"
 #include "account.h"
-#include "ascii.h"
 #include "bcache.h"
 #include "body.h"
 #include "buffy.h"

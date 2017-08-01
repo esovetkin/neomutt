@@ -30,7 +30,6 @@
 #include <string.h>
 #include "imap_private.h"
 #include "account.h"
-#include "ascii.h"
 #include "auth.h"
 #include "globals.h"
 #include "lib/lib.h"
