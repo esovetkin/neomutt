@@ -28,7 +28,7 @@
 #include "lib/lib.h"
 
 // clang-format off
-/* This is very similar to the table in handler.c
+/* This is very similar to the table in lib/lib_base64.c
  * Encoding chars:
  *   utf7 A-Za-z0-9+,
  *   mime A-Za-z0-9+/
