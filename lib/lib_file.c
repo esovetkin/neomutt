@@ -42,10 +42,13 @@ static const char rx_special_chars[] = "^.[$()|*+?{\\";
 static const char safe_chars[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+@{}._-:%/";
 
 /**
- * compare_stat - YYY
- * @param osb -- struct stat *
- * @param nsb -- struct stat *
- * @retval bool 
+ * compare_stat - Compare the struct stat's of two files/dirs
+ * @param osb struct stat of the first file/dir
+ * @param nsb struct stat of the second file/dir
+ * @retval bool
+ *
+ * This compares the device id (st_dev), inode number (st_ino) and special id
+ * (st_rdev) of the files/dirs.
  */
 static bool compare_stat(struct stat *osb, struct stat *nsb)
 {
@@ -59,15 +62,13 @@ static bool compare_stat(struct stat *osb, struct stat *nsb)
 
 /**
  * mkwrapdir - Create a temporary directory next to a file name
- */
-/**
- * mkwrapdir - YYY
- * @param path    -- const char *
- * @param newfile -- char *
- * @param nflen   -- size_t
- * @param newdir  -- char *
- * @param ndlen   -- size_t
- * @retval int 
+ * @param path    Existing filename
+ * @param newfile New filename
+ * @param nflen   Length of new filename
+ * @param newdir  New directory name
+ * @param ndlen   Length of new directory name
+ * @retval  0 Succes 0 Success
+ * @retval -1 Error
  */
 static int mkwrapdir(const char *path, char *newfile, size_t nflen, char *newdir, size_t ndlen)
 {
@@ -105,11 +106,12 @@ static int mkwrapdir(const char *path, char *newfile, size_t nflen, char *newdir
 }
 
 /**
- * put_file_in_place - YYY
- * @param path      -- const char *
- * @param safe_file -- const char *
- * @param safe_dir  -- const char *
- * @retval int 
+ * put_file_in_place - Move a file into place
+ * @param path      Destination path
+ * @param safe_file Current filename
+ * @param safe_dir  Current directory name
+ * @retval  0 Success
+ * @retval -1 Error, see errno
  */
 static int put_file_in_place(const char *path, const char *safe_file, const char *safe_dir)
 {
@@ -122,9 +124,10 @@ static int put_file_in_place(const char *path, const char *safe_file, const char
 }
 
 /**
- * safe_fclose - YYY
- * @param f -- FILE **
- * @retval int 
+ * safe_fclose - Close a FILE handle (and NULL the pointer)
+ * @param f FILE handle to close
+ * @retval 0   Success
+ * @retval EOF Error, see errno
  */
 int safe_fclose(FILE **f)
 {
@@ -139,9 +142,10 @@ int safe_fclose(FILE **f)
 
 
 /**
- * safe_fsync_close - YYY
- * @param f -- FILE **
- * @retval int 
+ * safe_fsync_close - Flush the data, before closing a file (and NULL the pointer)
+ * @param f FILE handle to close
+ * @retval 0   Success
+ * @retval EOF Error, see errno
  */
 int safe_fsync_close(FILE **f)
 {
@@ -164,9 +168,10 @@ int safe_fsync_close(FILE **f)
 }
 
 /**
- * mutt_unlink - YYY
- * @param s -- const char *
- * @retval void 
+ * mutt_unlink - Delete a file, carefully
+ * @param s Filename
+ *
+ * This won't follow symlinks.
  */
 void mutt_unlink(const char *s)
 {
@@ -211,11 +216,12 @@ void mutt_unlink(const char *s)
 }
 
 /**
- * mutt_copy_bytes - YYY
- * @param in   -- FILE *
- * @param out  -- FILE *
- * @param size -- size_t
- * @retval int 
+ * mutt_copy_bytes - Copy some content from one file to another
+ * @param in   Source file
+ * @param out  Destination file
+ * @param size Maximum number of bytes to copy
+ * @retval  0 Success
+ * @retval -1 Error, see errno
  */
 int mutt_copy_bytes(FILE *in, FILE *out, size_t size)
 {
@@ -240,10 +246,11 @@ int mutt_copy_bytes(FILE *in, FILE *out, size_t size)
 }
 
 /**
- * mutt_copy_stream - YYY
- * @param fin  -- FILE *
- * @param fout -- FILE *
- * @retval int 
+ * mutt_copy_stream - Copy the contents of one file into another
+ * @param fin  Source file
+ * @param fout Destination file
+ * @retval  0 Success
+ * @retval -1 Error, see errno
  */
 int mutt_copy_stream(FILE *fin, FILE *fout)
 {
@@ -262,10 +269,11 @@ int mutt_copy_stream(FILE *fin, FILE *fout)
 }
 
 /**
- * safe_symlink - YYY
- * @param oldpath -- const char *
- * @param newpath -- const char *
- * @retval int 
+ * safe_symlink - Create a symlink
+ * @param oldpath Existing pathname
+ * @param newpath New pathname
+ * @retval  0 Success
+ * @retval -1 Error, see errno
  */
 int safe_symlink(const char *oldpath, const char *newpath)
 {
@@ -307,14 +315,12 @@ int safe_symlink(const char *oldpath, const char *newpath)
 
 /**
  * safe_rename - NFS-safe renaming of files
+ * @param src    Original filename
+ * @param target New filename
+ * @retval  0 Success
+ * @retval -1 Error, see errno
  *
  * Warning: We don't check whether src and target are equal.
- */
-/**
- * safe_rename - YYY
- * @param src    -- const char *
- * @param target -- const char *
- * @retval int 
  */
 int safe_rename(const char *src, const char *target)
 {
@@ -325,25 +331,19 @@ int safe_rename(const char *src, const char *target)
 
   if (link(src, target) != 0)
   {
-    /*
-     * Coda does not allow cross-directory links, but tells
+    /* Coda does not allow cross-directory links, but tells
      * us it's a cross-filesystem linking attempt.
      *
      * However, the Coda rename call is allegedly safe to use.
      *
      * With other file systems, rename should just fail when
      * the files reside on different file systems, so it's safe
-     * to try it here.
-     *
-     */
-
+     * to try it here. */
     mutt_debug(1, "safe_rename: link (%s, %s) failed: %s (%d)\n", src, target,
                strerror(errno), errno);
 
-    /*
-     * FUSE may return ENOSYS. VFAT may return EPERM. FreeBSD's
-     * msdosfs may return EOPNOTSUPP.  ENOTSUP can also appear.
-     */
+    /* FUSE may return ENOSYS. VFAT may return EPERM. FreeBSD's
+     * msdosfs may return EOPNOTSUPP.  ENOTSUP can also appear. */
     if (errno == EXDEV || errno == ENOSYS || errno == EPERM
 #ifdef ENOTSUP
         || errno == ENOTSUP
@@ -368,9 +368,7 @@ int safe_rename(const char *src, const char *target)
     return -1;
   }
 
-  /*
-   * Stat both links and check if they are equal.
-   */
+  /* Stat both links and check if they are equal. */
 
   if (lstat(src, &ssb) == -1)
   {
@@ -384,10 +382,7 @@ int safe_rename(const char *src, const char *target)
     return -1;
   }
 
-  /*
-   * pretend that the link failed because the target file
-   * did already exist.
-   */
+  /* pretend that the link failed because the target file did already exist. */
 
   if (!compare_stat(&ssb, &tsb))
   {
@@ -398,8 +393,7 @@ int safe_rename(const char *src, const char *target)
     return -1;
   }
 
-  /*
-   * Unlink the original link.  Should we really ignore the return
+  /* Unlink the original link.  Should we really ignore the return
    * value here? XXX
    */
 
@@ -413,12 +407,10 @@ int safe_rename(const char *src, const char *target)
 }
 
 /**
- * mutt_rmtree - remove a directory and everything under it
- */
-/**
- * mutt_rmtree - YYY
- * @param path -- const char *
- * @retval int 
+ * mutt_rmtree - Recursively remove a directory
+ * @param path Directory to delete
+ * @retval  0 Success
+ * @retval -1 Error, see errno
  */
 int mutt_rmtree(const char *path)
 {
@@ -460,10 +452,11 @@ int mutt_rmtree(const char *path)
 }
 
 /**
- * safe_open - YYY
- * @param path  -- const char *
- * @param flags -- int
- * @retval int 
+ * safe_open - Open a file
+ * @param path  Pathname to open
+ * @param flags Flags, e.g. #O_EXCL
+ * @retval >0 Success, file handle
+ * @retval -1 Error
  */
 int safe_open(const char *path, int flags)
 {
@@ -505,15 +498,13 @@ int safe_open(const char *path, int flags)
 
 /**
  * safe_fopen - Call fopen() safely
+ * @param path Filename
+ * @param mode Mode e.g. "r" readonly; "w" read-write
+ * @retval ptr  FILE handle
+ * @retval NULL Error, see errno
  *
- * when opening files for writing, make sure the file doesn't already exist to
+ * When opening files for writing, make sure the file doesn't already exist to
  * avoid race conditions.
- */
-/**
- * safe_fopen - YYY
- * @param path -- const char *
- * @param mode -- const char *
- * @retval FILE *
  */
 FILE *safe_fopen(const char *path, const char *mode)
 {
@@ -541,10 +532,9 @@ FILE *safe_fopen(const char *path, const char *mode)
 }
 
 /**
- * mutt_sanitize_filename - YYY
- * @param f     -- char *
- * @param slash -- short
- * @retval void 
+ * mutt_sanitize_filename - Replace unsafe characters in a filename
+ * @param f     Filename to make safe
+ * @param slash Replace '/' characters too
  */
 void mutt_sanitize_filename(char *f, short slash)
 {
@@ -559,11 +549,12 @@ void mutt_sanitize_filename(char *f, short slash)
 }
 
 /**
- * mutt_rx_sanitize_string - YYY
- * @param dest    -- char *
- * @param destlen -- size_t
- * @param src     -- const char *
- * @retval int 
+ * mutt_rx_sanitize_string - Escape any regex-magic characters in a string
+ * @param dest    Buffer for result
+ * @param destlen Length of buffer
+ * @param src     String to transform
+ * @retval  0 Success
+ * @retval -1 Error
  */
 int mutt_rx_sanitize_string(char *dest, size_t destlen, const char *src)
 {
@@ -587,20 +578,17 @@ int mutt_rx_sanitize_string(char *dest, size_t destlen, const char *src)
 
 /**
  * mutt_read_line - Read a line from a file
+ * @param[out] s     Buffer allocated on the head (optional)
+ * @param[in]  size  Length of buffer (optional)
+ * @param[in]  fp    File to read
+ * @param[out] line  Current line number
+ * @param[in]  flags Flags, e.g. #MUTT_CONT
+ * @retval ptr The allocated string
  *
  * Read a line from ``fp'' into the dynamically allocated ``s'', increasing
  * ``s'' if necessary. The ending "\n" or "\r\n" is removed.  If a line ends
  * with "\", this char and the linefeed is removed, and the next line is read
  * too.
- */
-/**
- * mutt_read_line - YYY
- * @param s     -- char *
- * @param size  -- size_t *
- * @param fp    -- FILE *
- * @param line  -- int *
- * @param flags -- int
- * @retval char *
  */
 char *mutt_read_line(char *s, size_t *size, FILE *fp, int *line, int flags)
 {
@@ -662,15 +650,12 @@ char *mutt_read_line(char *s, size_t *size, FILE *fp, int *line, int flags)
 
 /**
  * mutt_quote_filename - Quote a filename to survive the shell's quoting rules
+ * @param d Buffer for the result
+ * @param l Length of buffer
+ * @param f String to convert
+ * @retval num Number of bytes written to the buffer
  *
  * From the Unix programming FAQ by way of Liviu.
- */
-/**
- * mutt_quote_filename - YYY
- * @param d -- char *
- * @param l -- size_t
- * @param f -- const char *
- * @retval size_t 
  */
 size_t mutt_quote_filename(char *d, size_t l, const char *f)
 {
@@ -720,16 +705,6 @@ size_t mutt_quote_filename(char *d, size_t l, const char *f)
  * Write the concatenated pathname (dir + "/" + fname) into dst.
  * The slash is omitted when dir or fname is of 0 length.
  */
-/**
- * mutt_concatn_path - YYY
- * @param dst      -- char *
- * @param dstlen   -- size_t
- * @param dir      -- const char *
- * @param dirlen   -- size_t
- * @param fname    -- const char *
- * @param fnamelen -- size_t
- * @retval char *
- */
 char *mutt_concatn_path(char *dst, size_t dstlen, const char *dir,
                         size_t dirlen, const char *fname, size_t fnamelen)
 {
@@ -772,12 +747,15 @@ char *mutt_concatn_path(char *dst, size_t dstlen, const char *dir,
 }
 
 /**
- * mutt_concat_path - YYY
- * @param d     -- char *
- * @param dir   -- const char *
- * @param fname -- const char *
- * @param l     -- size_t
- * @retval char *
+ * mutt_concat_path - Join a directory name and a filename
+ * @param d     Buffer for the result
+ * @param dir   Directory name
+ * @param fname File name
+ * @param l     Length of buffer
+ * @retval ptr Destination buffer
+ *
+ * If both dir and fname are supplied, they are separated with '/'.
+ * If either is missing, then the other will be copied exactly.
  */
 char *mutt_concat_path(char *d, const char *dir, const char *fname, size_t l)
 {
@@ -791,9 +769,9 @@ char *mutt_concat_path(char *d, const char *dir, const char *fname, size_t l)
 }
 
 /**
- * mutt_basename - YYY
- * @param f -- const char *
- * @retval const char *
+ * mutt_basename - Find the last component for a pathname
+ * @param f String to be examined
+ * @retval ptr Part of pathname after last '/' character
  */
 const char *mutt_basename(const char *f)
 {
@@ -816,12 +794,6 @@ const char *mutt_basename(const char *f)
  * @note The permissions are only set on the final directory.
  *       The permissions of any parent directories are determined by the umask.
  *       (This is how "mkdir -p" behaves)
- */
-/**
- * mutt_mkdir - YYY
- * @param path -- const char *
- * @param mode -- mode_t
- * @retval int 
  */
 int mutt_mkdir(const char *path, mode_t mode)
 {

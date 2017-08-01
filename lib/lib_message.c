@@ -25,14 +25,14 @@
 #include <stdarg.h>
 #include <errno.h>
 #include <string.h>
-#include "lib_debug.h"
 #include "lib_memory.h"
 
 /**
- * default_error - YYY
- * @param format -- const char *
- * @param ...    -- vararg
- * @retval void 
+ * default_error - Display an error message
+ * @param format printf-like formatting string
+ * @param ...    Arguments to format
+ *
+ * This stub function writes to stderr.
  */
 static void default_error(const char *format, ...)
 {
@@ -47,9 +47,10 @@ void (*mutt_error)(const char *, ...) = default_error;
 
 /**
  * default_message - YYY
- * @param format -- const char *
- * @param ...    -- vararg
- * @retval void 
+ * @param format printf-like formatting string
+ * @param ...    Arguments to format
+ *
+ * This stub function writes to stdout.
  */
 static void default_message(const char *format, ...)
 {
@@ -63,15 +64,15 @@ static void default_message(const char *format, ...)
 void (*mutt_message)(const char *, ...) = default_message;
 
 /**
- * default_perror - YYY
- * @param message -- const char *
- * @retval void 
+ * default_perror - Lookup a standard error message (using errno)
+ * @param message Prefix message to display
+ *
+ * This stub function writes to stderr.
  */
 static void default_perror(const char *message)
 {
   char *p = strerror(errno);
 
-  mutt_debug(1, "%s: %s (errno = %d)\n", message, p ? p : "unknown error", errno);
   mutt_error("%s: %s (errno = %d)", message, p ? p : _("unknown error"), errno);
 }
 

@@ -31,10 +31,12 @@
 #include "lib_ascii.h"
 
 /**
- * ascii_strcasecmp - YYY
- * @param a -- const char *
- * @param b -- const char *
- * @retval int 
+ * ascii_strcasecmp - Compare strings, ignoring the case
+ * @param a First string to compare
+ * @param b Second string to compare
+ * @retval -1 a precedes b
+ * @retval  0 a and b are identical
+ * @retval  1 b precedes a
  */
 int ascii_strcasecmp(const char *a, const char *b)
 {
@@ -51,9 +53,8 @@ int ascii_strcasecmp(const char *a, const char *b)
   {
     if ((i = tolower(*a) - tolower(*b)))
       return i;
-    /* test for NUL here rather that in the for loop in order to detect unequal
-     * length strings (see http://dev.mutt.org/trac/ticket/3601)
-     */
+    /* test for NUL here rather than in the for loop in order to detect unequal
+     * length strings */
     if (!*a)
       break;
   }
@@ -62,11 +63,13 @@ int ascii_strcasecmp(const char *a, const char *b)
 }
 
 /**
- * ascii_strncasecmp - YYY
- * @param a -- const char *
- * @param b -- const char *
- * @param n -- int
- * @retval int 
+ * ascii_strncasecmp - Compare strings, ignoring the case
+ * @param a First string to compare
+ * @param b Second string to compare
+ * @param n Maximum number of characters to compare
+ * @retval -1 a precedes b
+ * @retval  0 a and b are identical
+ * @retval  1 b precedes a
  */
 int ascii_strncasecmp(const char *a, const char *b, int n)
 {
@@ -89,9 +92,11 @@ int ascii_strncasecmp(const char *a, const char *b, int n)
 }
 
 /**
- * ascii_strlower - YYY
- * @param s -- char *
- * @retval char *
+ * ascii_strlower - Lowercase a string
+ * @param s String to transform
+ * @retval Transformed string
+ *
+ * The string is transformed in place.
  */
 char *ascii_strlower(char *s)
 {

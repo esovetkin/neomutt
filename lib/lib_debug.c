@@ -24,11 +24,13 @@
 #include <stdarg.h>
 
 /**
- * mutt_debug - YYY
- * @param level -- int
- * @param fmt   -- const char *
- * @param ...   -- vararg
- * @retval void 
+ * mutt_debug - Output some debugging information
+ * @param level Debug level (IGNORED)
+ * @param fmt   printf-like formatting string
+ * @param ...   Arguments to be formatted
+ *
+ * This stub function ignores the logging level and outputs all information to
+ * stderr.
  */
 void mutt_debug(int level, const char *fmt, ...)
 {

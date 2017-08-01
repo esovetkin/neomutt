@@ -26,15 +26,12 @@
 
 /**
  * compute_tz - Calculate the number of seconds east of UTC
+ * @param g   Local time
+ * @param utc UTC time
+ * @retval Number of seconds east of UTC
  *
- * returns the seconds east of UTC given 'g' and its corresponding gmtime()
+  * returns the seconds east of UTC given 'g' and its corresponding gmtime()
  * representation
- */
-/**
- * compute_tz - YYY
- * @param g   -- time_t
- * @param utc -- struct tm *
- * @retval time_t 
  */
 static time_t compute_tz(time_t g, struct tm *utc)
 {
@@ -59,14 +56,11 @@ static time_t compute_tz(time_t g, struct tm *utc)
 
 /**
  * mutt_local_tz - Calculate the local timezone in seconds east of UTC
+ * @param t time_t
+ * @retval time_t
  *
  * Returns the local timezone in seconds east of UTC for the time t,
  * or for the current time if t is zero.
- */
-/**
- * mutt_local_tz - YYY
- * @param t -- time_t
- * @retval time_t 
  */
 time_t mutt_local_tz(time_t t)
 {
@@ -89,15 +83,12 @@ time_t mutt_local_tz(time_t t)
 
 /**
  * mutt_mktime - Convert `struct tm` to `time_t`
+ * @param t     struct tm *
+ * @param local int
+ * @retval time_t
  *
- * converts struct tm to time_t, but does not take the local timezone into
+ * Convert a struct tm to time_t, but do'nt take the local timezone into
  * account unless ``local'' is nonzero
- */
-/**
- * mutt_mktime - YYY
- * @param t     -- struct tm *
- * @param local -- int
- * @retval time_t 
  */
 time_t mutt_mktime(struct tm *t, int local)
 {
@@ -145,14 +136,9 @@ time_t mutt_mktime(struct tm *t, int local)
 }
 
 /**
- * is_leap_year_feb - Is it a leap year
+ * is_leap_year_feb - Is a given February in a leap year
  * @param tm Date to be tested
  * @retval true if it's a leap year
- */
-/**
- * is_leap_year_feb - YYY
- * @param tm -- struct tm *
- * @retval int 
  */
 static int is_leap_year_feb(struct tm *tm)
 {
@@ -165,9 +151,13 @@ static int is_leap_year_feb(struct tm *tm)
 }
 
 /**
- * mutt_normalize_time - YYY
- * @param tm -- struct tm *
- * @retval void 
+ * mutt_normalize_time - Fix the contents of a struct tm
+ * @param tm Time to correct
+ *
+ * If values have been added/subtracted from a struct tm, it can lead to
+ * invalid dates, e.g.  Adding 10 days to the 25th of a month.
+ *
+ * This function will correct any over/under-flow.
  */
 void mutt_normalize_time(struct tm *tm)
 {

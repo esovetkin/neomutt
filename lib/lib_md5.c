@@ -3,6 +3,7 @@
  * Calculate the MD5 checksum of a buffer
  *
  * @authors
+ * Copyright (C) 1995 Ulrich Drepper <drepper@gnu.ai.mit.edu>
  * Copyright (C) 1995,1996,1997,1999,2000,2001,2005,2006,2008 Free Software Foundation, Inc.
  *
  * @copyright
@@ -18,15 +19,11 @@
  *
  * You should have received a copy of the GNU General Public License along with
  * this program.  If not, see <http://www.gnu.org/licenses/>.
- *
- * md5.c - Functions to compute MD5 message digest of files or memory blocks
- * according to the definition of MD5 in RFC1321 from April 1992.
- *
- * NOTE: The canonical source of this file is maintained with the GNU C
- * Library.  Bugs can be reported to bug-glibc@prep.ai.mit.edu.
  */
 
-/* Written by Ulrich Drepper <drepper@gnu.ai.mit.edu>, 1995.  */
+/* md5.c - Functions to compute MD5 message digest of files or memory blocks
+ * according to the definition of MD5 in RFC1321 from April 1992.
+ */
 
 #include "config.h"
 #include <stdbool.h>
@@ -50,13 +47,9 @@ static const unsigned char fillbuf[64] = { 0x80, 0 /* , 0, 0, ...  */ };
 
 /**
  * md5_init_ctx - Initialise the MD5 computation
+ * @param ctx MD5 context
  *
  * (RFC1321, 3.3: Step 3)
- */
-/**
- * md5_init_ctx - YYY
- * @param ctx -- struct Md5Ctx *
- * @retval void 
  */
 void md5_init_ctx(struct Md5Ctx *ctx)
 {
@@ -71,6 +64,8 @@ void md5_init_ctx(struct Md5Ctx *ctx)
 
 /**
  * set_uint32 - Write a 32 bit number
+ * @param cp Destination for data
+ * @param v  Value to write
  *
  * Copy the 4 byte value from v into the memory location pointed to by *cp, If
  * your architecture allows unaligned access this is equivalent to
@@ -83,18 +78,12 @@ static inline void set_uint32(char *cp, md5_uint32 v)
 
 /**
  * md5_read_ctx - Read from the context into a buffer
+ * @param ctx    MD5 context
+ * @param resbuf Buffer for result
+ * @retval ptr Results buffer
  *
  * Put result from CTX in first 16 bytes following RESBUF.
  * The result must be in little endian byte order.
- */
-/* Put result from CTX in first 16 bytes following RESBUF.  The result is
- * always in little endian byte order, so that a byte-wise output yields
- * to the wanted ASCII representation of the message digest.  */
-/**
- * md5_read_ctx - YYY
- * @param ctx    -- const struct Md5Ctx *
- * @param resbuf -- void *
- * @retval void *
  */
 void *md5_read_ctx(const struct Md5Ctx *ctx, void *resbuf)
 {
@@ -109,19 +98,12 @@ void *md5_read_ctx(const struct Md5Ctx *ctx, void *resbuf)
 
 /**
  * md5_finish_ctx - Process the remaining bytes in the buffer
+ * @param ctx    MD5 context
+ * @param resbuf Buffer for result
+ * @retval ptr Results buffer
  *
  * Process the remaining bytes in the internal buffer and the usual prologue
  * according to the standard and write the result to RESBUF.
- */
-/* Process the remaining bytes in the buffer and put result from CTX
- * in first 16 bytes following RESBUF.  The result is always in little
- * endian byte order, so that a byte-wise output yields to the wanted
- * ASCII representation of the message digest.  */
-/**
- * md5_finish_ctx - YYY
- * @param ctx    -- struct Md5Ctx *
- * @param resbuf -- void *
- * @retval void *
  */
 void *md5_finish_ctx(struct Md5Ctx *ctx, void *resbuf)
 {
@@ -148,18 +130,13 @@ void *md5_finish_ctx(struct Md5Ctx *ctx, void *resbuf)
 
 /**
  * md5_stream - Compute MD5 message digest for bytes read from a file
+ * @param stream   File to read
+ * @param resblock Buffer for result
+ * @retval 0 Success
+ * @retval 1 Error
  *
  * The resulting message digest number will be written into the 16 bytes
  * beginning at RESBLOCK.
- */
-/* Compute MD5 message digest for bytes read from STREAM.  The
- * resulting message digest number will be written into the 16 bytes
- * beginning at RESBLOCK.  */
-/**
- * md5_stream - YYY
- * @param stream   -- FILE *
- * @param resblock -- void *
- * @retval int 
  */
 int md5_stream(FILE *stream, void *resblock)
 {
@@ -223,21 +200,14 @@ process_partial_block:
 
 /**
  * md5_buffer - Calculate the MD5 hash of a buffer
+ * @param buffer   Buffer to hash
+ * @param len      Length of buffer
+ * @param resblock Buffer for result
+ * @retval ptr Results buffer
  *
  * Compute MD5 message digest for LEN bytes beginning at Buffer.  The result is
  * always in little endian byte order, so that a byte-wise output yields to the
  * wanted ASCII representation of the message digest.
- */
-/* Compute MD5 message digest for LEN bytes beginning at Buffer.  The
- * result is always in little endian byte order, so that a byte-wise
- * output yields to the wanted ASCII representation of the message
- * digest.  */
-/**
- * md5_buffer - YYY
- * @param buffer   -- const char *
- * @param len      -- size_t
- * @param resblock -- void *
- * @retval void *
  */
 void *md5_buffer(const char *buffer, size_t len, void *resblock)
 {
@@ -254,16 +224,15 @@ void *md5_buffer(const char *buffer, size_t len, void *resblock)
 }
 
 
-/* Starting with the result of former calls of this function (or the
- * initialization function update the context for the next LEN bytes
- * starting at Buffer.
- * It is NOT required that LEN is a multiple of 64.  */
 /**
  * md5_process_bytes - YYY
- * @param buffer -- const void *
- * @param len    -- size_t
- * @param ctx    -- struct Md5Ctx *
- * @retval void 
+ * @param buffer Buffer to process
+ * @param len    Length of buffer
+ * @param ctx    MD5 context
+ *
+ * Starting with the result of former calls of this function (or the
+ * initialization function update the context for the next LEN bytes starting
+ * at Buffer.  It is NOT required that LEN is a multiple of 64.
  */
 void md5_process_bytes(const void *buffer, size_t len, struct Md5Ctx *ctx)
 {
@@ -341,21 +310,12 @@ void md5_process_bytes(const void *buffer, size_t len, struct Md5Ctx *ctx)
 
 /**
  * md5_process_block - Process a block with MD5
+ * @param buffer Buffer to hash
+ * @param len    Length of buffer
+ * @param ctx    MD5 context
  *
  * Process LEN bytes of Buffer, accumulating context into CTX.
- * It is assumed that LEN % 64 == 0.
- */
-/* Starting with the result of former calls of this function (or the
- * initialization function update the context for the next LEN bytes
- * starting at Buffer.
- * It is necessary that LEN is a multiple of 64!!! */
-
-/**
- * md5_process_block - YYY
- * @param buffer -- const void *
- * @param len    -- size_t
- * @param ctx    -- struct Md5Ctx *
- * @retval void 
+ * LEN must be a multiple of 64.
  */
 void md5_process_block(const void *buffer, size_t len, struct Md5Ctx *ctx)
 {
@@ -375,7 +335,7 @@ void md5_process_block(const void *buffer, size_t len, struct Md5Ctx *ctx)
   if (ctx->total[0] < len)
     ++ctx->total[1];
 
-  /* Process all bytes in the buffer with 64 bytes in each round of the loop.  */
+  /* Process all bytes in the buffer with 64 bytes in each round of the loop. */
   while (words < endp)
   {
     md5_uint32 *cwp = correct_words;

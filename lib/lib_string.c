@@ -30,9 +30,10 @@
 #include "lib_memory.h"
 
 /**
- * safe_strdup - YYY
- * @param s -- const char *
- * @retval char *
+ * safe_strdup - Copy a string, safely
+ * @param s String to copy
+ * @retval ptr  Copy of the string
+ * @retval NULL if s was NULL
  */
 char *safe_strdup(const char *s)
 {
@@ -48,11 +49,11 @@ char *safe_strdup(const char *s)
 }
 
 /**
- * safe_strcat - YYY
- * @param d -- char *
- * @param l -- size_t
- * @param s -- const char *
- * @retval char *
+ * safe_strcat - Concatenate two strings
+ * @param d Buffer containing source string
+ * @param l Length of buffer
+ * @param s String to add
+ * @retval ptr Start of joined string
  */
 char *safe_strcat(char *d, size_t l, const char *s)
 {
@@ -74,12 +75,14 @@ char *safe_strcat(char *d, size_t l, const char *s)
 }
 
 /**
- * safe_strncat - YYY
- * @param d  -- char *
- * @param l  -- size_t
- * @param s  -- const char *
- * @param sl -- size_t
- * @retval char *
+ * safe_strncat - Concatenate two strings
+ * @param d  Buffer containing source string
+ * @param l  Length of buffer
+ * @param s  String to add
+ * @param sl Maximum amount of string to add
+ * @retval ptr Start of joined string
+ *
+ * Add a string to a maximum of @a sl bytes.
  */
 char *safe_strncat(char *d, size_t l, const char *s, size_t sl)
 {
@@ -101,10 +104,14 @@ char *safe_strncat(char *d, size_t l, const char *s, size_t sl)
 }
 
 /**
- * mutt_str_replace - YYY
- * @param p -- char **
- * @param s -- const char *
- * @retval void 
+ * mutt_str_replace - Replace one string with another
+ * @param p String to replace
+ * @param s New string
+ *
+ * This function free()s the original string, strdup()s the new string and
+ * overwrites the pointer to the first string.
+ *
+ * This function alters the pointer of the caller.
  */
 void mutt_str_replace(char **p, const char *s)
 {
@@ -113,9 +120,13 @@ void mutt_str_replace(char **p, const char *s)
 }
 
 /**
- * mutt_str_adjust - YYY
- * @param p -- char **
- * @retval void 
+ * mutt_str_adjust - Shrink-to-fit a string
+ * @param p String to alter
+ *
+ * Take a string which is allocated on the heap, find its length and reallocate
+ * the memory to be exactly the right size.
+ *
+ * This function alters the pointer of the caller.
  */
 void mutt_str_adjust(char **p)
 {
@@ -126,11 +137,10 @@ void mutt_str_adjust(char **p)
 
 /**
  * mutt_strlower - convert all characters in the string to lowercase
- */
-/**
- * mutt_strlower - YYY
- * @param s -- char *
- * @retval char *
+ * @param s String to lowercase
+ * @retval ptr Lowercase string
+ *
+ * The string is transformed in place.
  */
 char *mutt_strlower(char *s)
 {
@@ -146,22 +156,17 @@ char *mutt_strlower(char *s)
 }
 
 /**
- * mutt_strchrnul - find first occurrence of character in string
+ * mutt_strchrnul - Find first occurrence of character in string
  * @param s Haystack
  * @param c Needle
- * @retval ptr First occurrence if found or to the NULL character
+ * @retval ptr Success, first occurrence of the character
+ * @retval ptr Failure, pointer to the terminating NUL character
  *
  * This function is like GNU's strchrnul, which is similar to the standard
  * strchr function: it looks for the c character in the NULL-terminated string
  * s and returns a pointer to its location. If c is not in s, instead of
  * returning NULL like its standard counterpart, this function returns a
- * pointer to the terminating NULL character.
- */
-/**
- * mutt_strchrnul - YYY
- * @param s -- const char *
- * @param c -- char
- * @retval const char *
+ * pointer to the terminating NUL character.
  */
 const char *mutt_strchrnul(const char *s, char c)
 {
@@ -171,12 +176,12 @@ const char *mutt_strchrnul(const char *s, char c)
 }
 
 /**
- * mutt_substrcpy - YYY
- * @param dest    -- char *
- * @param beg     -- const char *
- * @param end     -- const char *
- * @param destlen -- size_t
- * @retval char *
+ * mutt_substrcpy - Copy a sub-string into a buffer
+ * @param dest    Buffer for the result
+ * @param beg     Start of the string to copy
+ * @param end     End of the string to copy
+ * @param destlen Length of buffer
+ * @retval ptr Destination buffer
  */
 char *mutt_substrcpy(char *dest, const char *beg, const char *end, size_t destlen)
 {
@@ -191,10 +196,14 @@ char *mutt_substrcpy(char *dest, const char *beg, const char *end, size_t destle
 }
 
 /**
- * mutt_substrdup - YYY
- * @param begin -- const char *
- * @param end   -- const char *
- * @retval char *
+ * mutt_substrdup - Duplicate a sub-string
+ * @param beg     Start of the string to copy
+ * @param end     End of the string to copy
+ * @retval ptr New string
+ *
+ * If end is NULL, then the rest of the string from beg will be copied.
+ *
+ * The caller must free the returned string.
  */
 char *mutt_substrdup(const char *begin, const char *end)
 {
@@ -213,10 +222,12 @@ char *mutt_substrdup(const char *begin, const char *end)
 }
 
 /**
- * mutt_strcmp - YYY
- * @param a -- const char *
- * @param b -- const char *
- * @retval int 
+ * mutt_strcmp - Compare two strings, safely
+ * @param a First string to compare
+ * @param b Second string to compare
+ * @retval -1 a precedes b
+ * @retval  0 a and b are identical
+ * @retval  1 b precedes a
  */
 int mutt_strcmp(const char *a, const char *b)
 {
@@ -224,10 +235,12 @@ int mutt_strcmp(const char *a, const char *b)
 }
 
 /**
- * mutt_strcasecmp - YYY
- * @param a -- const char *
- * @param b -- const char *
- * @retval int 
+ * mutt_strcasecmp - Compare two strings ignoring case, safely
+ * @param a First string to compare
+ * @param b Second string to compare
+ * @retval -1 a precedes b
+ * @retval  0 a and b are identical
+ * @retval  1 b precedes a
  */
 int mutt_strcasecmp(const char *a, const char *b)
 {
@@ -235,11 +248,13 @@ int mutt_strcasecmp(const char *a, const char *b)
 }
 
 /**
- * mutt_strncmp - YYY
- * @param a -- const char *
- * @param b -- const char *
- * @param l -- size_t
- * @retval int 
+ * mutt_strncmp - Compare two strings (to a maximum), safely
+ * @param a First string to compare
+ * @param b Second string to compare
+ * @param l Maximum number of bytes to compare
+ * @retval -1 a precedes b
+ * @retval  0 a and b are identical
+ * @retval  1 b precedes a
  */
 int mutt_strncmp(const char *a, const char *b, size_t l)
 {
@@ -247,11 +262,13 @@ int mutt_strncmp(const char *a, const char *b, size_t l)
 }
 
 /**
- * mutt_strncasecmp - YYY
- * @param a -- const char *
- * @param b -- const char *
- * @param l -- size_t
- * @retval int 
+ * mutt_strncasecmp - Compare two strings ignoring case (to a maximum), safely
+ * @param a First string to compare
+ * @param b Second string to compare
+ * @param l Maximum number of bytes to compare
+ * @retval -1 a precedes b
+ * @retval  0 a and b are identical
+ * @retval  1 b precedes a
  */
 int mutt_strncasecmp(const char *a, const char *b, size_t l)
 {
@@ -259,9 +276,9 @@ int mutt_strncasecmp(const char *a, const char *b, size_t l)
 }
 
 /**
- * mutt_strlen - YYY
- * @param a -- const char *
- * @retval size_t 
+ * mutt_strlen - Calculate the length of a string, safely
+ * @param a String to measure
+ * @retval num Length in bytes
  */
 size_t mutt_strlen(const char *a)
 {
@@ -269,10 +286,12 @@ size_t mutt_strlen(const char *a)
 }
 
 /**
- * mutt_strcoll - YYY
- * @param a -- const char *
- * @param b -- const char *
- * @retval int 
+ * mutt_strcoll - Collate two strings (compare using locale), safely
+ * @param a First string to compare
+ * @param b Second string to compare
+ * @retval -1 a precedes b
+ * @retval  0 a and b are identical
+ * @retval  1 b precedes a
  */
 int mutt_strcoll(const char *a, const char *b)
 {
@@ -280,10 +299,11 @@ int mutt_strcoll(const char *a, const char *b)
 }
 
 /**
- * mutt_stristr - YYY
- * @param haystack -- const char *
- * @param needle   -- const char *
- * @retval const char *
+ * mutt_stristr - Find first occurrence of string (ignoring case)
+ * @param haystack String to search through
+ * @param needle   String to find
+ * @retval ptr  First match of the search string
+ * @retval NULL No match, or an error
  */
 const char *mutt_stristr(const char *haystack, const char *needle)
 {
@@ -307,9 +327,10 @@ const char *mutt_stristr(const char *haystack, const char *needle)
 }
 
 /**
- * mutt_skip_whitespace - YYY
- * @param p -- char *
- * @retval char *
+ * mutt_skip_whitespace - Find the first non-whitespace character in a string
+ * @param p String to search
+ * @retval ptr First non-whitespace character
+ * @retval ptr Terminating NUL character, if the string was entirely whitespace
  */
 char *mutt_skip_whitespace(char *p)
 {
@@ -318,9 +339,10 @@ char *mutt_skip_whitespace(char *p)
 }
 
 /**
- * mutt_remove_trailing_ws - YYY
- * @param s -- char *
- * @retval void 
+ * mutt_remove_trailing_ws - Trim trailing whitespace from a string
+ * @param s String to trim
+ *
+ * The string is modified in place.
  */
 void mutt_remove_trailing_ws(char *s)
 {
@@ -331,10 +353,14 @@ void mutt_remove_trailing_ws(char *s)
 }
 
 /**
- * mutt_atol - YYY
- * @param str -- const char *
- * @param dst -- long *
- * @retval int 
+ * mutt_atol - Convert ASCII string to a long
+ * @param[in]  str String to read
+ * @param[out] dst Store the result
+ * @retval  0 Success
+ * @retval -1 Error
+ *
+ * This is a strtol() wrapper with range checking.
+ * errno may be set on error, e.g. ERANGE
  */
 static int mutt_atol(const char *str, long *dst)
 {
@@ -355,17 +381,18 @@ static int mutt_atol(const char *str, long *dst)
   return 0;
 }
 
-/* strtol() wrappers with range checking; they return
- *       0 success
- *      -1 format error
- *      -2 overflow (for int and short)
- * the int pointer may be NULL to test only without conversion
- */
 /**
- * mutt_atos - YYY
- * @param str -- const char *
- * @param dst -- short *
- * @retval int 
+ * mutt_atos - Convert ASCII string to a short
+ * @param[in]  str String to read
+ * @param[out] dst Store the result
+ * @retval  0 Success
+ * @retval -1 Error
+ * @retval -2 Error, overflow
+ *
+ * This is a strtol() wrapper with range checking.
+ * If @a dst is NULL, the string will be tested only (without conversion).
+ *
+ * errno may be set on error, e.g. ERANGE
  */
 int mutt_atos(const char *str, short *dst)
 {
@@ -385,17 +412,17 @@ int mutt_atos(const char *str, short *dst)
   return 0;
 }
 
-/* strtol() wrappers with range checking; they return
- *       0 success
- *      -1 format error
- *      -2 overflow (for int and short)
- * the int pointer may be NULL to test only without conversion
- */
 /**
- * mutt_atoi - YYY
- * @param str -- const char *
- * @param dst -- int *
- * @retval int 
+ * mutt_atoi - Convert ASCII string to an integer
+ * @param[in]  str String to read
+ * @param[out] dst Store the result
+ * @retval  0 Success
+ * @retval -1 Error
+ * @retval -2 Error, overflow
+ *
+ * This is a strtol() wrapper with range checking.
+ * If @a dst is NULL, the string will be tested only (without conversion).
+ * errno may be set on error, e.g. ERANGE
  */
 int mutt_atoi(const char *str, int *dst)
 {
@@ -416,11 +443,11 @@ int mutt_atoi(const char *str, int *dst)
 }
 
 /**
- * strfcpy - YYY
- * @param dest -- char *
- * @param src  -- const char *
- * @param dlen -- size_t
- * @retval char *
+ * strfcpy - Copy a string into a buffer (guaranteeing NUL-termination)
+ * @param dest Buffer for the result
+ * @param src  String to copy
+ * @param dlen Length of buffer
+ * @retval ptr Destination buffer
  */
 char *strfcpy(char *dest, const char *src, size_t dlen)
 {
@@ -434,13 +461,11 @@ char *strfcpy(char *dest, const char *src, size_t dlen)
 
 /**
  * skip_email_wsp - Skip over whitespace as defined by RFC5322
+ * @param s String to search
+ * @retval ptr First non-whitespace character
+ * @retval ptr Terminating NUL character, if the string was entirely whitespace
  *
  * This is used primarily for parsing header fields.
- */
-/**
- * skip_email_wsp - YYY
- * @param s -- const char *
- * @retval char *
  */
 char *skip_email_wsp(const char *s)
 {
@@ -450,9 +475,9 @@ char *skip_email_wsp(const char *s)
 }
 
 /**
- * is_email_wsp - YYY
- * @param c -- char
- * @retval int 
+ * is_email_wsp - Is this a whitespace character (for an email header)
+ * @param c Character to test
+ * @retval boolean
  */
 int is_email_wsp(char c)
 {

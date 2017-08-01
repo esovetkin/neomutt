@@ -66,14 +66,6 @@ const int Index_64[128] = {
  * null-byte is returned (equivalent to calling strlen() on the output buffer
  * after this function returns).
  */
-/**
- * base64_encode - YYY
- * @param out  -- char *
- * @param cin  -- const char *
- * @param len  -- size_t
- * @param olen -- size_t
- * @retval size_t 
- */
 size_t base64_encode(char *out, const char *cin, size_t len, size_t olen)
 {
   unsigned char *begin = (unsigned char *) out;
@@ -116,12 +108,6 @@ size_t base64_encode(char *out, const char *cin, size_t len, size_t olen)
  * This function performs base64 decoding. The resulting buffer is NOT
  * null-terminated. If the input buffer contains invalid base64 characters,
  * this function returns -1.
- */
-/**
- * base64_decode - YYY
- * @param out -- char *
- * @param in  -- const char *
- * @retval int 
  */
 int base64_decode(char *out, const char *in)
 {

@@ -27,10 +27,15 @@
 #include "lib_message.h"
 
 /**
- * safe_calloc - YYY
- * @param nmemb -- size_t
- * @param size  -- size_t
- * @retval void *
+ * safe_calloc - Allocate zeroed memory on the heap
+ * @param nmemb Number of blocks
+ * @param size  Size of blocks
+ * @retval ptr Memory on the heap
+ *
+ * @note This function will never return NULL.
+ *       It will print and error and exit the program.
+ *
+ * The caller should call safe_free() to release the memory
  */
 void *safe_calloc(size_t nmemb, size_t size)
 {
@@ -56,9 +61,8 @@ void *safe_calloc(size_t nmemb, size_t size)
 }
 
 /**
- * safe_free - YYY
- * @param ptr -- void *
- * @retval void 
+ * safe_free - Release memory allocated on the heap
+ * @param ptr Memory to release
  */
 void safe_free(void *ptr)
 {
@@ -73,9 +77,14 @@ void safe_free(void *ptr)
 }
 
 /**
- * safe_malloc - YYY
- * @param siz -- size_t
- * @retval void *
+ * safe_malloc - Allocate memory on the heap
+ * @param siz Size of block to allocate
+ * @retval ptr Memory on the heap
+ *
+ * @note This function will never return NULL.
+ *       It will print and error and exit the program.
+ *
+ * The caller should call safe_free() to release the memory
  */
 void *safe_malloc(size_t siz)
 {
@@ -93,10 +102,14 @@ void *safe_malloc(size_t siz)
 }
 
 /**
- * safe_realloc - YYY
- * @param ptr -- void *
- * @param siz -- size_t
- * @retval void 
+ * safe_realloc - Resize a block of memory on the heap
+ * @param ptr Memory block to resize
+ * @param siz New size
+ *
+ * @note This function will never return NULL.
+ *       It will print and error and exit the program.
+ *
+ * If the new size is zero, the block will be freed.
  */
 void safe_realloc(void *ptr, size_t siz)
 {

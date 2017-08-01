@@ -36,7 +36,7 @@
 #define ISSPACE(c) isspace((unsigned char) c)
 #define EMAIL_WSP " \t\r\n"
 
-/* this macro must check for *c == 0 since isspace(0) has unreliable behavior
+/* this macro must check for (*c == 0) since isspace(0) has unreliable behavior
    on some systems */
 #define SKIPWS(c)                                                              \
   while (*(c) && isspace((unsigned char) *(c)))                                \

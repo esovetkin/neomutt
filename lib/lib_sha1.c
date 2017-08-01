@@ -58,14 +58,10 @@
 
 /**
  * sha1_transform - Hash a single 512-bit block
+ * @param state  Internal state of the transform
+ * @param buffer Data to transform
  *
  * This is the core of the algorithm.
- */
-/**
- * sha1_transform - YYY
- * @param state  -- uint32_t[5]
- * @param buffer -- const unsigned char[64]
- * @retval void 
  */
 void sha1_transform(uint32_t state[5], const unsigned char buffer[64])
 {
@@ -177,11 +173,7 @@ void sha1_transform(uint32_t state[5], const unsigned char buffer[64])
 
 /**
  * sha1_init - Initialize new context
- */
-/**
- * sha1_init - YYY
- * @param context -- struct Sha1Ctx *
- * @retval void 
+ * @param context SHA1 context
  */
 void sha1_init(struct Sha1Ctx *context)
 {
@@ -197,13 +189,9 @@ void sha1_init(struct Sha1Ctx *context)
 
 /**
  * sha1_update - Run your data through this
- */
-/**
- * sha1_update - YYY
- * @param context -- struct Sha1Ctx *
- * @param data    -- const unsigned char *
- * @param len     -- uint32_t
- * @retval void 
+ * @param context SHA1 context
+ * @param data    Data to be hashed
+ * @param len     Length of data
  */
 void sha1_update(struct Sha1Ctx *context, const unsigned char *data, uint32_t len)
 {
@@ -233,12 +221,8 @@ void sha1_update(struct Sha1Ctx *context, const unsigned char *data, uint32_t le
 
 /**
  * sha1_final - Add padding and return the message digest
- */
-/**
- * sha1_final - YYY
- * @param digest  -- unsigned char[20]
- * @param context -- struct Sha1Ctx *
- * @retval void 
+ * @param[out] digest  Message digest (SHA1 sum)
+ * @param[in]  context SHA1 context
  */
 void sha1_final(unsigned char digest[20], struct Sha1Ctx *context)
 {

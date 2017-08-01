@@ -1,7 +1,7 @@
 /**
  * @file
  * Leave the program NOW
- * 
+ *
  * @authors
  * Copyright (C) 2017 Richard Russon <rich@flatcap.org>
  *
@@ -23,9 +23,11 @@
 #include <unistd.h>
 
 /**
- * mutt_exit - YYY
- * @param code -- int
- * @retval void 
+ * mutt_exit - Leave NeoMutt NOW
+ * @param code Value to return to the calling environment
+ *
+ * Some library routines want to exit immediately on error.
+ * By having this in the library, mutt_exit() can be overridden.
  */
 void mutt_exit(int code)
 {

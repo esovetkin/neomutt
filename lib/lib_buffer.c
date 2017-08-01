@@ -27,12 +27,10 @@
 #include "lib_string.h"
 
 /**
- * mutt_buffer_new - creates and initializes a Buffer
- */
-/**
- * mutt_buffer_new - YYY
- * @param void
- * @retval struct Buffer *
+ * mutt_buffer_new - Create and initialise a Buffer
+ * @retval New Buffer
+ *
+ * Call mutt_buffer_free() to release the Buffer.
  */
 struct Buffer *mutt_buffer_new(void)
 {
@@ -46,12 +44,11 @@ struct Buffer *mutt_buffer_new(void)
 }
 
 /**
- * mutt_buffer_init - initialize a new Buffer
- */
-/**
- * mutt_buffer_init - YYY
- * @param b -- struct Buffer *
- * @retval struct Buffer *
+ * mutt_buffer_init - Initialise a new Buffer
+ * @param b Buffer to initialise
+ * @retval Initialised Buffer
+ *
+ * This must not be called on a Buffer that already contains data.
  */
 struct Buffer *mutt_buffer_init(struct Buffer *b)
 {
@@ -60,19 +57,9 @@ struct Buffer *mutt_buffer_init(struct Buffer *b)
 }
 
 /**
- * mutt_buffer_from - Create Buffer from an existing Buffer
- *
- * Creates and initializes a Buffer*. If passed an existing Buffer*,
- * just initializes. Frees anything already in the buffer. Copies in
- * the seed string.
- *
- * Disregards the 'destroy' flag, which seems reserved for caller.
- * This is bad, but there's no apparent protocol for it.
- */
-/**
- * mutt_buffer_from - YYY
- * @param seed -- char *
- * @retval struct Buffer *
+ * mutt_buffer_from - Create Buffer from an existing string
+ * @param seed String to put in the Buffer
+ * @retval New Buffer
  */
 struct Buffer *mutt_buffer_from(char *seed)
 {
@@ -89,9 +76,8 @@ struct Buffer *mutt_buffer_from(char *seed)
 }
 
 /**
- * mutt_buffer_free - YYY
- * @param p -- struct Buffer **
- * @retval void 
+ * mutt_buffer_free - Release a Buffer and its contents
+ * @param p Buffer pointer to free and NULL
  */
 void mutt_buffer_free(struct Buffer **p)
 {
@@ -104,11 +90,11 @@ void mutt_buffer_free(struct Buffer **p)
 }
 
 /**
- * mutt_buffer_printf - YYY
- * @param buf -- struct Buffer *
- * @param fmt -- const char *
- * @param ... -- vararg
- * @retval int 
+ * mutt_buffer_printf - Format a string into a Buffer
+ * @param buf Buffer
+ * @param fmt printf-style format string
+ * @param ... Arguments to be formatted
+ * @retval Number of characters written
  */
 int mutt_buffer_printf(struct Buffer *buf, const char *fmt, ...)
 {
@@ -152,17 +138,13 @@ int mutt_buffer_printf(struct Buffer *buf, const char *fmt, ...)
 
 /**
  * mutt_buffer_add - Add a string to a Buffer, expanding it if necessary
+ * @param buf Buffer to add to
+ * @param s   String to add
+ * @param len Length of the string
  *
- * dynamically grows a Buffer to accommodate s, in increments of 128 bytes.
+ * Dynamically grow a Buffer to accommodate s, in increments of 128 bytes.
  * Always one byte bigger than necessary for the null terminator, and the
- * buffer is always null-terminated
- */
-/**
- * mutt_buffer_add - YYY
- * @param buf -- struct Buffer *
- * @param s   -- const char *
- * @param len -- size_t
- * @retval void 
+ * buffer is always NUL-terminated
  */
 static void mutt_buffer_add(struct Buffer *buf, const char *s, size_t len)
 {
@@ -184,10 +166,11 @@ static void mutt_buffer_add(struct Buffer *buf, const char *s, size_t len)
 }
 
 /**
- * mutt_buffer_addstr - YYY
- * @param buf -- struct Buffer *
- * @param s   -- const char *
- * @retval void 
+ * mutt_buffer_addstr - Add a string to a Buffer
+ * @param buf Buffer to add to
+ * @param s   String to add
+ *
+ * If necessary, the Buffer will be expanded.
  */
 void mutt_buffer_addstr(struct Buffer *buf, const char *s)
 {
@@ -195,10 +178,12 @@ void mutt_buffer_addstr(struct Buffer *buf, const char *s)
 }
 
 /**
- * mutt_buffer_addch - YYY
- * @param buf -- struct Buffer *
- * @param c   -- char
- * @retval void 
+ * mutt_buffer_addch - Add a single character to a Buffer
+ * mutt_buffer_addstr - 
+ * @param buf Buffer to add to
+ * @param c   Character to add
+ *
+ * If necessary, the Buffer will be expanded.
  */
 void mutt_buffer_addch(struct Buffer *buf, char c)
 {
