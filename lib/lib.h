@@ -2,6 +2,7 @@
 #define _LIB_LIB_H
 
 // Convenience wrapper for all the headers
+#include "lib_base64.h"
 #include "lib_buffer.h"
 #include "lib_file.h"
 #include "lib_md5.h"
