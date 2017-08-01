@@ -18,8 +18,8 @@
  * this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef _MUTT_BUFFER_H
-#define _MUTT_BUFFER_H
+#ifndef _LIB_BUFFER_H
+#define _LIB_BUFFER_H
 
 #include <stddef.h>
 
@@ -42,4 +42,4 @@ int mutt_buffer_printf(struct Buffer *buf, const char *fmt, ...);
 void mutt_buffer_addstr(struct Buffer *buf, const char *s);
 void mutt_buffer_addch(struct Buffer *buf, char c);
 
-#endif /* _MUTT_BUFFER_H */
+#endif /* _LIB_BUFFER_H */

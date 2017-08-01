@@ -18,8 +18,8 @@
  * this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef _MUTT_BASE64_H
-#define _MUTT_BASE64_H
+#ifndef _LIB_BASE64_H
+#define _LIB_BASE64_H
 
 #include <stdio.h>
 
@@ -29,4 +29,4 @@ extern const int Index_64[];
 size_t mutt_to_base64(char *out, const char *cin, size_t len, size_t olen);
 int mutt_from_base64(char *out, const char *in);
 
-#endif /* _MUTT_BASE64_H */
+#endif /* _LIB_BASE64_H */

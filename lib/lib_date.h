@@ -20,8 +20,8 @@
  * this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef _MUTT_DATE_H
-#define _MUTT_DATE_H
+#ifndef _LIB_DATE_H
+#define _LIB_DATE_H
 
 #include <time.h>
 
@@ -29,4 +29,4 @@ time_t mutt_local_tz(time_t t);
 time_t mutt_mktime(struct tm *t, int local);
 void mutt_normalize_time(struct tm *tm);
 
-#endif /* _MUTT_DATE_H */
+#endif /* _LIB_DATE_H */

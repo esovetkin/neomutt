@@ -25,8 +25,8 @@
  * locale-insensitive.
  */
 
-#ifndef _MUTT_ASCII_H
-#define _MUTT_ASCII_H
+#ifndef _LIB_ASCII_H
+#define _LIB_ASCII_H
 
 #include <ctype.h>
 
@@ -48,4 +48,4 @@ static inline char *ascii_strlower(char *s)
   return s;
 }
 
-#endif /* _MUTT_ASCII_H */
+#endif /* _LIB_ASCII_H */

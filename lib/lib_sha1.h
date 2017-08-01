@@ -8,8 +8,8 @@
  * fit into mutt by Thomas Roessler <roessler@does-not-exist.org>.
  */
 
-#ifndef _MUTT_SHA1_H
-#define _MUTT_SHA1_H
+#ifndef _LIB_SHA1_H
+#define _LIB_SHA1_H
 
 #include <stdint.h>
 
@@ -30,4 +30,4 @@ void sha1_final(unsigned char digest[20], struct Sha1Ctx *context);
 
 #define SHA_DIGEST_LENGTH 20
 
-#endif /* _MUTT_SHA1_H */
+#endif /* _LIB_SHA1_H */
