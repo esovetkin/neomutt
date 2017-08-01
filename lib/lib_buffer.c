@@ -19,17 +19,12 @@
  */
 
 #include "config.h"
-#include <ctype.h>
+#include "lib_buffer.h"
 #include <stdarg.h>
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
-#include <sys/types.h>
-#include "lib_buffer.h"
 #include "lib_memory.h"
 #include "lib_string.h"
-#include "filter.h"
-#include "myvar.h"
 
 /**
  * mutt_buffer_new - creates and initializes a Buffer

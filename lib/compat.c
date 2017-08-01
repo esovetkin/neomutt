@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdarg.h>
-#include <unistd.h>
 
 void default_error(const char *format, ...)
 {
