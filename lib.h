@@ -50,7 +50,6 @@
 
 int safe_asprintf(char **, const char *, ...);
 
-void mutt_nocurses_error(const char *, ...);
 int mutt_inbox_cmp(const char *a, const char *b);
 
 const char *mutt_strsysexit(int e);
