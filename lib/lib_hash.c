@@ -23,8 +23,9 @@
 #include "config.h"
 #include <ctype.h>
 #include <stdio.h>
-#include "hash.h"
-#include "lib/lib.h"
+#include "lib_hash.h"
+#include "lib_string.h"
+#include "lib_memory.h"
 
 #define SOMEPRIME 149711
 

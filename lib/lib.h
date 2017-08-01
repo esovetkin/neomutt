@@ -6,6 +6,7 @@
 #include "lib_base64.h"
 #include "lib_buffer.h"
 #include "lib_file.h"
+#include "lib_hash.h"
 #include "lib_md5.h"
 #include "lib_memory.h"
 #include "lib_sha1.h"

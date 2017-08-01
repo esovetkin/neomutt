@@ -34,7 +34,6 @@
 #include "context.h"
 #include "envelope.h"
 #include "globals.h"
-#include "hash.h"
 #include "header.h"
 #include "lib/lib.h"
 #include "list.h"
