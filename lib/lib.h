@@ -5,6 +5,7 @@
 #include "lib_ascii.h"
 #include "lib_base64.h"
 #include "lib_buffer.h"
+#include "lib_date.h"
 #include "lib_file.h"
 #include "lib_hash.h"
 #include "lib_md5.h"
