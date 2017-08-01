@@ -21,9 +21,20 @@
  */
 
 #include <stdio.h>
+#include <stdarg.h>
 
+/**
+ * mutt_debug - YYY
+ * @param level -- int
+ * @param fmt   -- const char *
+ * @param ...   -- vararg
+ * @retval void 
+ */
 void mutt_debug(int level, const char *fmt, ...)
 {
-  printf("mutt_debug\n");
+  va_list ap;
+  va_start(ap, fmt);
+  vfprintf(stderr, fmt, ap);
+  va_end(ap);
 }
 

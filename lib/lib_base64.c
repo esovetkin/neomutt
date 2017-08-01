@@ -3,6 +3,10 @@
  * Conversion to/from base64 encoding
  *
  * @authors
+ * Copyright (C) 1993,1995 Carl Harris
+ * Copyright (C) 1997 Eric S. Raymond
+ * Copyright (C) 1999 Brendan Cully <brendan@kublai.com>
+ *
  * @copyright
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -16,25 +20,6 @@
  *
  * You should have received a copy of the GNU General Public License along with
  * this program.  If not, see <http://www.gnu.org/licenses/>.
- */
-
-/*
- * Base64 handling elsewhere in mutt should be modified to call
- * these routines. These routines were written because IMAP's
- * AUTHENTICATE protocol required them, and base64 handling
- * elsewhere wasn't sufficiently generic.
- */
-
-/*
- * This code is heavily modified from fetchmail (also GPL'd, of
- * course) by Brendan Cully <brendan@kublai.com>.
- *
- * Original copyright notice:
- *
- * The code in the fetchmail distribution is Copyright 1997 by Eric
- * S. Raymond.  Portions are also copyrighted by Carl Harris, 1993
- * and 1995.  Copyright retained for the purpose of protecting free
- * redistribution of source.
  */
 
 #include "config.h"
@@ -69,7 +54,7 @@ const int Index_64[128] = {
 // clang-format on
 
 /**
- * mutt_to_base64 - convert raw bytes to null-terminated base64 string
+ * base64_encode - convert raw bytes to null-terminated base64 string
  * @param out  Output buffer for the base64 encoded string
  * @param cin  Input  buffer for the raw bytes
  * @param len  Length of the input buffer
@@ -81,7 +66,15 @@ const int Index_64[128] = {
  * null-byte is returned (equivalent to calling strlen() on the output buffer
  * after this function returns).
  */
-size_t mutt_to_base64(char *out, const char *cin, size_t len, size_t olen)
+/**
+ * base64_encode - YYY
+ * @param out  -- char *
+ * @param cin  -- const char *
+ * @param len  -- size_t
+ * @param olen -- size_t
+ * @retval size_t 
+ */
+size_t base64_encode(char *out, const char *cin, size_t len, size_t olen)
 {
   unsigned char *begin = (unsigned char *) out;
   const unsigned char *in = (const unsigned char *) cin;
@@ -114,7 +107,7 @@ size_t mutt_to_base64(char *out, const char *cin, size_t len, size_t olen)
 }
 
 /**
- * mutt_from_base64 - convert null-terminated base64 string to raw bytes
+ * base64_decode - convert null-terminated base64 string to raw bytes
  * @param out Output buffer for the raw bytes
  * @param in  Input  buffer for the null-terminated base64-encoded string
  * @retval n Number of bytes written on success
@@ -124,7 +117,13 @@ size_t mutt_to_base64(char *out, const char *cin, size_t len, size_t olen)
  * null-terminated. If the input buffer contains invalid base64 characters,
  * this function returns -1.
  */
-int mutt_from_base64(char *out, const char *in)
+/**
+ * base64_decode - YYY
+ * @param out -- char *
+ * @param in  -- const char *
+ * @retval int 
+ */
+int base64_decode(char *out, const char *in)
 {
   int len = 0;
   register unsigned char digit1, digit2, digit3, digit4;

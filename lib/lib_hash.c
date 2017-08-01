@@ -29,6 +29,12 @@
 
 #define SOMEPRIME 149711
 
+/**
+ * gen_string_hash - YYY
+ * @param key -- union HashKey
+ * @param n   -- unsigned int
+ * @retval unsigned int 
+ */
 static unsigned int gen_string_hash(union HashKey key, unsigned int n)
 {
   unsigned int h = 0;
@@ -41,11 +47,23 @@ static unsigned int gen_string_hash(union HashKey key, unsigned int n)
   return h;
 }
 
+/**
+ * cmp_string_key - YYY
+ * @param a -- union HashKey
+ * @param b -- union HashKey
+ * @retval int 
+ */
 static int cmp_string_key(union HashKey a, union HashKey b)
 {
   return mutt_strcmp(a.strkey, b.strkey);
 }
 
+/**
+ * gen_case_string_hash - YYY
+ * @param key -- union HashKey
+ * @param n   -- unsigned int
+ * @retval unsigned int 
+ */
 static unsigned int gen_case_string_hash(union HashKey key, unsigned int n)
 {
   unsigned int h = 0;
@@ -58,16 +76,34 @@ static unsigned int gen_case_string_hash(union HashKey key, unsigned int n)
   return h;
 }
 
+/**
+ * cmp_case_string_key - YYY
+ * @param a -- union HashKey
+ * @param b -- union HashKey
+ * @retval int 
+ */
 static int cmp_case_string_key(union HashKey a, union HashKey b)
 {
   return mutt_strcasecmp(a.strkey, b.strkey);
 }
 
+/**
+ * gen_int_hash - YYY
+ * @param key -- union HashKey
+ * @param n   -- unsigned int
+ * @retval unsigned int 
+ */
 static unsigned int gen_int_hash(union HashKey key, unsigned int n)
 {
   return key.intkey % n;
 }
 
+/**
+ * cmp_int_key - YYY
+ * @param a -- union HashKey
+ * @param b -- union HashKey
+ * @retval int 
+ */
 static int cmp_int_key(union HashKey a, union HashKey b)
 {
   if (a.intkey == b.intkey)
@@ -77,6 +113,11 @@ static int cmp_int_key(union HashKey a, union HashKey b)
   return 1;
 }
 
+/**
+ * new_hash - YYY
+ * @param nelem -- int
+ * @retval struct Hash *
+ */
 static struct Hash *new_hash(int nelem)
 {
   struct Hash *table = safe_calloc(1, sizeof(struct Hash));
@@ -87,6 +128,12 @@ static struct Hash *new_hash(int nelem)
   return table;
 }
 
+/**
+ * hash_create - YYY
+ * @param nelem -- int
+ * @param flags -- int
+ * @retval struct Hash *
+ */
 struct Hash *hash_create(int nelem, int flags)
 {
   struct Hash *table = new_hash(nelem);
@@ -107,6 +154,12 @@ struct Hash *hash_create(int nelem, int flags)
   return table;
 }
 
+/**
+ * int_hash_create - YYY
+ * @param nelem -- int
+ * @param flags -- int
+ * @retval struct Hash *
+ */
 struct Hash *int_hash_create(int nelem, int flags)
 {
   struct Hash *table = new_hash(nelem);
@@ -124,6 +177,13 @@ struct Hash *int_hash_create(int nelem, int flags)
  * @param data      Data to associate with `key'
  * @retval -1 on error
  * @retval >=0 on success, index into the hash table
+ */
+/**
+ * union_hash_insert - YYY
+ * @param table -- struct Hash *
+ * @param key   -- union HashKey
+ * @param data  -- void *
+ * @retval int 
  */
 static int union_hash_insert(struct Hash *table, union HashKey key, void *data)
 {
@@ -165,6 +225,13 @@ static int union_hash_insert(struct Hash *table, union HashKey key, void *data)
   return h;
 }
 
+/**
+ * hash_insert - YYY
+ * @param table  -- struct Hash *
+ * @param strkey -- const char *
+ * @param data   -- void *
+ * @retval int 
+ */
 int hash_insert(struct Hash *table, const char *strkey, void *data)
 {
   union HashKey key;
@@ -172,6 +239,13 @@ int hash_insert(struct Hash *table, const char *strkey, void *data)
   return union_hash_insert(table, key, data);
 }
 
+/**
+ * int_hash_insert - YYY
+ * @param table  -- struct Hash *
+ * @param intkey -- unsigned int
+ * @param data   -- void *
+ * @retval int 
+ */
 int int_hash_insert(struct Hash *table, unsigned int intkey, void *data)
 {
   union HashKey key;
@@ -179,6 +253,12 @@ int int_hash_insert(struct Hash *table, unsigned int intkey, void *data)
   return union_hash_insert(table, key, data);
 }
 
+/**
+ * union_hash_find_elem - YYY
+ * @param table -- const struct Hash *
+ * @param key   -- union HashKey
+ * @retval struct HashElem *
+ */
 static struct HashElem *union_hash_find_elem(const struct Hash *table, union HashKey key)
 {
   int hash;
@@ -197,6 +277,12 @@ static struct HashElem *union_hash_find_elem(const struct Hash *table, union Has
   return NULL;
 }
 
+/**
+ * union_hash_find - YYY
+ * @param table -- const struct Hash *
+ * @param key   -- union HashKey
+ * @retval void *
+ */
 static void *union_hash_find(const struct Hash *table, union HashKey key)
 {
   struct HashElem *ptr = union_hash_find_elem(table, key);
@@ -206,6 +292,12 @@ static void *union_hash_find(const struct Hash *table, union HashKey key)
     return NULL;
 }
 
+/**
+ * hash_find - YYY
+ * @param table  -- const struct Hash *
+ * @param strkey -- const char *
+ * @retval void *
+ */
 void *hash_find(const struct Hash *table, const char *strkey)
 {
   union HashKey key;
@@ -213,6 +305,12 @@ void *hash_find(const struct Hash *table, const char *strkey)
   return union_hash_find(table, key);
 }
 
+/**
+ * hash_find_elem - YYY
+ * @param table  -- const struct Hash *
+ * @param strkey -- const char *
+ * @retval struct HashElem *
+ */
 struct HashElem *hash_find_elem(const struct Hash *table, const char *strkey)
 {
   union HashKey key;
@@ -220,6 +318,12 @@ struct HashElem *hash_find_elem(const struct Hash *table, const char *strkey)
   return union_hash_find_elem(table, key);
 }
 
+/**
+ * int_hash_find - YYY
+ * @param table  -- const struct Hash *
+ * @param intkey -- unsigned int
+ * @retval void *
+ */
 void *int_hash_find(const struct Hash *table, unsigned int intkey)
 {
   union HashKey key;
@@ -227,6 +331,12 @@ void *int_hash_find(const struct Hash *table, unsigned int intkey)
   return union_hash_find(table, key);
 }
 
+/**
+ * hash_find_bucket - YYY
+ * @param table  -- const struct Hash *
+ * @param strkey -- const char *
+ * @retval struct HashElem *
+ */
 struct HashElem *hash_find_bucket(const struct Hash *table, const char *strkey)
 {
   union HashKey key;
@@ -240,6 +350,14 @@ struct HashElem *hash_find_bucket(const struct Hash *table, const char *strkey)
   return table->table[hash];
 }
 
+/**
+ * union_hash_delete - YYY
+ * @param table -- struct Hash *
+ * @param key   -- union HashKey
+ * @param data  -- const void *
+ * @param void (*destroy)(void * )
+ * @retval void 
+ */
 static void union_hash_delete(struct Hash *table, union HashKey key,
                               const void *data, void (*destroy)(void *))
 {
@@ -274,6 +392,14 @@ static void union_hash_delete(struct Hash *table, union HashKey key,
   }
 }
 
+/**
+ * hash_delete - YYY
+ * @param table  -- struct Hash *
+ * @param strkey -- const char *
+ * @param data   -- const void *
+ * @param void (*destroy)(void * )
+ * @retval void 
+ */
 void hash_delete(struct Hash *table, const char *strkey, const void *data,
                  void (*destroy)(void *))
 {
@@ -282,6 +408,14 @@ void hash_delete(struct Hash *table, const char *strkey, const void *data,
   union_hash_delete(table, key, data, destroy);
 }
 
+/**
+ * int_hash_delete - YYY
+ * @param table  -- struct Hash *
+ * @param intkey -- unsigned int
+ * @param data   -- const void *
+ * @param void (*destroy)(void * )
+ * @retval void 
+ */
 void int_hash_delete(struct Hash *table, unsigned int intkey, const void *data,
                      void (*destroy)(void *))
 {
@@ -294,6 +428,12 @@ void int_hash_delete(struct Hash *table, unsigned int intkey, const void *data,
  * hash_destroy - Destroy a hash table
  * @param ptr     Pointer to the hash table to be freed
  * @param destroy Function to call to free the ->data member (optional)
+ */
+/**
+ * hash_destroy - YYY
+ * @param ptr -- struct Hash **
+ * @param void (*destroy)(void * )
+ * @retval void 
  */
 void hash_destroy(struct Hash **ptr, void (*destroy)(void *))
 {
@@ -321,6 +461,12 @@ void hash_destroy(struct Hash **ptr, void (*destroy)(void *))
   FREE(ptr);
 }
 
+/**
+ * hash_walk - YYY
+ * @param table -- const struct Hash *
+ * @param state -- struct HashWalkState *
+ * @retval struct HashElem *
+ */
 struct HashElem *hash_walk(const struct Hash *table, struct HashWalkState *state)
 {
   if (state->last && state->last->next)

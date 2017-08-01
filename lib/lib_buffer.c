@@ -29,6 +29,11 @@
 /**
  * mutt_buffer_new - creates and initializes a Buffer
  */
+/**
+ * mutt_buffer_new - YYY
+ * @param void
+ * @retval struct Buffer *
+ */
 struct Buffer *mutt_buffer_new(void)
 {
   struct Buffer *b = NULL;
@@ -42,6 +47,11 @@ struct Buffer *mutt_buffer_new(void)
 
 /**
  * mutt_buffer_init - initialize a new Buffer
+ */
+/**
+ * mutt_buffer_init - YYY
+ * @param b -- struct Buffer *
+ * @retval struct Buffer *
  */
 struct Buffer *mutt_buffer_init(struct Buffer *b)
 {
@@ -59,6 +69,11 @@ struct Buffer *mutt_buffer_init(struct Buffer *b)
  * Disregards the 'destroy' flag, which seems reserved for caller.
  * This is bad, but there's no apparent protocol for it.
  */
+/**
+ * mutt_buffer_from - YYY
+ * @param seed -- char *
+ * @retval struct Buffer *
+ */
 struct Buffer *mutt_buffer_from(char *seed)
 {
   struct Buffer *b = NULL;
@@ -73,6 +88,11 @@ struct Buffer *mutt_buffer_from(char *seed)
   return b;
 }
 
+/**
+ * mutt_buffer_free - YYY
+ * @param p -- struct Buffer **
+ * @retval void 
+ */
 void mutt_buffer_free(struct Buffer **p)
 {
   if (!p || !*p)
@@ -83,6 +103,13 @@ void mutt_buffer_free(struct Buffer **p)
   FREE(p);
 }
 
+/**
+ * mutt_buffer_printf - YYY
+ * @param buf -- struct Buffer *
+ * @param fmt -- const char *
+ * @param ... -- vararg
+ * @retval int 
+ */
 int mutt_buffer_printf(struct Buffer *buf, const char *fmt, ...)
 {
   va_list ap, ap_retry;
@@ -130,6 +157,13 @@ int mutt_buffer_printf(struct Buffer *buf, const char *fmt, ...)
  * Always one byte bigger than necessary for the null terminator, and the
  * buffer is always null-terminated
  */
+/**
+ * mutt_buffer_add - YYY
+ * @param buf -- struct Buffer *
+ * @param s   -- const char *
+ * @param len -- size_t
+ * @retval void 
+ */
 static void mutt_buffer_add(struct Buffer *buf, const char *s, size_t len)
 {
   if (!buf || !s)
@@ -149,11 +183,23 @@ static void mutt_buffer_add(struct Buffer *buf, const char *s, size_t len)
   *(buf->dptr) = '\0';
 }
 
+/**
+ * mutt_buffer_addstr - YYY
+ * @param buf -- struct Buffer *
+ * @param s   -- const char *
+ * @retval void 
+ */
 void mutt_buffer_addstr(struct Buffer *buf, const char *s)
 {
   mutt_buffer_add(buf, s, mutt_strlen(s));
 }
 
+/**
+ * mutt_buffer_addch - YYY
+ * @param buf -- struct Buffer *
+ * @param c   -- char
+ * @retval void 
+ */
 void mutt_buffer_addch(struct Buffer *buf, char c)
 {
   mutt_buffer_add(buf, &c, 1);

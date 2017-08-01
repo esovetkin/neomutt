@@ -240,7 +240,7 @@ static int b64_init(struct B64Context *ctx)
 
 static void b64_flush(struct B64Context *ctx, FILE *fout)
 {
-  /* for some reasons, mutt_to_base64 expects the
+  /* for some reasons, base64_encode expects the
    * output buffer to be larger than 10B */
   char encoded[11];
   size_t ret;
@@ -257,7 +257,7 @@ static void b64_flush(struct B64Context *ctx, FILE *fout)
   /* ret should always be equal to 4 here, because ctx->size
    * is a value between 1 and 3 (included), but let's not hardcode it
    * and prefer the return value of the function */
-  ret = mutt_to_base64(encoded, ctx->buffer, ctx->size, sizeof(encoded));
+  ret = base64_encode(encoded, ctx->buffer, ctx->size, sizeof(encoded));
   for (size_t i = 0; i < ret; i++)
   {
     fputc(encoded[i], fout);
@@ -1481,7 +1481,7 @@ static bool check_boundary(const char *boundary, struct Body *b)
   if (b->next && check_boundary(boundary, b->next))
     return true;
 
-  if ((p = mutt_get_parameter("boundary", b->parameter)) && (ascii_strcmp(p, boundary) == 0))
+  if ((p = mutt_get_parameter("boundary", b->parameter)) && (mutt_strcmp(p, boundary) == 0))
     return true;
   return false;
 }

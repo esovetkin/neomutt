@@ -34,26 +34,25 @@
 
 /* Flags for mutt_read_line() */
 #define MUTT_CONT (1 << 0) /**< \-continuation */
-#define MUTT_EOL  (1 << 1) /**< don't strip `\n` / `\r\n` */
+#define MUTT_EOL  (1 << 1) /**< don't strip '\n' / '\r\n' */
 
-int safe_fclose(FILE **f);
-int safe_fsync_close(FILE **f);
-void mutt_unlink(const char *s);
-int mutt_copy_bytes(FILE *in, FILE *out, size_t size);
-int mutt_copy_stream(FILE *fin, FILE *fout);
-int safe_symlink(const char *oldpath, const char *newpath);
-int safe_rename(const char *src, const char *target);
-int mutt_rmtree(const char *path);
-int safe_open(const char *path, int flags);
-FILE *safe_fopen(const char *path, const char *mode);
-void mutt_sanitize_filename(char *f, short slash);
-int mutt_rx_sanitize_string(char *dest, size_t destlen, const char *src);
-char *mutt_read_line(char *s, size_t *size, FILE *fp, int *line, int flags);
-size_t mutt_quote_filename(char *d, size_t l, const char *f);
-char *mutt_concatn_path(char *dst, size_t dstlen, const char *dir,
-                        size_t dirlen, const char *fname, size_t fnamelen);
-char *mutt_concat_path(char *d, const char *dir, const char *fname, size_t l);
-const char *mutt_basename(const char *f);
-int mutt_mkdir(const char *path, mode_t mode);
+const char *mutt_basename(const char *f);                                                                                           
+char *      mutt_concatn_path(char *dst, size_t dstlen, const char *dir, size_t dirlen, const char *fname, size_t fnamelen);        
+char *      mutt_concat_path(char *d, const char *dir, const char *fname, size_t l);                                                
+int         mutt_copy_bytes(FILE *in, FILE *out, size_t size);                                                                      
+int         mutt_copy_stream(FILE *fin, FILE *fout);                                                                                
+int         mutt_mkdir(const char *path, mode_t mode);                                                                              
+size_t      mutt_quote_filename(char *d, size_t l, const char *f);                                                                  
+char *      mutt_read_line(char *s, size_t *size, FILE *fp, int *line, int flags);                                                  
+int         mutt_rmtree(const char *path);                                                                                          
+int         mutt_rx_sanitize_string(char *dest, size_t destlen, const char *src);                                                   
+void        mutt_sanitize_filename(char *f, short slash);                                                                           
+void        mutt_unlink(const char *s);                                                                                             
+int         safe_fclose(FILE **f);                                                                                                  
+FILE *      safe_fopen(const char *path, const char *mode);                                                                         
+int         safe_fsync_close(FILE **f);                                                                                             
+int         safe_open(const char *path, int flags);                                                                                 
+int         safe_rename(const char *src, const char *target);                                                                       
+int         safe_symlink(const char *oldpath, const char *newpath);                                                                 
 
 #endif /* _LIB_FILE_H */

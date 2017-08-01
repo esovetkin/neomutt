@@ -611,18 +611,18 @@ static void cmd_parse_status(struct ImapData *idata, char *s)
     value = imap_next_word(s);
     count = strtol(value, &value, 10);
 
-    if (ascii_strncmp("MESSAGES", s, 8) == 0)
+    if (mutt_strncmp("MESSAGES", s, 8) == 0)
     {
       status->messages = count;
       new_msg_count = 1;
     }
-    else if (ascii_strncmp("RECENT", s, 6) == 0)
+    else if (mutt_strncmp("RECENT", s, 6) == 0)
       status->recent = count;
-    else if (ascii_strncmp("UIDNEXT", s, 7) == 0)
+    else if (mutt_strncmp("UIDNEXT", s, 7) == 0)
       status->uidnext = count;
-    else if (ascii_strncmp("UIDVALIDITY", s, 11) == 0)
+    else if (mutt_strncmp("UIDVALIDITY", s, 11) == 0)
       status->uidvalidity = count;
-    else if (ascii_strncmp("UNSEEN", s, 6) == 0)
+    else if (mutt_strncmp("UNSEEN", s, 6) == 0)
       status->unseen = count;
 
     s = value;
@@ -902,8 +902,8 @@ int imap_cmd_step(struct ImapData *idata)
   idata->lastread = time(NULL);
 
   /* handle untagged messages. The caller still gets its shot afterwards. */
-  if (((ascii_strncmp(idata->buf, "* ", 2) == 0) ||
-       (ascii_strncmp(imap_next_word(idata->buf), "OK [", 4) == 0)) &&
+  if (((mutt_strncmp(idata->buf, "* ", 2) == 0) ||
+       (mutt_strncmp(imap_next_word(idata->buf), "OK [", 4) == 0)) &&
       cmd_handle_untagged(idata))
     return IMAP_CMD_BAD;
 
@@ -919,7 +919,7 @@ int imap_cmd_step(struct ImapData *idata)
     cmd = &idata->cmds[c];
     if (cmd->state == IMAP_CMD_NEW)
     {
-      if (ascii_strncmp(idata->buf, cmd->seq, SEQLEN) == 0)
+      if (mutt_strncmp(idata->buf, cmd->seq, SEQLEN) == 0)
       {
         if (!stillrunning)
         {

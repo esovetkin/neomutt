@@ -20,16 +20,22 @@
  * this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
 /*
  * Versions of the string comparison functions which are
  * locale-insensitive.
  */
 
 #include "config.h"
+#include <ctype.h>
 #include <stdio.h>
 #include "lib_ascii.h"
 
+/**
+ * ascii_strcasecmp - YYY
+ * @param a -- const char *
+ * @param b -- const char *
+ * @retval int 
+ */
 int ascii_strcasecmp(const char *a, const char *b)
 {
   int i;
@@ -55,6 +61,13 @@ int ascii_strcasecmp(const char *a, const char *b)
   return 0;
 }
 
+/**
+ * ascii_strncasecmp - YYY
+ * @param a -- const char *
+ * @param b -- const char *
+ * @param n -- int
+ * @retval int 
+ */
 int ascii_strncasecmp(const char *a, const char *b, int n)
 {
   int i;
@@ -74,3 +87,21 @@ int ascii_strncasecmp(const char *a, const char *b, int n)
 
   return 0;
 }
+
+/**
+ * ascii_strlower - YYY
+ * @param s -- char *
+ * @retval char *
+ */
+char *ascii_strlower(char *s)
+{
+  char *p = s;
+
+  for (; *p; ++p)
+  {
+    *p = tolower(*p);
+  }
+
+  return s;
+}
+

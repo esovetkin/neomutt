@@ -26,6 +26,12 @@
 #include "lib_memory.h"
 #include "lib_message.h"
 
+/**
+ * safe_calloc - YYY
+ * @param nmemb -- size_t
+ * @param size  -- size_t
+ * @retval void *
+ */
 void *safe_calloc(size_t nmemb, size_t size)
 {
   void *p = NULL;
@@ -49,6 +55,11 @@ void *safe_calloc(size_t nmemb, size_t size)
   return p;
 }
 
+/**
+ * safe_free - YYY
+ * @param ptr -- void *
+ * @retval void 
+ */
 void safe_free(void *ptr)
 {
   if (!ptr)
@@ -61,6 +72,11 @@ void safe_free(void *ptr)
   }
 }
 
+/**
+ * safe_malloc - YYY
+ * @param siz -- size_t
+ * @retval void *
+ */
 void *safe_malloc(size_t siz)
 {
   void *p = NULL;
@@ -76,6 +92,12 @@ void *safe_malloc(size_t siz)
   return p;
 }
 
+/**
+ * safe_realloc - YYY
+ * @param ptr -- void *
+ * @param siz -- size_t
+ * @retval void 
+ */
 void safe_realloc(void *ptr, size_t siz)
 {
   void *r = NULL;

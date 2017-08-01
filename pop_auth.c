@@ -32,6 +32,7 @@
 #include "pop.h"
 #include "protos.h"
 #include "rfc822.h"
+#include "mutt.h"
 #ifdef USE_SASL
 #include <sasl/sasl.h>
 #include <sasl/saslutil.h>

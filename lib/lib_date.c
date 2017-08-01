@@ -27,8 +27,14 @@
 /**
  * compute_tz - Calculate the number of seconds east of UTC
  *
- * returns the seconds east of UTC given `g' and its corresponding gmtime()
+ * returns the seconds east of UTC given 'g' and its corresponding gmtime()
  * representation
+ */
+/**
+ * compute_tz - YYY
+ * @param g   -- time_t
+ * @param utc -- struct tm *
+ * @retval time_t 
  */
 static time_t compute_tz(time_t g, struct tm *utc)
 {
@@ -57,6 +63,11 @@ static time_t compute_tz(time_t g, struct tm *utc)
  * Returns the local timezone in seconds east of UTC for the time t,
  * or for the current time if t is zero.
  */
+/**
+ * mutt_local_tz - YYY
+ * @param t -- time_t
+ * @retval time_t 
+ */
 time_t mutt_local_tz(time_t t)
 {
   struct tm *ptm = NULL;
@@ -81,6 +92,12 @@ time_t mutt_local_tz(time_t t)
  *
  * converts struct tm to time_t, but does not take the local timezone into
  * account unless ``local'' is nonzero
+ */
+/**
+ * mutt_mktime - YYY
+ * @param t     -- struct tm *
+ * @param local -- int
+ * @retval time_t 
  */
 time_t mutt_mktime(struct tm *t, int local)
 {
@@ -132,6 +149,11 @@ time_t mutt_mktime(struct tm *t, int local)
  * @param tm Date to be tested
  * @retval true if it's a leap year
  */
+/**
+ * is_leap_year_feb - YYY
+ * @param tm -- struct tm *
+ * @retval int 
+ */
 static int is_leap_year_feb(struct tm *tm)
 {
   if (tm->tm_mon == 1)
@@ -142,6 +164,11 @@ static int is_leap_year_feb(struct tm *tm)
   return 0;
 }
 
+/**
+ * mutt_normalize_time - YYY
+ * @param tm -- struct tm *
+ * @retval void 
+ */
 void mutt_normalize_time(struct tm *tm)
 {
   static const char DaysPerMonth[12] = {

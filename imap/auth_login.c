@@ -32,6 +32,7 @@
 #include "mutt_socket.h"
 #include "options.h"
 #include "protos.h"
+#include "mutt.h"
 
 /**
  * imap_auth_login - Plain LOGIN support

@@ -29,6 +29,11 @@
 #include "lib_string.h"
 #include "lib_memory.h"
 
+/**
+ * safe_strdup - YYY
+ * @param s -- const char *
+ * @retval char *
+ */
 char *safe_strdup(const char *s)
 {
   char *p = NULL;
@@ -42,6 +47,13 @@ char *safe_strdup(const char *s)
   return p;
 }
 
+/**
+ * safe_strcat - YYY
+ * @param d -- char *
+ * @param l -- size_t
+ * @param s -- const char *
+ * @retval char *
+ */
 char *safe_strcat(char *d, size_t l, const char *s)
 {
   char *p = d;
@@ -61,6 +73,14 @@ char *safe_strcat(char *d, size_t l, const char *s)
   return p;
 }
 
+/**
+ * safe_strncat - YYY
+ * @param d  -- char *
+ * @param l  -- size_t
+ * @param s  -- const char *
+ * @param sl -- size_t
+ * @retval char *
+ */
 char *safe_strncat(char *d, size_t l, const char *s, size_t sl)
 {
   char *p = d;
@@ -80,12 +100,23 @@ char *safe_strncat(char *d, size_t l, const char *s, size_t sl)
   return p;
 }
 
+/**
+ * mutt_str_replace - YYY
+ * @param p -- char **
+ * @param s -- const char *
+ * @retval void 
+ */
 void mutt_str_replace(char **p, const char *s)
 {
   FREE(p);
   *p = safe_strdup(s);
 }
 
+/**
+ * mutt_str_adjust - YYY
+ * @param p -- char **
+ * @retval void 
+ */
 void mutt_str_adjust(char **p)
 {
   if (!p || !*p)
@@ -95,6 +126,11 @@ void mutt_str_adjust(char **p)
 
 /**
  * mutt_strlower - convert all characters in the string to lowercase
+ */
+/**
+ * mutt_strlower - YYY
+ * @param s -- char *
+ * @retval char *
  */
 char *mutt_strlower(char *s)
 {
@@ -121,6 +157,12 @@ char *mutt_strlower(char *s)
  * returning NULL like its standard counterpart, this function returns a
  * pointer to the terminating NULL character.
  */
+/**
+ * mutt_strchrnul - YYY
+ * @param s -- const char *
+ * @param c -- char
+ * @retval const char *
+ */
 const char *mutt_strchrnul(const char *s, char c)
 {
   for (; *s && (*s != c); s++)
@@ -128,6 +170,14 @@ const char *mutt_strchrnul(const char *s, char c)
   return s;
 }
 
+/**
+ * mutt_substrcpy - YYY
+ * @param dest    -- char *
+ * @param beg     -- const char *
+ * @param end     -- const char *
+ * @param destlen -- size_t
+ * @retval char *
+ */
 char *mutt_substrcpy(char *dest, const char *beg, const char *end, size_t destlen)
 {
   size_t len;
@@ -140,6 +190,12 @@ char *mutt_substrcpy(char *dest, const char *beg, const char *end, size_t destle
   return dest;
 }
 
+/**
+ * mutt_substrdup - YYY
+ * @param begin -- const char *
+ * @param end   -- const char *
+ * @retval char *
+ */
 char *mutt_substrdup(const char *begin, const char *end)
 {
   size_t len;
@@ -156,36 +212,79 @@ char *mutt_substrdup(const char *begin, const char *end)
   return p;
 }
 
+/**
+ * mutt_strcmp - YYY
+ * @param a -- const char *
+ * @param b -- const char *
+ * @retval int 
+ */
 int mutt_strcmp(const char *a, const char *b)
 {
   return strcmp(NONULL(a), NONULL(b));
 }
 
+/**
+ * mutt_strcasecmp - YYY
+ * @param a -- const char *
+ * @param b -- const char *
+ * @retval int 
+ */
 int mutt_strcasecmp(const char *a, const char *b)
 {
   return strcasecmp(NONULL(a), NONULL(b));
 }
 
+/**
+ * mutt_strncmp - YYY
+ * @param a -- const char *
+ * @param b -- const char *
+ * @param l -- size_t
+ * @retval int 
+ */
 int mutt_strncmp(const char *a, const char *b, size_t l)
 {
   return strncmp(NONULL(a), NONULL(b), l);
 }
 
+/**
+ * mutt_strncasecmp - YYY
+ * @param a -- const char *
+ * @param b -- const char *
+ * @param l -- size_t
+ * @retval int 
+ */
 int mutt_strncasecmp(const char *a, const char *b, size_t l)
 {
   return strncasecmp(NONULL(a), NONULL(b), l);
 }
 
+/**
+ * mutt_strlen - YYY
+ * @param a -- const char *
+ * @retval size_t 
+ */
 size_t mutt_strlen(const char *a)
 {
   return a ? strlen(a) : 0;
 }
 
+/**
+ * mutt_strcoll - YYY
+ * @param a -- const char *
+ * @param b -- const char *
+ * @retval int 
+ */
 int mutt_strcoll(const char *a, const char *b)
 {
   return strcoll(NONULL(a), NONULL(b));
 }
 
+/**
+ * mutt_stristr - YYY
+ * @param haystack -- const char *
+ * @param needle   -- const char *
+ * @retval const char *
+ */
 const char *mutt_stristr(const char *haystack, const char *needle)
 {
   const char *p = NULL, *q = NULL;
@@ -207,12 +306,22 @@ const char *mutt_stristr(const char *haystack, const char *needle)
   return NULL;
 }
 
+/**
+ * mutt_skip_whitespace - YYY
+ * @param p -- char *
+ * @retval char *
+ */
 char *mutt_skip_whitespace(char *p)
 {
   SKIPWS(p);
   return p;
 }
 
+/**
+ * mutt_remove_trailing_ws - YYY
+ * @param s -- char *
+ * @retval void 
+ */
 void mutt_remove_trailing_ws(char *s)
 {
   char *p = NULL;
@@ -221,6 +330,12 @@ void mutt_remove_trailing_ws(char *s)
     *p = 0;
 }
 
+/**
+ * mutt_atol - YYY
+ * @param str -- const char *
+ * @param dst -- long *
+ * @retval int 
+ */
 static int mutt_atol(const char *str, long *dst)
 {
   long r;
@@ -240,6 +355,18 @@ static int mutt_atol(const char *str, long *dst)
   return 0;
 }
 
+/* strtol() wrappers with range checking; they return
+ *       0 success
+ *      -1 format error
+ *      -2 overflow (for int and short)
+ * the int pointer may be NULL to test only without conversion
+ */
+/**
+ * mutt_atos - YYY
+ * @param str -- const char *
+ * @param dst -- short *
+ * @retval int 
+ */
 int mutt_atos(const char *str, short *dst)
 {
   int rc;
@@ -258,6 +385,18 @@ int mutt_atos(const char *str, short *dst)
   return 0;
 }
 
+/* strtol() wrappers with range checking; they return
+ *       0 success
+ *      -1 format error
+ *      -2 overflow (for int and short)
+ * the int pointer may be NULL to test only without conversion
+ */
+/**
+ * mutt_atoi - YYY
+ * @param str -- const char *
+ * @param dst -- int *
+ * @retval int 
+ */
 int mutt_atoi(const char *str, int *dst)
 {
   int rc;
@@ -276,6 +415,13 @@ int mutt_atoi(const char *str, int *dst)
   return 0;
 }
 
+/**
+ * strfcpy - YYY
+ * @param dest -- char *
+ * @param src  -- const char *
+ * @param dlen -- size_t
+ * @retval char *
+ */
 char *strfcpy(char *dest, const char *src, size_t dlen)
 {
   char *dest0 = dest;
@@ -286,3 +432,29 @@ char *strfcpy(char *dest, const char *src, size_t dlen)
   return dest0;
 }
 
+/**
+ * skip_email_wsp - Skip over whitespace as defined by RFC5322
+ *
+ * This is used primarily for parsing header fields.
+ */
+/**
+ * skip_email_wsp - YYY
+ * @param s -- const char *
+ * @retval char *
+ */
+char *skip_email_wsp(const char *s)
+{
+  if (s)
+    return (char *) (s + strspn(s, EMAIL_WSP));
+  return (char *) s;
+}
+
+/**
+ * is_email_wsp - YYY
+ * @param c -- char
+ * @retval int 
+ */
+int is_email_wsp(char c)
+{
+  return c && (strchr(EMAIL_WSP, c) != NULL);
+}

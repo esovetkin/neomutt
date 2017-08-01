@@ -41,6 +41,12 @@ static const char rx_special_chars[] = "^.[$()|*+?{\\";
 
 static const char safe_chars[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+@{}._-:%/";
 
+/**
+ * compare_stat - YYY
+ * @param osb -- struct stat *
+ * @param nsb -- struct stat *
+ * @retval bool 
+ */
 static bool compare_stat(struct stat *osb, struct stat *nsb)
 {
   if (osb->st_dev != nsb->st_dev || osb->st_ino != nsb->st_ino || osb->st_rdev != nsb->st_rdev)
@@ -53,6 +59,15 @@ static bool compare_stat(struct stat *osb, struct stat *nsb)
 
 /**
  * mkwrapdir - Create a temporary directory next to a file name
+ */
+/**
+ * mkwrapdir - YYY
+ * @param path    -- const char *
+ * @param newfile -- char *
+ * @param nflen   -- size_t
+ * @param newdir  -- char *
+ * @param ndlen   -- size_t
+ * @retval int 
  */
 static int mkwrapdir(const char *path, char *newfile, size_t nflen, char *newdir, size_t ndlen)
 {
@@ -89,6 +104,13 @@ static int mkwrapdir(const char *path, char *newfile, size_t nflen, char *newdir
   return 0;
 }
 
+/**
+ * put_file_in_place - YYY
+ * @param path      -- const char *
+ * @param safe_file -- const char *
+ * @param safe_dir  -- const char *
+ * @retval int 
+ */
 static int put_file_in_place(const char *path, const char *safe_file, const char *safe_dir)
 {
   int rv;
@@ -99,6 +121,11 @@ static int put_file_in_place(const char *path, const char *safe_file, const char
   return rv;
 }
 
+/**
+ * safe_fclose - YYY
+ * @param f -- FILE **
+ * @retval int 
+ */
 int safe_fclose(FILE **f)
 {
   int r = 0;
@@ -111,6 +138,11 @@ int safe_fclose(FILE **f)
 }
 
 
+/**
+ * safe_fsync_close - YYY
+ * @param f -- FILE **
+ * @retval int 
+ */
 int safe_fsync_close(FILE **f)
 {
   int r = 0;
@@ -131,6 +163,11 @@ int safe_fsync_close(FILE **f)
   return r;
 }
 
+/**
+ * mutt_unlink - YYY
+ * @param s -- const char *
+ * @retval void 
+ */
 void mutt_unlink(const char *s)
 {
   int fd;
@@ -173,6 +210,13 @@ void mutt_unlink(const char *s)
   }
 }
 
+/**
+ * mutt_copy_bytes - YYY
+ * @param in   -- FILE *
+ * @param out  -- FILE *
+ * @param size -- size_t
+ * @retval int 
+ */
 int mutt_copy_bytes(FILE *in, FILE *out, size_t size)
 {
   char buf[2048];
@@ -195,6 +239,12 @@ int mutt_copy_bytes(FILE *in, FILE *out, size_t size)
   return 0;
 }
 
+/**
+ * mutt_copy_stream - YYY
+ * @param fin  -- FILE *
+ * @param fout -- FILE *
+ * @retval int 
+ */
 int mutt_copy_stream(FILE *fin, FILE *fout)
 {
   size_t l;
@@ -211,6 +261,12 @@ int mutt_copy_stream(FILE *fin, FILE *fout)
   return 0;
 }
 
+/**
+ * safe_symlink - YYY
+ * @param oldpath -- const char *
+ * @param newpath -- const char *
+ * @retval int 
+ */
 int safe_symlink(const char *oldpath, const char *newpath)
 {
   struct stat osb, nsb;
@@ -253,6 +309,12 @@ int safe_symlink(const char *oldpath, const char *newpath)
  * safe_rename - NFS-safe renaming of files
  *
  * Warning: We don't check whether src and target are equal.
+ */
+/**
+ * safe_rename - YYY
+ * @param src    -- const char *
+ * @param target -- const char *
+ * @retval int 
  */
 int safe_rename(const char *src, const char *target)
 {
@@ -353,6 +415,11 @@ int safe_rename(const char *src, const char *target)
 /**
  * mutt_rmtree - remove a directory and everything under it
  */
+/**
+ * mutt_rmtree - YYY
+ * @param path -- const char *
+ * @retval int 
+ */
 int mutt_rmtree(const char *path)
 {
   DIR *dirp = NULL;
@@ -392,6 +459,12 @@ int mutt_rmtree(const char *path)
   return rc;
 }
 
+/**
+ * safe_open - YYY
+ * @param path  -- const char *
+ * @param flags -- int
+ * @retval int 
+ */
 int safe_open(const char *path, int flags)
 {
   struct stat osb, nsb;
@@ -436,6 +509,12 @@ int safe_open(const char *path, int flags)
  * when opening files for writing, make sure the file doesn't already exist to
  * avoid race conditions.
  */
+/**
+ * safe_fopen - YYY
+ * @param path -- const char *
+ * @param mode -- const char *
+ * @retval FILE *
+ */
 FILE *safe_fopen(const char *path, const char *mode)
 {
   if (mode[0] == 'w')
@@ -461,6 +540,12 @@ FILE *safe_fopen(const char *path, const char *mode)
     return (fopen(path, mode));
 }
 
+/**
+ * mutt_sanitize_filename - YYY
+ * @param f     -- char *
+ * @param slash -- short
+ * @retval void 
+ */
 void mutt_sanitize_filename(char *f, short slash)
 {
   if (!f)
@@ -473,6 +558,13 @@ void mutt_sanitize_filename(char *f, short slash)
   }
 }
 
+/**
+ * mutt_rx_sanitize_string - YYY
+ * @param dest    -- char *
+ * @param destlen -- size_t
+ * @param src     -- const char *
+ * @retval int 
+ */
 int mutt_rx_sanitize_string(char *dest, size_t destlen, const char *src)
 {
   while (*src && --destlen > 2)
@@ -500,6 +592,15 @@ int mutt_rx_sanitize_string(char *dest, size_t destlen, const char *src)
  * ``s'' if necessary. The ending "\n" or "\r\n" is removed.  If a line ends
  * with "\", this char and the linefeed is removed, and the next line is read
  * too.
+ */
+/**
+ * mutt_read_line - YYY
+ * @param s     -- char *
+ * @param size  -- size_t *
+ * @param fp    -- FILE *
+ * @param line  -- int *
+ * @param flags -- int
+ * @retval char *
  */
 char *mutt_read_line(char *s, size_t *size, FILE *fp, int *line, int flags)
 {
@@ -564,6 +665,13 @@ char *mutt_read_line(char *s, size_t *size, FILE *fp, int *line, int flags)
  *
  * From the Unix programming FAQ by way of Liviu.
  */
+/**
+ * mutt_quote_filename - YYY
+ * @param d -- char *
+ * @param l -- size_t
+ * @param f -- const char *
+ * @retval size_t 
+ */
 size_t mutt_quote_filename(char *d, size_t l, const char *f)
 {
   size_t j = 0;
@@ -612,6 +720,16 @@ size_t mutt_quote_filename(char *d, size_t l, const char *f)
  * Write the concatenated pathname (dir + "/" + fname) into dst.
  * The slash is omitted when dir or fname is of 0 length.
  */
+/**
+ * mutt_concatn_path - YYY
+ * @param dst      -- char *
+ * @param dstlen   -- size_t
+ * @param dir      -- const char *
+ * @param dirlen   -- size_t
+ * @param fname    -- const char *
+ * @param fnamelen -- size_t
+ * @retval char *
+ */
 char *mutt_concatn_path(char *dst, size_t dstlen, const char *dir,
                         size_t dirlen, const char *fname, size_t fnamelen)
 {
@@ -653,6 +771,14 @@ char *mutt_concatn_path(char *dst, size_t dstlen, const char *dir,
   return dst;
 }
 
+/**
+ * mutt_concat_path - YYY
+ * @param d     -- char *
+ * @param dir   -- const char *
+ * @param fname -- const char *
+ * @param l     -- size_t
+ * @retval char *
+ */
 char *mutt_concat_path(char *d, const char *dir, const char *fname, size_t l)
 {
   const char *fmt = "%s/%s";
@@ -664,6 +790,11 @@ char *mutt_concat_path(char *d, const char *dir, const char *fname, size_t l)
   return d;
 }
 
+/**
+ * mutt_basename - YYY
+ * @param f -- const char *
+ * @retval const char *
+ */
 const char *mutt_basename(const char *f)
 {
   const char *p = strrchr(f, '/');
@@ -685,6 +816,12 @@ const char *mutt_basename(const char *f)
  * @note The permissions are only set on the final directory.
  *       The permissions of any parent directories are determined by the umask.
  *       (This is how "mkdir -p" behaves)
+ */
+/**
+ * mutt_mkdir - YYY
+ * @param path -- const char *
+ * @param mode -- mode_t
+ * @retval int 
  */
 int mutt_mkdir(const char *path, mode_t mode)
 {

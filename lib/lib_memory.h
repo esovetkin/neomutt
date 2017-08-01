@@ -41,9 +41,9 @@
 void mutt_exit(int code);
 
 void *safe_calloc(size_t nmemb, size_t size);
+void  safe_free(void *ptr);
 void *safe_malloc(size_t siz);
-void safe_free(void *ptr);
-void safe_realloc(void *ptr, size_t siz);
+void  safe_realloc(void *ptr, size_t siz);
 
 #define FREE(x) safe_free(x)
 

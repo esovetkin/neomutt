@@ -28,6 +28,12 @@
 #include "lib_debug.h"
 #include "lib_memory.h"
 
+/**
+ * default_error - YYY
+ * @param format -- const char *
+ * @param ...    -- vararg
+ * @retval void 
+ */
 static void default_error(const char *format, ...)
 {
   va_list ap;
@@ -39,6 +45,12 @@ static void default_error(const char *format, ...)
 
 void (*mutt_error)(const char *, ...) = default_error;
 
+/**
+ * default_message - YYY
+ * @param format -- const char *
+ * @param ...    -- vararg
+ * @retval void 
+ */
 static void default_message(const char *format, ...)
 {
   va_list ap;
@@ -50,12 +62,17 @@ static void default_message(const char *format, ...)
 
 void (*mutt_message)(const char *, ...) = default_message;
 
-static void default_perror(const char *s)
+/**
+ * default_perror - YYY
+ * @param message -- const char *
+ * @retval void 
+ */
+static void default_perror(const char *message)
 {
   char *p = strerror(errno);
 
-  mutt_debug(1, "%s: %s (errno = %d)\n", s, p ? p : "unknown error", errno);
-  mutt_error("%s: %s (errno = %d)", s, p ? p : _("unknown error"), errno);
+  mutt_debug(1, "%s: %s (errno = %d)\n", message, p ? p : "unknown error", errno);
+  mutt_error("%s: %s (errno = %d)", message, p ? p : _("unknown error"), errno);
 }
 
 void (*mutt_perror) (const char *) = default_perror;
