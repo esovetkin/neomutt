@@ -1,6 +1,6 @@
 /**
  * @file
- * Memory management wrappers
+ * Debug messages
  *
  * @authors
  * Copyright (C) 2017 Richard Russon <rich@flatcap.org>
@@ -20,31 +20,20 @@
  * this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef _LIB_MEMORY_H
-#define _LIB_MEMORY_H
+#ifndef _LIB_DEBUG_H
+#define _LIB_DEBUG_H
 
-#include <stdio.h>
+#include <limits.h>
 
-#ifdef ENABLE_NLS
-#include <libintl.h>
-#define _(a) gettext(a)
-#ifdef gettext_noop
-#define N_(a) gettext_noop(a)
+#ifdef DEBUG
+extern char debugfilename[_POSIX_PATH_MAX];
+extern FILE *debugfile;
+extern int debuglevel;
+extern char *debugfile_cmdline;
+extern int debuglevel_cmdline;
+void mutt_debug(int level, const char *fmt, ...);
 #else
-#define N_(a) (a)
-#endif
-#else
-#define _(a) (a)
-#define N_(a) a
+#define mutt_debug(...) do { } while (0)
 #endif
 
-void mutt_exit(int code);
-
-void *safe_calloc(size_t nmemb, size_t size);
-void *safe_malloc(size_t siz);
-void safe_free(void *ptr);
-void safe_realloc(void *ptr, size_t siz);
-
-#define FREE(x) safe_free(x)
-
-#endif /* _LIB_MEMORY_H */
+#endif /* _LIB_DEBUG_H */
