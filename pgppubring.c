@@ -46,7 +46,6 @@
 #include "ncrypt/ncrypt.h"
 #include "ncrypt/pgplib.h"
 #include "ncrypt/pgppacket.h"
-#include "sha1.h"
 
 extern char *optarg;
 extern int optind;
