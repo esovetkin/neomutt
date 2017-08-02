@@ -140,7 +140,6 @@ int safe_fclose(FILE **f)
   return r;
 }
 
-
 /**
  * safe_fsync_close - Flush the data, before closing a file (and NULL the pointer)
  * @param f FILE handle to close
@@ -401,7 +400,6 @@ int safe_rename(const char *src, const char *target)
   {
     mutt_debug(1, "safe_rename: unlink (%s) failed: %s (%d)\n", src, strerror(errno), errno);
   }
-
 
   return 0;
 }

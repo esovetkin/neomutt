@@ -223,7 +223,6 @@ void *md5_buffer(const char *buffer, size_t len, void *resblock)
   return md5_finish_ctx(&ctx, resblock);
 }
 
-
 /**
  * md5_process_bytes - YYY
  * @param buffer Buffer to process
@@ -297,7 +296,6 @@ void md5_process_bytes(const void *buffer, size_t len, struct Md5Ctx *ctx)
     ctx->buflen = left_over;
   }
 }
-
 
 /* These are the four functions used in the four steps of the MD5 algorithm
    and defined in the RFC1321.  The first function is a little bit optimized

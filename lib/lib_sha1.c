@@ -55,7 +55,6 @@
   z += (w ^ x ^ y) + blk(i) + 0xCA62C1D6 + rol(v, 5);                          \
   w = rol(w, 30);
 
-
 /**
  * sha1_transform - Hash a single 512-bit block
  * @param state  Internal state of the transform
@@ -170,7 +169,6 @@ void sha1_transform(uint32_t state[5], const unsigned char buffer[64])
   memset(block, '\0', sizeof(block));
 }
 
-
 /**
  * sha1_init - Initialize new context
  * @param context SHA1 context
@@ -185,7 +183,6 @@ void sha1_init(struct Sha1Ctx *context)
   context->state[4] = 0xC3D2E1F0;
   context->count[0] = context->count[1] = 0;
 }
-
 
 /**
  * sha1_update - Run your data through this
@@ -217,7 +214,6 @@ void sha1_update(struct Sha1Ctx *context, const unsigned char *data, uint32_t le
     i = 0;
   memcpy(&context->buffer[j], &data[i], len - i);
 }
-
 
 /**
  * sha1_final - Add padding and return the message digest
