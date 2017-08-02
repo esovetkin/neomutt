@@ -31,8 +31,8 @@
  */
 
 #include "config.h"
-#include <stdio.h>
 #include <stdarg.h>
+#include <stdio.h>
 
 /**
  * mutt_debug - Output some debugging information
@@ -50,4 +50,3 @@ void mutt_debug(int level, const char *fmt, ...)
   vfprintf(stderr, fmt, ap);
   va_end(ap);
 }
-

@@ -37,8 +37,8 @@
  */
 
 #include <stdio.h>
-#include <unistd.h>
 #include <stdlib.h>
+#include <unistd.h>
 #include "lib_memory.h"
 #include "lib_message.h"
 
@@ -152,4 +152,3 @@ void safe_realloc(void *ptr, size_t siz)
 
   *p = r;
 }
-

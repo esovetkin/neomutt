@@ -35,10 +35,10 @@
  */
 
 #include "config.h"
-#include "lib_buffer.h"
 #include <stdarg.h>
 #include <stdio.h>
 #include <string.h>
+#include "lib_buffer.h"
 #include "lib_memory.h"
 #include "lib_string.h"
 
@@ -204,4 +204,3 @@ void mutt_buffer_addch(struct Buffer *buf, char c)
 {
   mutt_buffer_add(buf, &c, 1);
 }
-

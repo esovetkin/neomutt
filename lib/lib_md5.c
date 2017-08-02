@@ -42,8 +42,8 @@
  */
 
 #include "config.h"
-#include <stdbool.h>
 #include <stddef.h>
+#include <stdbool.h>
 #include <stdio.h>
 #include <string.h>
 #include "lib_md5.h"
@@ -482,4 +482,3 @@ void md5_process_block(const void *buffer, size_t len, struct Md5Ctx *ctx)
   ctx->C = C;
   ctx->D = D;
 }
-

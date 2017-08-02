@@ -35,9 +35,9 @@
  */
 
 #include "config.h"
-#include <stdio.h>
-#include <stdarg.h>
 #include <errno.h>
+#include <stdarg.h>
+#include <stdio.h>
 #include <string.h>
 #include "lib_memory.h"
 
@@ -90,5 +90,4 @@ static void default_perror(const char *message)
   mutt_error("%s: %s (errno = %d)", message, p ? p : _("unknown error"), errno);
 }
 
-void (*mutt_perror) (const char *) = default_perror;
-
+void (*mutt_perror)(const char *) = default_perror;

@@ -121,4 +121,3 @@ char *ascii_strlower(char *s)
 
   return s;
 }
-
