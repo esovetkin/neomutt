@@ -65,7 +65,7 @@ static const unsigned char fillbuf[64] = { 0x80, 0 /* , 0, 0, ...  */ };
  * md5_init_ctx - Initialise the MD5 computation
  * @param ctx MD5 context
  *
- * (RFC1321, 3.3: Step 3)
+ * RFC1321, 3.3: Step 3
  */
 void md5_init_ctx(struct Md5Ctx *ctx)
 {

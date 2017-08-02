@@ -72,7 +72,7 @@ static const char safe_chars[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrst
  * compare_stat - Compare the struct stat's of two files/dirs
  * @param osb struct stat of the first file/dir
  * @param nsb struct stat of the second file/dir
- * @retval bool
+ * @retval boolean
  *
  * This compares the device id (st_dev), inode number (st_ino) and special id
  * (st_rdev) of the files/dirs.

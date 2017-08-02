@@ -106,7 +106,7 @@ int ascii_strncasecmp(const char *a, const char *b, int n)
 /**
  * ascii_strlower - Lowercase a string
  * @param s String to transform
- * @retval Transformed string
+ * @retval ptr Transformed string
  *
  * The string is transformed in place.
  */

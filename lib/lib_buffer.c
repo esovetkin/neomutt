@@ -44,7 +44,7 @@
 
 /**
  * mutt_buffer_new - Create and initialise a Buffer
- * @retval New Buffer
+ * @retval ptr New Buffer
  *
  * Call mutt_buffer_free() to release the Buffer.
  */
@@ -62,7 +62,7 @@ struct Buffer *mutt_buffer_new(void)
 /**
  * mutt_buffer_init - Initialise a new Buffer
  * @param b Buffer to initialise
- * @retval Initialised Buffer
+ * @retval ptr Initialised Buffer
  *
  * This must not be called on a Buffer that already contains data.
  */
@@ -75,7 +75,7 @@ struct Buffer *mutt_buffer_init(struct Buffer *b)
 /**
  * mutt_buffer_from - Create Buffer from an existing string
  * @param seed String to put in the Buffer
- * @retval New Buffer
+ * @retval ptr New Buffer
  */
 struct Buffer *mutt_buffer_from(char *seed)
 {
@@ -139,7 +139,7 @@ void mutt_buffer_free(struct Buffer **p)
  * @param buf Buffer
  * @param fmt printf-style format string
  * @param ... Arguments to be formatted
- * @retval Number of characters written
+ * @retval num Characters written
  */
 int mutt_buffer_printf(struct Buffer *buf, const char *fmt, ...)
 {

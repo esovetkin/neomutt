@@ -36,7 +36,7 @@
 
 /**
  * mutt_debug - Output some debugging information
- * @param level Debug level (IGNORED)
+ * @param level Debug level
  * @param fmt   printf-like formatting string
  * @param ...   Arguments to be formatted
  *

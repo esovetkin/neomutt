@@ -45,7 +45,7 @@
  * compute_tz - Calculate the number of seconds east of UTC
  * @param g   Local time
  * @param utc UTC time
- * @retval Number of seconds east of UTC
+ * @retval number Seconds east of UTC
  *
   * returns the seconds east of UTC given 'g' and its corresponding gmtime()
  * representation
@@ -88,8 +88,8 @@ static int is_leap_year_feb(struct tm *tm)
 
 /**
  * mutt_local_tz - Calculate the local timezone in seconds east of UTC
- * @param t time_t
- * @retval time_t
+ * @param t Time to examine
+ * @retval num Seconds east of UTC
  *
  * Returns the local timezone in seconds east of UTC for the time t,
  * or for the current time if t is zero.
@@ -110,11 +110,11 @@ time_t mutt_local_tz(time_t t)
 
 /**
  * mutt_mktime - Convert `struct tm` to `time_t`
- * @param t     struct tm *
- * @param local int
- * @retval time_t
+ * @param t     Time to convert
+ * @param local Should the local timezone be considered
+ * @retval num Time in Unix format
  *
- * Convert a struct tm to time_t, but do'nt take the local timezone into
+ * Convert a struct tm to time_t, but don't take the local timezone into
  * account unless ``local'' is nonzero
  */
 time_t mutt_mktime(struct tm *t, int local)
