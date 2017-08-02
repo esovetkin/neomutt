@@ -22,6 +22,20 @@
  * this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * @page base64 Conversion to/from base64 encoding
+ *
+ * Convert between binary data and base64 text, according to RFC2045.
+ *
+ * @note RFC3548 obsoletes RFC2045.
+ * @note RFC4648 obsoletes RFC3548.
+ *
+ * | Function           | Description
+ * | :----------------- | :-------------------------------------------------
+ * | mutt_from_base64() | convert null-terminated base64 string to raw bytes
+ * | mutt_to_base64()   | convert raw bytes to null-terminated base64 string
+ */
+
 #include "config.h"
 #include "lib_base64.h"
 

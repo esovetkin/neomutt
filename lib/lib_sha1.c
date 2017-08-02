@@ -2,20 +2,30 @@
  * @file
  * Calculate the SHA1 checksum of a buffer
  *
- * SHA-1 in C
+ * @authors
+ * Steve Reid <steve@edmweb.com>
+ * Thomas Roessler <roessler@does-not-exist.org>
  *
- * By Steve Reid <steve@edmweb.com>, with small changes to make it
- * fit into mutt by Thomas Roessler <roessler@does-not-exist.org>.
+ * @copyright
+ * Public Domain
+ */
+
+/**
+ * @page sha1 Calculate the SHA1 checksum of a buffer
  *
- * 100% Public Domain.
+ * Calculate the SHA1 cryptographic hash of a string, according to RFC3174.
  *
- * Test Vectors (from FIPS PUB 180-1)
- * "abc"
- * A9993E36 4706816A BA3E2571 7850C26C 9CD0D89D
- * "abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq"
- * 84983E44 1C3BD26E BAAE4AA1 F95129E5 E54670F1
- * A million repetitions of "a"
- * 34AA973C D4C4DAA4 F61EEB2B DBAD2731 6534016F
+ * | Function         | Description
+ * | :--------------- | :----------------------------------------
+ * | sha1_final()     | Add padding and return the message digest
+ * | sha1_init()      | Initialize new context
+ * | sha1_transform() | Hash a single 512-bit block
+ * | sha1_update()    | Run your data through this
+ *
+ * Test Vectors (from FIPS PUB 180-1):
+ * - "abc" yields `A9993E36 4706816A BA3E2571 7850C26C 9CD0D89D`
+ * - "abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq" yields `84983E44 1C3BD26E BAAE4AA1 F95129E5 E54670F1`
+ * - A million repetitions of "a" yields `34AA973C D4C4DAA4 F61EEB2B DBAD2731 6534016F`
  */
 
 #include "config.h"

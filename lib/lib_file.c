@@ -20,6 +20,33 @@
  * this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * @page file File management functions
+ *
+ * Commonly used file/dir management routines.
+ *
+ * | Function                  | Description
+ * | :------------------------ | :-----------------------------------------------------------
+ * | mutt_basename()           | Find the last component for a pathname
+ * | mutt_concatn_path()       | Concatenate directory and filename
+ * | mutt_concat_path()        | Join a directory name and a filename
+ * | mutt_copy_bytes()         | Copy some content from one file to another
+ * | mutt_copy_stream()        | Copy the contents of one file into another
+ * | mutt_mkdir()              | Recursively create directories
+ * | mutt_quote_filename()     | Quote a filename to survive the shell's quoting rules
+ * | mutt_read_line()          | Read a line from a file
+ * | mutt_rmtree()             | Recursively remove a directory
+ * | mutt_rx_sanitize_string() | Escape any regex-magic characters in a string
+ * | mutt_sanitize_filename()  | Replace unsafe characters in a filename
+ * | mutt_unlink()             | Delete a file, carefully
+ * | safe_fclose()             | Close a FILE handle (and NULL the pointer)
+ * | safe_fopen()              | Call fopen() safely
+ * | safe_fsync_close()        | Flush the data, before closing a file (and NULL the pointer)
+ * | safe_open()               | Open a file
+ * | safe_rename()             | NFS-safe renaming of files
+ * | safe_symlink()            | Create a symlink
+ */
+
 #include "config.h"
 #include <dirent.h>
 #include <errno.h>

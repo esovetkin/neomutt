@@ -18,6 +18,22 @@
  * this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * @page buffer General purpose object for storing and parsing strings
+ *
+ * The Buffer object make parsing and manipulating strings easier.
+ *
+ * | Function             | Description
+ * | :------------------- | :--------------------------------------------------
+ * | mutt_buffer_addch()  | Add a single character to a Buffer
+ * | mutt_buffer_addstr() | Add a string to a Buffer
+ * | mutt_buffer_free()   | Release a Buffer and its contents
+ * | mutt_buffer_from()   | Create Buffer from an existing string
+ * | mutt_buffer_init()   | Initialise a new Buffer
+ * | mutt_buffer_new()    | Create and initialise a Buffer
+ * | mutt_buffer_printf() | Format a string into a Buffer
+ */
+
 #include "config.h"
 #include "lib_buffer.h"
 #include <stdarg.h>
@@ -179,7 +195,6 @@ void mutt_buffer_addstr(struct Buffer *buf, const char *s)
 
 /**
  * mutt_buffer_addch - Add a single character to a Buffer
- * mutt_buffer_addstr - 
  * @param buf Buffer to add to
  * @param c   Character to add
  *

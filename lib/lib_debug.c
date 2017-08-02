@@ -20,6 +20,16 @@
  * this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * @page debug Debug messages
+ *
+ * Output debugging messages, suitable for a developer.
+ *
+ * | Function     | Description
+ * | :----------- | :--------------------------------
+ * | mutt_debug() | Output some debugging information
+ */
+
 #include <stdio.h>
 #include <stdarg.h>
 

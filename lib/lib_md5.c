@@ -21,6 +21,22 @@
  * this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * @page md5 Calculate the MD5 checksum of a buffer
+ *
+ * Calculate the MD5 cryptographic hash of a string, according to RFC1321.
+ *
+ * | Function            | Description
+ * | :------------------ | :----------------------------------------------------
+ * | md5_buffer()        | Calculate the MD5 hash of a buffer
+ * | md5_finish_ctx()    | Process the remaining bytes in the buffer
+ * | md5_init_ctx()      | Initialise the MD5 computation
+ * | md5_process_block() | Process a block with MD5
+ * | md5_process_bytes() | Process a block of data
+ * | md5_read_ctx()      | Read from the context into a buffer
+ * | md5_stream()        | Compute MD5 message digest for bytes read from a file
+ */
+
 /* md5.c - Functions to compute MD5 message digest of files or memory blocks
  * according to the definition of MD5 in RFC1321 from April 1992.
  */
@@ -224,7 +240,7 @@ void *md5_buffer(const char *buffer, size_t len, void *resblock)
 }
 
 /**
- * md5_process_bytes - YYY
+ * md5_process_bytes - Process a block of data
  * @param buffer Buffer to process
  * @param len    Length of buffer
  * @param ctx    MD5 context

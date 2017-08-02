@@ -20,6 +20,27 @@
  * this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * @page hash Hash table data structure
+ *
+ * Hash table data structure.
+ *
+ * | Function               | Description
+ * | :--------------------- | :---------------------------------------------------------
+ * | hash_create()          | Create a new Hash table (with string keys)
+ * | hash_delete()          | Remove an element from a Hash table
+ * | hash_destroy()         | Destroy a hash table
+ * | hash_find()            | Find the HashElem data in a Hash table element using a key
+ * | hash_find_bucket()     | Find the HashElem in a Hash table element using a key
+ * | hash_find_elem()       | Find the HashElem in a Hash table element using a key
+ * | hash_insert()          | Add a new element to the Hash table (with string keys)
+ * | hash_walk()            | Iterate through all the HashElem's in a Hash table
+ * | int_hash_create()      | Create a new Hash table (with integer keys)
+ * | int_hash_delete()      | Remove an element from a Hash table
+ * | int_hash_find()        | Find the HashElem data in a Hash table element using a key
+ * | int_hash_insert()      | Add a new element to the Hash table (with integer keys)
+ */
+
 #include "config.h"
 #include <ctype.h>
 #include <stdio.h>

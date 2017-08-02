@@ -20,6 +20,22 @@
  * this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * @page memory Memory management wrappers
+ *
+ * "Safe" memory management routines.
+ *
+ * @note If any of the allocators fail, the user is notified and the program is
+ *       stopped immediately.
+ *
+ * | Function       | Description
+ * | :------------- | :-----------------------------------
+ * | safe_calloc()  | Allocate zeroed memory on the heap
+ * | safe_free()    | Release memory allocated on the heap
+ * | safe_malloc()  | Allocate memory on the heap
+ * | safe_realloc() | Resize a block of memory on the heap
+ */
+
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>

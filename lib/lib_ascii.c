@@ -20,6 +20,18 @@
  * this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * @page ascii ASCII string comparison routines
+ *
+ * Simple ASCII string comparisons.
+ *
+ * | Function            | Description
+ * | :------------------ | :---------------------------------
+ * | ascii_strcasecmp()  | Compare strings, ignoring the case
+ * | ascii_strlower()    | Lowercase a string
+ * | ascii_strncasecmp() | Compare strings, ignoring the case
+ */
+
 /*
  * Versions of the string comparison functions which are
  * locale-insensitive.

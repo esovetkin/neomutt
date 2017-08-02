@@ -20,6 +20,38 @@
  * this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * @page string String manipulation functions
+ *
+ * Lots of commonly-used string manipulation routines.
+ *
+ * | Function                  | Description
+ * | :------------------------ | :---------------------------------------------------------
+ * | is_email_wsp()            | Is this a whitespace character (for an email header)
+ * | mutt_atoi()               | Convert ASCII string to an integer
+ * | mutt_atos()               | Convert ASCII string to a short
+ * | mutt_remove_trailing_ws() | Trim trailing whitespace from a string
+ * | mutt_skip_whitespace()    | Find the first non-whitespace character in a string
+ * | mutt_strcasecmp()         | Compare two strings ignoring case, safely
+ * | mutt_strchrnul()          | Find first occurrence of character in string
+ * | mutt_strcmp()             | Compare two strings, safely
+ * | mutt_strcoll()            | Collate two strings (compare using locale), safely
+ * | mutt_stristr()            | Find first occurrence of string (ignoring case)
+ * | mutt_strlen()             | Calculate the length of a string, safely
+ * | mutt_strlower()           | convert all characters in the string to lowercase
+ * | mutt_strncasecmp()        | Compare two strings ignoring case (to a maximum), safely
+ * | mutt_strncmp()            | Compare two strings (to a maximum), safely
+ * | mutt_str_adjust()         | Shrink-to-fit a string
+ * | mutt_str_replace()        | Replace one string with another
+ * | mutt_substrcpy()          | Copy a sub-string into a buffer
+ * | mutt_substrdup()          | Duplicate a sub-string
+ * | safe_strcat()             | Concatenate two strings
+ * | safe_strdup()             | Copy a string, safely
+ * | safe_strncat()            | Concatenate two strings
+ * | skip_email_wsp()          | Skip over whitespace as defined by RFC5322
+ * | strfcpy()                 | Copy a string into a buffer (guaranteeing NUL-termination)
+ */
+
 #include "config.h"
 #include <ctype.h>
 #include <errno.h>

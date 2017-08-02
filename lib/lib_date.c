@@ -20,6 +20,18 @@
  * this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * @page date Time and date handling routines
+ *
+ * Some commonly used time and date functions.
+ *
+ * | Function              | Description
+ * | :-------------------- | :--------------------------------------------------
+ * | mutt_local_tz()       | Calculate the local timezone in seconds east of UTC
+ * | mutt_mktime()         | Convert `struct tm` to `time_t`
+ * | mutt_normalize_time() | Fix the contents of a struct tm
+ */
+
 #include "config.h"
 #include <string.h>
 #include <time.h>
