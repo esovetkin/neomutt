@@ -62,6 +62,96 @@
 #include "lib_memory.h"
 
 /**
+ * mutt_atol - Convert ASCII string to a long
+ * @param[in]  str String to read
+ * @param[out] dst Store the result
+ * @retval  0 Success
+ * @retval -1 Error
+ *
+ * This is a strtol() wrapper with range checking.
+ * errno may be set on error, e.g. ERANGE
+ */
+static int mutt_atol(const char *str, long *dst)
+{
+  long r;
+  long *res = dst ? dst : &r;
+  char *e = NULL;
+
+  /* no input: 0 */
+  if (!str || !*str)
+  {
+    *res = 0;
+    return 0;
+  }
+
+  *res = strtol(str, &e, 10);
+  if ((*res == LONG_MAX && errno == ERANGE) || (e && *e != '\0'))
+    return -1;
+  return 0;
+}
+
+/**
+ * mutt_atos - Convert ASCII string to a short
+ * @param[in]  str String to read
+ * @param[out] dst Store the result
+ * @retval  0 Success
+ * @retval -1 Error
+ * @retval -2 Error, overflow
+ *
+ * This is a strtol() wrapper with range checking.
+ * If @a dst is NULL, the string will be tested only (without conversion).
+ *
+ * errno may be set on error, e.g. ERANGE
+ */
+int mutt_atos(const char *str, short *dst)
+{
+  int rc;
+  long res;
+  short tmp;
+  short *t = dst ? dst : &tmp;
+
+  *t = 0;
+
+  if ((rc = mutt_atol(str, &res)) < 0)
+    return rc;
+  if ((short) res != res)
+    return -2;
+
+  *t = (short) res;
+  return 0;
+}
+
+/**
+ * mutt_atoi - Convert ASCII string to an integer
+ * @param[in]  str String to read
+ * @param[out] dst Store the result
+ * @retval  0 Success
+ * @retval -1 Error
+ * @retval -2 Error, overflow
+ *
+ * This is a strtol() wrapper with range checking.
+ * If @a dst is NULL, the string will be tested only (without conversion).
+ * errno may be set on error, e.g. ERANGE
+ */
+int mutt_atoi(const char *str, int *dst)
+{
+  int rc;
+  long res;
+  int tmp;
+  int *t = dst ? dst : &tmp;
+
+  *t = 0;
+
+  if ((rc = mutt_atol(str, &res)) < 0)
+    return rc;
+  if ((int) res != res)
+    return -2;
+
+  *t = (int) res;
+  return 0;
+}
+
+/**
  * safe_strdup - Copy a string, safely
  * @param s String to copy
  * @retval ptr  Copy of the string
@@ -382,96 +472,6 @@ void mutt_remove_trailing_ws(char *s)
 
   for (p = s + mutt_strlen(s) - 1; p >= s && ISSPACE(*p); p--)
     *p = 0;
-}
-
-/**
- * mutt_atol - Convert ASCII string to a long
- * @param[in]  str String to read
- * @param[out] dst Store the result
- * @retval  0 Success
- * @retval -1 Error
- *
- * This is a strtol() wrapper with range checking.
- * errno may be set on error, e.g. ERANGE
- */
-static int mutt_atol(const char *str, long *dst)
-{
-  long r;
-  long *res = dst ? dst : &r;
-  char *e = NULL;
-
-  /* no input: 0 */
-  if (!str || !*str)
-  {
-    *res = 0;
-    return 0;
-  }
-
-  *res = strtol(str, &e, 10);
-  if ((*res == LONG_MAX && errno == ERANGE) || (e && *e != '\0'))
-    return -1;
-  return 0;
-}
-
-/**
- * mutt_atos - Convert ASCII string to a short
- * @param[in]  str String to read
- * @param[out] dst Store the result
- * @retval  0 Success
- * @retval -1 Error
- * @retval -2 Error, overflow
- *
- * This is a strtol() wrapper with range checking.
- * If @a dst is NULL, the string will be tested only (without conversion).
- *
- * errno may be set on error, e.g. ERANGE
- */
-int mutt_atos(const char *str, short *dst)
-{
-  int rc;
-  long res;
-  short tmp;
-  short *t = dst ? dst : &tmp;
-
-  *t = 0;
-
-  if ((rc = mutt_atol(str, &res)) < 0)
-    return rc;
-  if ((short) res != res)
-    return -2;
-
-  *t = (short) res;
-  return 0;
-}
-
-/**
- * mutt_atoi - Convert ASCII string to an integer
- * @param[in]  str String to read
- * @param[out] dst Store the result
- * @retval  0 Success
- * @retval -1 Error
- * @retval -2 Error, overflow
- *
- * This is a strtol() wrapper with range checking.
- * If @a dst is NULL, the string will be tested only (without conversion).
- * errno may be set on error, e.g. ERANGE
- */
-int mutt_atoi(const char *str, int *dst)
-{
-  int rc;
-  long res;
-  int tmp;
-  int *t = dst ? dst : &tmp;
-
-  *t = 0;
-
-  if ((rc = mutt_atol(str, &res)) < 0)
-    return rc;
-  if ((int) res != res)
-    return -2;
-
-  *t = (int) res;
-  return 0;
 }
 
 /**

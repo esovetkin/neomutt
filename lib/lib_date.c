@@ -36,6 +36,11 @@
 #include <string.h>
 #include <time.h>
 
+/* theoretically time_t can be float but it is integer on most (if not all) systems */
+#define TIME_T_MAX ((((time_t) 1 << (sizeof(time_t) * 8 - 2)) - 1) * 2 + 1)
+#define TM_YEAR_MAX                                                            \
+  (1970 + (((((TIME_T_MAX - 59) / 60) - 59) / 60) - 23) / 24 / 366)
+
 /**
  * compute_tz - Calculate the number of seconds east of UTC
  * @param g   Local time
@@ -67,6 +72,21 @@ static time_t compute_tz(time_t g, struct tm *utc)
 }
 
 /**
+ * is_leap_year_feb - Is a given February in a leap year
+ * @param tm Date to be tested
+ * @retval true if it's a leap year
+ */
+static int is_leap_year_feb(struct tm *tm)
+{
+  if (tm->tm_mon == 1)
+  {
+    int y = tm->tm_year + 1900;
+    return (((y & 3) == 0) && (((y % 100) != 0) || ((y % 400) == 0)));
+  }
+  return 0;
+}
+
+/**
  * mutt_local_tz - Calculate the local timezone in seconds east of UTC
  * @param t time_t
  * @retval time_t
@@ -87,11 +107,6 @@ time_t mutt_local_tz(time_t t)
   memcpy(&utc, ptm, sizeof(utc));
   return (compute_tz(t, &utc));
 }
-
-/* theoretically time_t can be float but it is integer on most (if not all) systems */
-#define TIME_T_MAX ((((time_t) 1 << (sizeof(time_t) * 8 - 2)) - 1) * 2 + 1)
-#define TM_YEAR_MAX                                                            \
-  (1970 + (((((TIME_T_MAX - 59) / 60) - 59) / 60) - 23) / 24 / 366)
 
 /**
  * mutt_mktime - Convert `struct tm` to `time_t`
@@ -145,21 +160,6 @@ time_t mutt_mktime(struct tm *t, int local)
     g -= compute_tz(g, t);
 
   return g;
-}
-
-/**
- * is_leap_year_feb - Is a given February in a leap year
- * @param tm Date to be tested
- * @retval true if it's a leap year
- */
-static int is_leap_year_feb(struct tm *tm)
-{
-  if (tm->tm_mon == 1)
-  {
-    int y = tm->tm_year + 1900;
-    return (((y & 3) == 0) && (((y % 100) != 0) || ((y % 400) == 0)));
-  }
-  return 0;
 }
 
 /**

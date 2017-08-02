@@ -92,6 +92,35 @@ struct Buffer *mutt_buffer_from(char *seed)
 }
 
 /**
+ * mutt_buffer_add - Add a string to a Buffer, expanding it if necessary
+ * @param buf Buffer to add to
+ * @param s   String to add
+ * @param len Length of the string
+ *
+ * Dynamically grow a Buffer to accommodate s, in increments of 128 bytes.
+ * Always one byte bigger than necessary for the null terminator, and the
+ * buffer is always NUL-terminated
+ */
+static void mutt_buffer_add(struct Buffer *buf, const char *s, size_t len)
+{
+  if (!buf || !s)
+    return;
+
+  if ((buf->dptr + len + 1) > (buf->data + buf->dsize))
+  {
+    size_t offset = buf->dptr - buf->data;
+    buf->dsize += (len < 128) ? 128 : len + 1;
+    safe_realloc(&buf->data, buf->dsize);
+    buf->dptr = buf->data + offset;
+  }
+  if (!buf->dptr)
+    return;
+  memcpy(buf->dptr, s, len);
+  buf->dptr += len;
+  *(buf->dptr) = '\0';
+}
+
+/**
  * mutt_buffer_free - Release a Buffer and its contents
  * @param p Buffer pointer to free and NULL
  */
@@ -150,35 +179,6 @@ int mutt_buffer_printf(struct Buffer *buf, const char *fmt, ...)
   va_end(ap_retry);
 
   return len;
-}
-
-/**
- * mutt_buffer_add - Add a string to a Buffer, expanding it if necessary
- * @param buf Buffer to add to
- * @param s   String to add
- * @param len Length of the string
- *
- * Dynamically grow a Buffer to accommodate s, in increments of 128 bytes.
- * Always one byte bigger than necessary for the null terminator, and the
- * buffer is always NUL-terminated
- */
-static void mutt_buffer_add(struct Buffer *buf, const char *s, size_t len)
-{
-  if (!buf || !s)
-    return;
-
-  if ((buf->dptr + len + 1) > (buf->data + buf->dsize))
-  {
-    size_t offset = buf->dptr - buf->data;
-    buf->dsize += (len < 128) ? 128 : len + 1;
-    safe_realloc(&buf->data, buf->dsize);
-    buf->dptr = buf->data + offset;
-  }
-  if (!buf->dptr)
-    return;
-  memcpy(buf->dptr, s, len);
-  buf->dptr += len;
-  *(buf->dptr) = '\0';
 }
 
 /**

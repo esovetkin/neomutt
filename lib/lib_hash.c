@@ -159,48 +159,6 @@ static struct Hash *new_hash(int nelem)
 }
 
 /**
- * hash_create - Create a new Hash table (with string keys)
- * @param nelem Number of elements it should contain
- * @param flags Flags, e.g. #MUTT_HASH_STRCASECMP
- * @retval ptr New Hash table
- */
-struct Hash *hash_create(int nelem, int flags)
-{
-  struct Hash *table = new_hash(nelem);
-  if (flags & MUTT_HASH_STRCASECMP)
-  {
-    table->gen_hash = gen_case_string_hash;
-    table->cmp_key = cmp_case_string_key;
-  }
-  else
-  {
-    table->gen_hash = gen_string_hash;
-    table->cmp_key = cmp_string_key;
-  }
-  if (flags & MUTT_HASH_STRDUP_KEYS)
-    table->strdup_keys = true;
-  if (flags & MUTT_HASH_ALLOW_DUPS)
-    table->allow_dups = true;
-  return table;
-}
-
-/**
- * int_hash_create - Create a new Hash table (with integer keys)
- * @param nelem Number of elements it should contain
- * @param flags Flags, e.g. #MUTT_HASH_ALLOW_DUPS
- * @retval ptr New Hash table
- */
-struct Hash *int_hash_create(int nelem, int flags)
-{
-  struct Hash *table = new_hash(nelem);
-  table->gen_hash = gen_int_hash;
-  table->cmp_key = cmp_int_key;
-  if (flags & MUTT_HASH_ALLOW_DUPS)
-    table->allow_dups = true;
-  return table;
-}
-
-/**
  * union_hash_insert - Insert into a hash table using a union as a key
  * @param table     Hash table to update
  * @param key       Key to hash on
@@ -249,36 +207,6 @@ static int union_hash_insert(struct Hash *table, union HashKey key, void *data)
 }
 
 /**
- * hash_insert - Add a new element to the Hash table (with string keys)
- * @param table  Hash table (with string keys)
- * @param strkey String key
- * @param data   Private data associated with the key
- * @retval -1 on error
- * @retval >=0 on success, index into the hash table
- */
-int hash_insert(struct Hash *table, const char *strkey, void *data)
-{
-  union HashKey key;
-  key.strkey = table->strdup_keys ? safe_strdup(strkey) : strkey;
-  return union_hash_insert(table, key, data);
-}
-
-/**
- * int_hash_insert - Add a new element to the Hash table (with integer keys)
- * @param table  Hash table (with integer keys)
- * @param intkey Integer key
- * @param data   Private data associated with the key
- * @retval -1 on error
- * @retval >=0 on success, index into the hash table
- */
-int int_hash_insert(struct Hash *table, unsigned int intkey, void *data)
-{
-  union HashKey key;
-  key.intkey = intkey;
-  return union_hash_insert(table, key, data);
-}
-
-/**
  * union_hash_find_elem - Find a HashElem in a Hash table element using a key
  * @param table Hash table to search
  * @param key   Key (either string or integer)
@@ -315,6 +243,119 @@ static void *union_hash_find(const struct Hash *table, union HashKey key)
     return ptr->data;
   else
     return NULL;
+}
+
+/**
+ * union_hash_delete - Remove an element from a Hash table
+ * @param table   Hash table to use
+ * @param key     Key (either string or integer)
+ * @param data    Private data to match (or NULL for any match)
+ * @param destroy Callback function to free the HashElem's data
+ */
+static void union_hash_delete(struct Hash *table, union HashKey key,
+                              const void *data, void (*destroy)(void *))
+{
+  int hash;
+  struct HashElem *ptr, **last;
+
+  if (!table)
+    return;
+
+  hash = table->gen_hash(key, table->nelem);
+  ptr = table->table[hash];
+  last = &table->table[hash];
+
+  while (ptr)
+  {
+    if ((data == ptr->data || !data) && table->cmp_key(ptr->key, key) == 0)
+    {
+      *last = ptr->next;
+      if (destroy)
+        destroy(ptr->data);
+      if (table->strdup_keys)
+        FREE(&ptr->key.strkey);
+      FREE(&ptr);
+
+      ptr = *last;
+    }
+    else
+    {
+      last = &ptr->next;
+      ptr = ptr->next;
+    }
+  }
+}
+
+/**
+ * hash_create - Create a new Hash table (with string keys)
+ * @param nelem Number of elements it should contain
+ * @param flags Flags, e.g. #MUTT_HASH_STRCASECMP
+ * @retval ptr New Hash table
+ */
+struct Hash *hash_create(int nelem, int flags)
+{
+  struct Hash *table = new_hash(nelem);
+  if (flags & MUTT_HASH_STRCASECMP)
+  {
+    table->gen_hash = gen_case_string_hash;
+    table->cmp_key = cmp_case_string_key;
+  }
+  else
+  {
+    table->gen_hash = gen_string_hash;
+    table->cmp_key = cmp_string_key;
+  }
+  if (flags & MUTT_HASH_STRDUP_KEYS)
+    table->strdup_keys = true;
+  if (flags & MUTT_HASH_ALLOW_DUPS)
+    table->allow_dups = true;
+  return table;
+}
+
+/**
+ * int_hash_create - Create a new Hash table (with integer keys)
+ * @param nelem Number of elements it should contain
+ * @param flags Flags, e.g. #MUTT_HASH_ALLOW_DUPS
+ * @retval ptr New Hash table
+ */
+struct Hash *int_hash_create(int nelem, int flags)
+{
+  struct Hash *table = new_hash(nelem);
+  table->gen_hash = gen_int_hash;
+  table->cmp_key = cmp_int_key;
+  if (flags & MUTT_HASH_ALLOW_DUPS)
+    table->allow_dups = true;
+  return table;
+}
+
+/**
+ * hash_insert - Add a new element to the Hash table (with string keys)
+ * @param table  Hash table (with string keys)
+ * @param strkey String key
+ * @param data   Private data associated with the key
+ * @retval -1 on error
+ * @retval >=0 on success, index into the hash table
+ */
+int hash_insert(struct Hash *table, const char *strkey, void *data)
+{
+  union HashKey key;
+  key.strkey = table->strdup_keys ? safe_strdup(strkey) : strkey;
+  return union_hash_insert(table, key, data);
+}
+
+/**
+ * int_hash_insert - Add a new element to the Hash table (with integer keys)
+ * @param table  Hash table (with integer keys)
+ * @param intkey Integer key
+ * @param data   Private data associated with the key
+ * @retval -1 on error
+ * @retval >=0 on success, index into the hash table
+ */
+int int_hash_insert(struct Hash *table, unsigned int intkey, void *data)
+{
+  union HashKey key;
+  key.intkey = intkey;
+  return union_hash_insert(table, key, data);
 }
 
 /**
@@ -375,47 +416,6 @@ struct HashElem *hash_find_bucket(const struct Hash *table, const char *strkey)
   key.strkey = strkey;
   hash = table->gen_hash(key, table->nelem);
   return table->table[hash];
-}
-
-/**
- * union_hash_delete - Remove an element from a Hash table
- * @param table   Hash table to use
- * @param key     Key (either string or integer)
- * @param data    Private data to match (or NULL for any match)
- * @param destroy Callback function to free the HashElem's data
- */
-static void union_hash_delete(struct Hash *table, union HashKey key,
-                              const void *data, void (*destroy)(void *))
-{
-  int hash;
-  struct HashElem *ptr, **last;
-
-  if (!table)
-    return;
-
-  hash = table->gen_hash(key, table->nelem);
-  ptr = table->table[hash];
-  last = &table->table[hash];
-
-  while (ptr)
-  {
-    if ((data == ptr->data || !data) && table->cmp_key(ptr->key, key) == 0)
-    {
-      *last = ptr->next;
-      if (destroy)
-        destroy(ptr->data);
-      if (table->strdup_keys)
-        FREE(&ptr->key.strkey);
-      FREE(&ptr);
-
-      ptr = *last;
-    }
-    else
-    {
-      last = &ptr->next;
-      ptr = ptr->next;
-    }
-  }
 }
 
 /**
