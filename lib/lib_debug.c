@@ -30,6 +30,7 @@
  * | mutt_debug() | Output some debugging information
  */
 
+#include "config.h"
 #include <stdio.h>
 #include <stdarg.h>
 

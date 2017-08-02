@@ -46,7 +46,7 @@
 #include <stddef.h>
 #include <stdio.h>
 #include <string.h>
-#include "lib/lib_md5.h"
+#include "lib_md5.h"
 
 #ifdef WORDS_BIGENDIAN
 #define SWAP(n)                                                                \
