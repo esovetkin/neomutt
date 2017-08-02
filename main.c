@@ -234,6 +234,8 @@ int main(int argc, char **argv, char **env)
   }
 #endif
 
+  mutt_message = mutt_error; /* send messages to stderr, too */
+  mutt_perror = mutt_perror_debug;
   (void) mutt_rand32();
   umask(077);
 

@@ -46,7 +46,7 @@ static void default_error(const char *format, ...)
 void (*mutt_error)(const char *, ...) = default_error;
 
 /**
- * default_message - YYY
+ * default_message - Display an informative message
  * @param format printf-like formatting string
  * @param ...    Arguments to format
  *
