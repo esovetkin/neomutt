@@ -197,8 +197,8 @@ char *mutt_substrcpy(char *dest, const char *beg, const char *end, size_t destle
 
 /**
  * mutt_substrdup - Duplicate a sub-string
- * @param beg     Start of the string to copy
- * @param end     End of the string to copy
+ * @param begin Start of the string to copy
+ * @param end   End of the string to copy
  * @retval ptr New string
  *
  * If end is NULL, then the rest of the string from beg will be copied.

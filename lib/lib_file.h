@@ -34,7 +34,7 @@
 
 /* Flags for mutt_read_line() */
 #define MUTT_CONT (1 << 0) /**< \-continuation */
-#define MUTT_EOL  (1 << 1) /**< don't strip '\n' / '\r\n' */
+#define MUTT_EOL  (1 << 1) /**< don't strip `\n` / `\r\n` */
 
 const char *mutt_basename(const char *f);                                                                                           
 char *      mutt_concatn_path(char *dst, size_t dstlen, const char *dir, size_t dirlen, const char *fname, size_t fnamelen);        

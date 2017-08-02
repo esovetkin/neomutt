@@ -324,8 +324,8 @@ struct HashElem *hash_find_elem(const struct Hash *table, const char *strkey)
 
 /**
  * int_hash_find - Find the HashElem data in a Hash table element using a key
- * @param table Hash table to search
- * @param key   Integer key
+ * @param table  Hash table to search
+ * @param intkey Integer key
  * @retval ptr Data attached to the HashElem matching the key
  */
 void *int_hash_find(const struct Hash *table, unsigned int intkey)

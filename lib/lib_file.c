@@ -452,7 +452,7 @@ int mutt_rmtree(const char *path)
 /**
  * safe_open - Open a file
  * @param path  Pathname to open
- * @param flags Flags, e.g. #O_EXCL
+ * @param flags Flags, e.g. O_EXCL
  * @retval >0 Success, file handle
  * @retval -1 Error
  */
