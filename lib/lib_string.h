@@ -25,7 +25,6 @@
 
 #include <ctype.h>
 #include <stdio.h>
-#include <string.h>
 
 #define SHORT_STRING 128
 #define STRING       256

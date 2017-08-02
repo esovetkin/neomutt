@@ -24,7 +24,6 @@
 #define _LIB_FILE_H
 
 #include <stdio.h>
-#include <limits.h>
 #include <sys/types.h>
 
 #undef MAX
