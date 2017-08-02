@@ -81,12 +81,8 @@ static const char safe_chars[] =
  */
 static bool compare_stat(struct stat *osb, struct stat *nsb)
 {
-  if (osb->st_dev != nsb->st_dev || osb->st_ino != nsb->st_ino || osb->st_rdev != nsb->st_rdev)
-  {
-    return false;
-  }
-
-  return true;
+  return ((osb->st_dev == nsb->st_dev) && (osb->st_ino == nsb->st_ino) &&
+          (osb->st_rdev == nsb->st_rdev));
 }
 
 /**
@@ -107,7 +103,8 @@ static int mkwrapdir(const char *path, char *newfile, size_t nflen, char *newdir
 
   strfcpy(parent, NONULL(path), sizeof(parent));
 
-  if ((p = strrchr(parent, '/')))
+  p = strrchr(parent, '/');
+  if (p)
   {
     *p = '\0';
     basename = p + 1;
@@ -217,9 +214,10 @@ void mutt_unlink(const char *s)
   flags = O_RDWR;
 #endif
 
-  if (lstat(s, &sb) == 0 && S_ISREG(sb.st_mode))
+  if ((lstat(s, &sb) == 0) && S_ISREG(sb.st_mode))
   {
-    if ((fd = open(s, flags)) < 0)
+    fd = open(s, flags);
+    if (fd < 0)
       return;
 
     if ((fstat(fd, &sb2) != 0) || !S_ISREG(sb2.st_mode) ||
@@ -229,7 +227,8 @@ void mutt_unlink(const char *s)
       return;
     }
 
-    if ((f = fdopen(fd, "r+")))
+    f = fdopen(fd, "r+");
+    if (f)
     {
       unlink(s);
       memset(buf, 0, sizeof(buf));
@@ -259,12 +258,12 @@ int mutt_copy_bytes(FILE *in, FILE *out, size_t size)
   while (size > 0)
   {
     chunk = (size > sizeof(buf)) ? sizeof(buf) : size;
-    if ((chunk = fread(buf, 1, chunk, in)) < 1)
+    chunk = fread(buf, 1, chunk, in);
+    if (chunk < 1)
       break;
     if (fwrite(buf, 1, chunk, out) != chunk)
-    {
       return -1;
-    }
+
     size -= chunk;
   }
 
@@ -310,7 +309,7 @@ int safe_symlink(const char *oldpath, const char *newpath)
   if (!oldpath || !newpath)
     return -1;
 
-  if (unlink(newpath) == -1 && errno != ENOENT)
+  if ((unlink(newpath) == -1) && (errno != ENOENT))
     return -1;
 
   if (oldpath[0] == '/')
@@ -323,8 +322,10 @@ int safe_symlink(const char *oldpath, const char *newpath)
     char abs_oldpath[_POSIX_PATH_MAX];
 
     if ((getcwd(abs_oldpath, sizeof(abs_oldpath)) == NULL) ||
-        (strlen(abs_oldpath) + 1 + strlen(oldpath) + 1 > sizeof(abs_oldpath)))
+        ((strlen(abs_oldpath) + 1 + strlen(oldpath) + 1) > sizeof(abs_oldpath)))
+    {
       return -1;
+    }
 
     strcat(abs_oldpath, "/");
     strcat(abs_oldpath, oldpath);
@@ -332,7 +333,7 @@ int safe_symlink(const char *oldpath, const char *newpath)
       return -1;
   }
 
-  if (stat(oldpath, &osb) == -1 || stat(newpath, &nsb) == -1 || !compare_stat(&osb, &nsb))
+  if ((stat(oldpath, &osb) == -1) || (stat(newpath, &nsb) == -1) || !compare_stat(&osb, &nsb))
   {
     unlink(newpath);
     return -1;
@@ -421,10 +422,8 @@ int safe_rename(const char *src, const char *target)
     return -1;
   }
 
-  /* Unlink the original link.  Should we really ignore the return
-   * value here? XXX
-   */
-
+  /* Unlink the original link.
+   * Should we really ignore the return value here? XXX */
   if (unlink(src) == -1)
   {
     mutt_debug(1, "safe_rename: unlink (%s) failed: %s (%d)\n", src, strerror(errno), errno);
@@ -447,7 +446,8 @@ int mutt_rmtree(const char *path)
   struct stat statbuf;
   int rc = 0;
 
-  if (!(dirp = opendir(path)))
+  dirp = opendir(path);
+  if (!dirp)
   {
     mutt_debug(1, "mutt_rmtree: error opening directory %s\n", path);
     return -1;
@@ -498,7 +498,8 @@ int safe_open(const char *path, int flags)
     if (mkwrapdir(path, safe_file, sizeof(safe_file), safe_dir, sizeof(safe_dir)) == -1)
       return -1;
 
-    if ((fd = open(safe_file, flags, 0600)) < 0)
+    fd = open(safe_file, flags, 0600);
+    if (fd < 0)
     {
       rmdir(safe_dir);
       return fd;
@@ -510,11 +511,12 @@ int safe_open(const char *path, int flags)
       return -1;
   }
 
-  if ((fd = open(path, flags & ~O_EXCL, 0600)) < 0)
+  fd = open(path, flags & ~O_EXCL, 0600);
+  if (fd < 0)
     return fd;
 
   /* make sure the file is not symlink */
-  if (lstat(path, &osb) < 0 || fstat(fd, &nsb) < 0 || !compare_stat(&osb, &nsb))
+  if ((lstat(path, &osb) < 0 || fstat(fd, &nsb) < 0) || !compare_stat(&osb, &nsb))
   {
     close(fd);
     return -1;
@@ -549,7 +551,8 @@ FILE *safe_fopen(const char *path, const char *mode)
     else
       flags |= O_WRONLY;
 
-    if ((fd = safe_open(path, flags)) < 0)
+    fd = safe_open(path, flags);
+    if (fd < 0)
       return NULL;
 
     return (fdopen(fd, mode));
@@ -585,7 +588,7 @@ void mutt_sanitize_filename(char *f, short slash)
  */
 int mutt_rx_sanitize_string(char *dest, size_t destlen, const char *src)
 {
-  while (*src && --destlen > 2)
+  while (*src && (--destlen > 2))
   {
     if (strchr(rx_special_chars, *src))
     {
@@ -642,9 +645,9 @@ char *mutt_read_line(char *s, size_t *size, FILE *fp, int *line, int flags)
       if (flags & MUTT_EOL)
         return s;
       *ch = 0;
-      if (ch > s && *(ch - 1) == '\r')
+      if ((ch > s) && (*(ch - 1) == '\r'))
         *--ch = 0;
-      if (!(flags & MUTT_CONT) || ch == s || *(ch - 1) != '\\')
+      if (!(flags & MUTT_CONT) || (ch == s) || (*(ch - 1) != '\\'))
         return s;
       offset = ch - s - 1;
     }
@@ -699,9 +702,9 @@ size_t mutt_quote_filename(char *d, size_t l, const char *f)
 
   d[j++] = '\'';
 
-  for (size_t i = 0; j < l && f[i]; i++)
+  for (size_t i = 0; (j < l) && f[i]; i++)
   {
-    if (f[i] == '\'' || f[i] == '`')
+    if ((f[i] == '\'') || (f[i] == '`'))
     {
       d[j++] = '\'';
       d[j++] = '\\';

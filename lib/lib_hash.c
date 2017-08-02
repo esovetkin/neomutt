@@ -62,7 +62,7 @@ static unsigned int gen_string_hash(union HashKey key, unsigned int n)
   unsigned char *s = (unsigned char *) key.strkey;
 
   while (*s)
-    h += (h << 7) + *s++;
+    h += ((h << 7) + *s++);
   h = (h * SOMEPRIME) % n;
 
   return h;
@@ -93,7 +93,7 @@ static unsigned int gen_case_string_hash(union HashKey key, unsigned int n)
   unsigned char *s = (unsigned char *) key.strkey;
 
   while (*s)
-    h += (h << 7) + tolower(*s++);
+    h += ((h << 7) + tolower(*s++));
   h = (h * SOMEPRIME) % n;
 
   return h;
@@ -184,11 +184,10 @@ static int union_hash_insert(struct Hash *table, union HashKey key, void *data)
   else
   {
     struct HashElem *tmp = NULL, *last = NULL;
-    int r;
 
     for (tmp = table->table[h], last = NULL; tmp; last = tmp, tmp = tmp->next)
     {
-      r = table->cmp_key(tmp->key, key);
+      int r = table->cmp_key(tmp->key, key);
       if (r == 0)
       {
         FREE(&ptr);
@@ -256,7 +255,7 @@ static void union_hash_delete(struct Hash *table, union HashKey key,
                               const void *data, void (*destroy)(void *))
 {
   int hash;
-  struct HashElem *ptr, **last;
+  struct HashElem *ptr = NULL, **last = NULL;
 
   if (!table)
     return;
@@ -267,7 +266,7 @@ static void union_hash_delete(struct Hash *table, union HashKey key,
 
   while (ptr)
   {
-    if ((data == ptr->data || !data) && table->cmp_key(ptr->key, key) == 0)
+    if (((data == ptr->data) || !data) && table->cmp_key(ptr->key, key) == 0)
     {
       *last = ptr->next;
       if (destroy)

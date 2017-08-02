@@ -57,7 +57,7 @@ char *      mutt_strlower(char *s);
 int         mutt_strncasecmp(const char *a, const char *b, size_t l);
 int         mutt_strncmp(const char *a, const char *b, size_t l);
 void        mutt_str_replace(char **p, const char *s);
-char *      mutt_substrcpy(char *dest, const char *beg, const char *end, size_t destlen);
+char *      mutt_substrcpy(char *dest, const char *begin, const char *end, size_t destlen);
 char *      mutt_substrdup(const char *begin, const char *end);
 char *      safe_strcat(char *d, size_t l, const char *s);
 char *      safe_strdup(const char *s);

@@ -52,8 +52,6 @@
  */
 int ascii_strcasecmp(const char *a, const char *b)
 {
-  int i;
-
   if (a == b)
     return 0;
   if (a == NULL && b)
@@ -63,7 +61,8 @@ int ascii_strcasecmp(const char *a, const char *b)
 
   for (;; a++, b++)
   {
-    if ((i = tolower(*a) - tolower(*b)))
+    int i = tolower(*a) - tolower(*b);
+    if (i)
       return i;
     /* test for NUL here rather than in the for loop in order to detect unequal
      * length strings */
@@ -85,8 +84,6 @@ int ascii_strcasecmp(const char *a, const char *b)
  */
 int ascii_strncasecmp(const char *a, const char *b, int n)
 {
-  int i;
-
   if (a == b)
     return 0;
   if (a == NULL && b)
@@ -96,7 +93,8 @@ int ascii_strncasecmp(const char *a, const char *b, int n)
 
   for (int j = 0; (*a || *b) && j < n; a++, b++, j++)
   {
-    if ((i = tolower(*a) - tolower(*b)))
+    int i = tolower(*a) - tolower(*b);
+    if (i)
       return i;
   }
 
@@ -115,9 +113,7 @@ char *ascii_strlower(char *s)
   char *p = s;
 
   for (; *p; ++p)
-  {
     *p = tolower(*p);
-  }
 
   return s;
 }

@@ -85,7 +85,7 @@ static int mutt_atol(const char *str, long *dst)
   }
 
   *res = strtol(str, &e, 10);
-  if ((*res == LONG_MAX && errno == ERANGE) || (e && *e != '\0'))
+  if (((*res == LONG_MAX) && (errno == ERANGE)) || (e && (*e != '\0')))
     return -1;
   return 0;
 }
@@ -112,7 +112,8 @@ int mutt_atos(const char *str, short *dst)
 
   *t = 0;
 
-  if ((rc = mutt_atol(str, &res)) < 0)
+  rc = mutt_atol(str, &res);
+  if (rc < 0)
     return rc;
   if ((short) res != res)
     return -2;
@@ -142,7 +143,8 @@ int mutt_atoi(const char *str, int *dst)
 
   *t = 0;
 
-  if ((rc = mutt_atol(str, &res)) < 0)
+  rc = mutt_atol(str, &res);
+  if (rc < 0)
     return rc;
   if ((int) res != res)
     return -2;
@@ -300,19 +302,19 @@ const char *mutt_strchrnul(const char *s, char c)
 /**
  * mutt_substrcpy - Copy a sub-string into a buffer
  * @param dest    Buffer for the result
- * @param beg     Start of the string to copy
+ * @param begin     Start of the string to copy
  * @param end     End of the string to copy
  * @param destlen Length of buffer
  * @retval ptr Destination buffer
  */
-char *mutt_substrcpy(char *dest, const char *beg, const char *end, size_t destlen)
+char *mutt_substrcpy(char *dest, const char *begin, const char *end, size_t destlen)
 {
   size_t len;
 
-  len = end - beg;
-  if (len > destlen - 1)
+  len = end - begin;
+  if (len > (destlen - 1))
     len = destlen - 1;
-  memcpy(dest, beg, len);
+  memcpy(dest, begin, len);
   dest[len] = 0;
   return dest;
 }
@@ -323,7 +325,7 @@ char *mutt_substrcpy(char *dest, const char *beg, const char *end, size_t destle
  * @param end   End of the string to copy
  * @retval ptr New string
  *
- * If end is NULL, then the rest of the string from beg will be copied.
+ * If end is NULL, then the rest of the string from begin will be copied.
  *
  * The caller must free the returned string.
  */

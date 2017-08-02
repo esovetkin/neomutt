@@ -3,6 +3,8 @@
  * General purpose object for storing and parsing strings
  *
  * @authors
+ * Copyright (C) 2017 Richard Russon <rich@flatcap.org>
+ *
  * @copyright
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -162,7 +164,8 @@ int mutt_buffer_printf(struct Buffer *buf, const char *fmt, ...)
     safe_realloc(&buf->data, buf->dsize);
     buf->dptr = buf->data + doff;
   }
-  if ((len = vsnprintf(buf->dptr, blen, fmt, ap)) >= blen)
+  len = vsnprintf(buf->dptr, blen, fmt, ap);
+  if (len >= blen)
   {
     blen = ++len - blen;
     if (blen < 128)

@@ -67,7 +67,8 @@ void *safe_calloc(size_t nmemb, size_t size)
     mutt_exit(1);
   }
 
-  if (!(p = calloc(nmemb, size)))
+  p = calloc(nmemb, size);
+  if (!p)
   {
     mutt_error(_("Out of memory!"));
     sleep(1);
@@ -94,7 +95,7 @@ void safe_free(void *ptr)
 
 /**
  * safe_malloc - Allocate memory on the heap
- * @param siz Size of block to allocate
+ * @param size Size of block to allocate
  * @retval ptr Memory on the heap
  *
  * @note This function will never return NULL.
@@ -102,13 +103,14 @@ void safe_free(void *ptr)
  *
  * The caller should call safe_free() to release the memory
  */
-void *safe_malloc(size_t siz)
+void *safe_malloc(size_t size)
 {
   void *p = NULL;
 
-  if (siz == 0)
+  if (size == 0)
     return 0;
-  if ((p = malloc(siz)) == NULL)
+  p = malloc(size);
+  if (p == NULL)
   {
     mutt_error(_("Out of memory!"));
     sleep(1);
@@ -120,19 +122,19 @@ void *safe_malloc(size_t siz)
 /**
  * safe_realloc - Resize a block of memory on the heap
  * @param ptr Memory block to resize
- * @param siz New size
+ * @param size New size
  *
  * @note This function will never return NULL.
  *       It will print and error and exit the program.
  *
  * If the new size is zero, the block will be freed.
  */
-void safe_realloc(void *ptr, size_t siz)
+void safe_realloc(void *ptr, size_t size)
 {
   void *r = NULL;
   void **p = (void **) ptr;
 
-  if (siz == 0)
+  if (size == 0)
   {
     if (*p)
     {
@@ -142,7 +144,7 @@ void safe_realloc(void *ptr, size_t siz)
     return;
   }
 
-  r = realloc(*p, siz);
+  r = realloc(*p, size);
   if (!r)
   {
     mutt_error(_("Out of memory!"));
